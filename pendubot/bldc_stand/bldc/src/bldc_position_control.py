@@ -9,15 +9,10 @@ from odrive.enums import *
 import math
 import time
 
-def callback_joint_states(msg):
-    pass
-
-def callback_wrench(msg):
-    pass
 
 def callback_command(msg):
     print(msg.data)
-    my_drive.axis0.controller.pos_setpoint = msg.data
+    my_drive.axis0.controller.pos_setpoint = -16384*msg.data/2/math.pi - 5554
 
 def listener():
     my_drive.axis0.requested_state = AXIS_STATE_CLOSED_LOOP_CONTROL
@@ -49,8 +44,6 @@ if __name__ == '__main__':
     pub_velocity = rospy.Publisher('velocity', Float64, queue_size=1)
     # pub_target_current = rospy.Publisher('target_current', Float64, queue_size=1)
     # pub_abs = rospy.Publisher('measured_abs', Float64, queue_size=1)
-    rospy.Subscriber("joint_states", JointState, callback_joint_states)
-    rospy.Subscriber("netft_data", WrenchStamped, callback_wrench) 
     rospy.Subscriber("command", Float64, callback_command)
 
     my_drive = odrive.find_any()
