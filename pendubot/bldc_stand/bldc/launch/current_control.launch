@@ -1,0 +1,7 @@
+<launch>
+    <group ns="bldc">
+        <node pkg="netft_utils" type="netft_node" name="netft_node" args="192.168.1.1" />
+        <include file="$(find encoders)/launch/encoders.launch"/>
+        <node name="bldc_control" pkg="bldc" type="bldc_current_control.py" output="screen" clear_params="true"/>
+    </group>
+</launch>
