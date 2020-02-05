@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="utf-8"?>	
+	<robot name="bldc_sim" xmlns:xacro="http://ros.org/wiki/xacro">
+
+<!--SOME PROPERTIES!-->	
+		<xacro:property name="table_length" value="3" />
+		<xacro:property name="table_width" value="1.5" />
+		<xacro:property name="table_height" value="0.05" />
+
+		<xacro:property name="foot_height" value="0.80" />
+		<xacro:property name="foot_width" value="0.07" />
+		<xacro:property name="foot_length" value="0.07" />	
+
+		<xacro:property name="stand_height" value="0.2" />
+		<xacro:property name="stand_length" value="0.4" />
+		<xacro:property name="stand_width" value="0.15" />
+		
+		<xacro:property name="rotor_length" value="0.1" />
+		<xacro:property name="rotor_radius" value="0.05" />
+
+		<xacro:property name="link1_height" value="0.05" />
+		<xacro:property name="link1_length" value="0.4" />
+		<xacro:property name="link1_width" value="0.10" />
+
+		<xacro:property name="link2_height" value="0.05" />
+		<xacro:property name="link2_length" value="0.3" />
+		<xacro:property name="link2_width" value="0.10" />
+
+		<xacro:property name="links_offset" value="0.06" />
+
+	
+		  <gazebo reference="table_down">
+		    <material>Gazebo/Grey</material>
+		  </gazebo>
+
+		  <gazebo reference="table_upper">
+		    <material>Gazebo/GreyTransparent</material>
+		  </gazebo>
+
+
+		  <gazebo reference="foot_1">
+		    <material>Gazebo/DarkGrey</material>
+		  </gazebo>
+
+		  <gazebo reference="foot_2">
+		    <material>Gazebo/DarkGrey</material>
+		  </gazebo>
+
+		  <gazebo reference="foot_3">
+		    <material>Gazebo/DarkGrey</material>
+		  </gazebo>
+
+		  <gazebo reference="foot_4">
+		    <material>Gazebo/DarkGrey</material>
+		  </gazebo>
+
+		  <gazebo reference="stand">
+		    <material>Gazebo/Black</material>
+		  </gazebo>
+
+		<gazebo reference="rotor">
+		    <material>Gazebo/Blue</material>
+		  </gazebo>
+
+		<gazebo reference="link1">
+		    <material>Gazebo/Yellow</material>
+		  </gazebo>
+
+		<gazebo reference="link2">
+		    <material>Gazebo/Red</material>
+		  </gazebo>
+
+		<link name ="world"/>
+
+<!--FLOOR!-->	
+	 	<link name="table_down">
+	   		<visual>
+	    			<geometry>
+	        			<box size ="${2*table_width} ${2*table_length} ${table_height}"/>
+	    			</geometry>
+	    			<origin xyz ="0 0 ${table_height/2}"/>   
+	    			<material name="blue">
+        				<color rgba="0 0 0.8 1"/>
+     	    			</material>
+	   		</visual>
+			<collision>
+				<geometry>
+					<!--<box size ="${body_width} ${body_length} ${body_height}"/>!-->			<box size ="${2*table_width} ${2*table_length} ${table_height}"/>
+			        </geometry>
+			</collision>
+			<inertial>
+				<mass value="100"/>
+				<inertia
+				      ixx="1.0" ixy="0.0" ixz="0.0"
+				      iyy="1.0" iyz="0.0"
+				      izz="1.0"/>
+			</inertial>
+	 	</link>
+	 
+	 	<joint name="world_table_down" type="fixed">
+	 		<parent link="world"/>
+	 		<child link="table_down"/>
+			<origin rpy="0 0 0" xyz="0 0 ${table_height}"/>
+	 	</joint>
+<!--Foot #1!-->
+			<link name="foot_1">
+			   <visual>
+			    <geometry>
+				<box size ="${foot_width} ${foot_length} ${foot_height}"/>
+			    </geometry>
+			    <origin rpy="0 0 0" xyz ="0 0 0"/>   
+			    <material name="black">
+					<color rgba="0 0 0 1"/>
+		     	    </material>
+			   </visual>
+			   <collision>
+				<geometry>
+					<box size ="${foot_width} ${foot_length} ${foot_height}"/>
+			        </geometry>
+			   </collision>
+			   <inertial>
+				<mass value="10"/>
+				<inertia
+				      ixx="1.0" ixy="0.0" ixz="0.0"
+				      iyy="1.0" iyz="0.0"
+				      izz="1.0"/>
+			   </inertial>
+			 </link>
+			 
+			 <joint name="table__down_foot_1" type="fixed">
+			 	<parent link="table_down"/>
+			 	<child link="foot_1"/>
+				<origin rpy="0 0 0" xyz="-${table_width/2-foot_width} -${table_length/2-foot_length} ${foot_height/2}"/>
+			 </joint>
+<!--Foot #2!-->
+			<link name="foot_2">
+			   <visual>
+			    <geometry>
+				<box size ="${foot_width} ${foot_length} ${foot_height}"/>
+			    </geometry>
+			    <origin rpy="0 0 0" xyz ="0 0 0"/>   
+			    <material name="black">
+					<color rgba="0 0 0 1"/>
+		     	    </material>
+			   </visual>
+			   <collision>
+				<geometry>
+					<box size ="${foot_width} ${foot_length} ${foot_height}"/>
+			        </geometry>
+			   </collision>
+			   <inertial>
+				<mass value="10"/>
+				<inertia
+				      ixx="1.0" ixy="0.0" ixz="0.0"
+				      iyy="1.0" iyz="0.0"
+				      izz="1.0"/>
+			   </inertial>
+			 </link>
+			 
+			 <joint name="table__down_foot_2" type="fixed">
+			 	<parent link="table_down"/>
+			 	<child link="foot_2"/>
+				<origin rpy="0 0 0" xyz="${table_width/2-foot_width} -${table_length/2-foot_length} ${foot_height/2}"/>
+			 </joint>
+<!--Foot #3!-->
+			<link name="foot_3">
+			   <visual>
+			    <geometry>
+				<box size ="${foot_width} ${foot_length} ${foot_height}"/>
+			    </geometry>
+			    <origin rpy="0 0 0" xyz ="0 0 0"/>   
+			    <material name="black">
+					<color rgba="0 0 0 1"/>
+		     	    </material>
+			   </visual>
+			   <collision>
+				<geometry>
+					<box size ="${foot_width} ${foot_length} ${foot_height}"/>
+			        </geometry>
+			   </collision>
+			   <inertial>
+				<mass value="10"/>
+				<inertia
+				      ixx="1.0" ixy="0.0" ixz="0.0"
+				      iyy="1.0" iyz="0.0"
+				      izz="1.0"/>
+			   </inertial>
+			 </link>
+			 
+			 <joint name="table__down_foot_3" type="fixed">
+			 	<parent link="table_down"/>
+			 	<child link="foot_3"/>
+				<origin rpy="0 0 0" xyz="${table_width/2-foot_width} ${table_length/2-foot_length} ${foot_height/2}"/>
+			 </joint>
+<!--Foot #4!-->
+			<link name="foot_4">
+			   <visual>
+			    <geometry>
+				<box size ="${foot_width} ${foot_length} ${foot_height}"/>
+			    </geometry>
+			    <origin rpy="0 0 0" xyz ="0 0 0"/>   
+			    <material name="black">
+					<color rgba="0 0 0 1"/>
+		     	    </material>
+			   </visual>
+			   <collision>
+				<geometry>
+					<box size ="${foot_width} ${foot_length} ${foot_height}"/>
+			        </geometry>
+			   </collision>
+			   <inertial>
+				<mass value="10"/>
+				<inertia
+				      ixx="1.0" ixy="0.0" ixz="0.0"
+				      iyy="1.0" iyz="0.0"
+				      izz="1.0"/>
+			   </inertial>
+			 </link>
+			 
+			 <joint name="table__down_foot_4" type="fixed">
+			 	<parent link="table_down"/>
+			 	<child link="foot_4"/>
+				<origin rpy="0 0 0" xyz="-${table_width/2-foot_width} ${table_length/2-foot_length} ${foot_height/2}"/>
+			 </joint>
+
+<!--Table!-->
+	 	<link name="table_upper">
+	   		<visual>
+	    			<geometry>
+	        			<box size ="${table_width} ${table_length} ${table_height}"/>
+	    			</geometry>
+	    			<origin xyz ="0 0 -${table_height/2}"/>   
+	    			<material name="blue">
+        				<color rgba="0 0 0.8 1"/>
+     	    			</material>
+	   		</visual>
+			<collision>
+				<geometry>
+					<!--<box size ="${body_width} ${body_length} ${body_height}"/>!-->			<box size ="${table_width} ${table_length} ${table_height}"/>
+			        </geometry>
+			</collision>
+			<inertial>
+				<mass value="100"/>
+				<inertia
+				      ixx="1.0" ixy="0.0" ixz="0.0"
+				      iyy="1.0" iyz="0.0"
+				      izz="1.0"/>
+			</inertial>
+	 	</link>
+	 
+	 	<joint name="world_table_upper" type="fixed">
+	 		<parent link="table_down"/>
+	 		<child link="table_upper"/>
+			<origin rpy="0 0 0" xyz="0 0 ${foot_height+table_height}"/>
+	 	</joint>
+
+<!--Stand!-->
+	 	<link name="stand">
+	   		<visual>
+	    			<geometry>
+	        			<box size ="${stand_length} ${stand_width} ${stand_height}"/>
+	    			</geometry>
+	    			<origin xyz ="0 0 ${stand_height/2}"/>   
+	    			<material name="blue">
+        				<color rgba="0 0 0.8 1"/>
+     	    			</material>
+	   		</visual>
+			<collision>
+				<geometry>
+					<box size ="${stand_length} ${stand_width} ${stand_height}"/>
+			        </geometry>
+			</collision>
+			<inertial>
+				<mass value="100"/>
+				<inertia
+				      ixx="1.0" ixy="0.0" ixz="0.0"
+				      iyy="1.0" iyz="0.0"
+				      izz="1.0"/>
+			</inertial>
+	 	</link>
+	 
+	 	<joint name="table_upper_stand" type="fixed">
+	 		<parent link="table_upper"/>
+	 		<child link="stand"/>
+			<origin rpy="0 0 0" xyz="${table_width/2-stand_length/2} 0 0"/>
+	 	</joint>
+
+<!--Rotor!-->
+	 	<link name="rotor">
+	   		<visual>
+	    			<geometry>
+	        			<cylinder length ="${rotor_length}" radius="${rotor_radius}"/>
+	    			</geometry>
+	    			<origin rpy="0 1.57075 0" xyz ="0 0 0"/>   
+	    			<material name="blue">
+        				<color rgba="0 0 0.8 1"/>
+     	    			</material>
+	   		</visual>
+			<collision>
+				<geometry>
+					<cylinder length ="${rotor_length}" radius="${rotor_radius}"/>
+			        </geometry>
+			</collision>
+			<inertial>
+				<mass value="0.10"/>
+				<inertia
+				      ixx="1.0" ixy="0.0" ixz="0.0"
+				      iyy="1.0" iyz="0.0"
+				      izz="1.0"/>
+			</inertial>
+	 	</link>
+	 
+	 	<joint name="stand_rotor" type="continuous">
+			<axis xyz="1 0 0"/>
+			<!--<limit effort="1000.0" lower="-3.1416" upper="3.1416" velocity="0.5"/>!-->
+		 	<parent link="stand"/>
+		 	<child link="rotor"/>
+			<origin rpy="0 0 0" xyz="${stand_length/2+rotor_length/2} 0 ${stand_height/2}"/>
+			<dynamics damping="0.7"/>
+	 	</joint>
+
+	 	<link name="link1">
+	   		<visual>
+	    			<geometry>
+	        			<box size ="${link1_height} ${link1_width} ${link1_length}"/>
+	    			</geometry>
+	    			<origin rpy="0 0 0" xyz ="0 0 -${link1_length/2}"/>   
+	    			<material name="blue">
+        				<color rgba="0 0 0.8 1"/>
+     	    			</material>
+	   		</visual>
+			<collision>
+				<geometry>
+					<box size ="0 0 0"/>
+			        </geometry>
+			</collision>
+			<inertial>
+				<mass value="0.2"/>
+				<inertia
+				      ixx="1.0" ixy="0.0" ixz="0.0"
+				      iyy="1.0" iyz="0.0"
+				      izz="1.0"/>
+			</inertial>
+	 	</link>
+	 
+	 	<joint name="rotor_link1" type="fixed">
+		 	<parent link="rotor"/>
+		 	<child link="link1"/>
+			<origin rpy="0 0 0" xyz="${rotor_length/2+link1_height/2} 0 0"/>
+
+	 	</joint>
+
+	 	<link name="link2">
+	   		<visual>
+	    			<geometry>
+	        			<box size ="${link2_height} ${link2_width} ${link2_length}"/>
+	    			</geometry>
+	    			<origin xyz ="0 0 -${link2_length/2}"/>   
+	    			<material name="blue">
+        				<color rgba="0 0 0.8 1"/>
+     	    			</material>
+	   		</visual>
+			<collision>
+				<geometry>
+					<box size ="${link2_height} ${link2_width} ${link2_length}"/>
+			        </geometry>
+			</collision>
+			<inertial>
+				<mass value="0.2"/>
+				<inertia
+				      ixx="1" ixy="0.0" ixz="0.0"
+				      iyy="1" iyz="0.0"
+				      izz="1"/>
+				</inertial>
+	 	</link>
+	 
+	 	<joint name="link1_link2" type="continuous">
+			<axis xyz="1 0 0"/>
+			<!--<limit effort="1000.0" lower="-3.1416" upper="3.1416" velocity="0.5"/>!-->
+		 	<parent link="link1"/>
+		 	<child link="link2"/>
+			<origin xyz="${links_offset} 0 -${link1_length}"/>
+			<dynamics damping="0.0"/>
+	 	</joint>
+	
+</robot>

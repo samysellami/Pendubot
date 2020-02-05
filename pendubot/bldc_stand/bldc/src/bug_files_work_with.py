@@ -48,9 +48,9 @@ if __name__ == '__main__':
     rospy.init_node('rotate', anonymous=True)
     # Enter the parameters
 
-    v = 0.5  # frequency in sec^-1
-    amp = 3  # Amplitude
-    name = 'position_A_'+str(amp)+'_v_' + str(v)+'.bag'
+    v = 0.3  # frequency in sec^-1
+    amp = 1.5  # Amplitude
+    name = 'position_mult_f_A_'+str(amp)+'_v_' + str(v)+'.bag'
     # name = 'current_A_'+str(amp)+'_v_' + str(v)+'.bag'
     time_exec = 20
     rate = rospy.Rate(500)  # 500hz
@@ -84,7 +84,8 @@ if __name__ == '__main__':
             'rosbag record -a'.format("my_rosbag_prefis"), stdout=subprocess.PIPE, shell=True, cwd=path)
 
         while time_loop-start_time < time_exec:
-            pos = amp*math.sin(2*math.pi*v*(time_loop-start_time))
+            #pos = amp*math.sin(2*math.pi*v*(time_loop-start_time))
+            pos = amp*math.sin(2*math.pi*v*(time_loop-start_time)) + amp*math.sin(2*math.pi*(2*v)*(time_loop-start_time))  + amp*math.sin(2*math.pi*(3*v)*(time_loop-start_time)) + amp*math.sin(2*math.pi*(4*v)*(time_loop-start_time))
             pub.publish(pos)
             time_loop = time.time()
             rate.sleep()
