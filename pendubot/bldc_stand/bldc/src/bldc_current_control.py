@@ -29,10 +29,8 @@ def listener():
         time_ = now_ - start_time
 
         pub_current.publish(my_drive.axis0.motor.current_control.Iq_measured)
-        pub_target_current.publish(my_drive.axis0.controller.current_setpoint)
         pub_position.publish(my_drive.axis0.encoder.pos_abs_rad)
         pub_velocity.publish(my_drive.axis0.encoder.vel_abs_filter)
-        # pub_target_position.publish(my_drive.axis0.controller.pos_setpoint)
 
         rate.sleep()
 
@@ -42,15 +40,11 @@ def listener():
 # --------------------------------------------------------
 if __name__ == '__main__':
     rospy.init_node("bldc_stend", anonymous=True)
-    print("Node ODrive init...")
+    print("Node ODrive init...")    
 
     pub_current = rospy.Publisher('current', Float64, queue_size=1)
     pub_position = rospy.Publisher('position', Float64, queue_size=1)
-    # pub_target_position = rospy.Publisher('target_position', Float64, queue_size=1)
     pub_velocity = rospy.Publisher('velocity', Float64, queue_size=1)
-    pub_target_current = rospy.Publisher(
-        'target_current', Float64, queue_size=1)
-    # pub_abs = rospy.Publisher('measured_abs', Float64, queue_size=1)
     rospy.Subscriber("command", Float64, callback_command)
 
     my_drive = odrive.find_any()

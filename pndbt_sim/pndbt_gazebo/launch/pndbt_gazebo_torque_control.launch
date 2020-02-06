@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<launch>
+
+	<include file="$(find gazebo_ros)/launch/empty_world.launch">
+	</include>
+
+	<param name="robot_description" command="xacro --inorder '$(find pndbt_description)/urdf/pndbt.control.urdf.xacro'"/>
+<!---->	
+	<node name="spawn_robot" pkg="gazebo_ros" type="spawn_model" 
+		args="-urdf -model bldc_sim -param robot_description">x`
+	</node>
+ 
+   <rosparam file="$(find pndbt_control)/config/pndbt_torque_control.yaml" command="load"/>
+
+
+  <!-- load the controllers -->
+
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+	output="screen" ns="/bldc_sim" args="joint_state_controller joint1_torque_controller --timeout 50"/>
+
+	<!--node pkg="atlas_launch" name="mtnode" type="control.py" output="screen"> 
+	</node-->
+					
+</launch>
