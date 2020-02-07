@@ -16,7 +16,7 @@ def callback_command(msg):
 
 def listener():
     my_drive.axis0.requested_state = AXIS_STATE_CLOSED_LOOP_CONTROL
-    # my_drive.axis0.controller.config.pos_gain = 20.0 
+    my_drive.axis0.controller.config.pos_gain = 20.0 
     start_time  = int(round(time.time() * 1000))
 
     rate = rospy.Rate(500) #  500hz

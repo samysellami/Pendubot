@@ -50,11 +50,11 @@ if __name__ == '__main__':
     rospy.init_node('rotate', anonymous=True)
     # Enter the parameters
 
-    v = 0.05  # frequency in sec^-1
-    amp = 1  # Amplitude
+    v = 1  # frequency in sec^-1
+    amp = 0.5  # Amplitude
     name = 'position_A_'+str(amp)+'_v_' + str(v)+'.bag'
     # name = 'current_mult_f_A_'+str(amp)+'_v_' + str(v)+'.bag'
-    time_exec = 50
+    time_exec = 20
     rate = rospy.Rate(500)  # 500hz 
 
     start_time = time.time()
