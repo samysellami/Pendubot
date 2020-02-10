@@ -45,15 +45,16 @@ def callback(cur, ft, comm, pos,vel,js):
         #rospy.signal_shutdown('limits reached !!!!')
 
 
+
 if __name__ == '__main__':
 
     rospy.init_node('rotate', anonymous=True)
     # Enter the parameters
 
-    v = 1  # frequency in sec^-1
-    amp = 0.5  # Amplitude
-    name = 'position_A_'+str(amp)+'_v_' + str(v)+'.bag'
-    # name = 'current_mult_f_A_'+str(amp)+'_v_' + str(v)+'.bag'
+    v = 0.5  # frequency in sec^-1
+    amp = 8   # Amplitude
+    #name = 'position_A_'+str(amp)+'_v_' + str(v)+'.bag'
+    name = 'current_ct_A_'+str(amp)+'_v_' + str(v)+'.bag'
     time_exec = 20
     rate = rospy.Rate(500)  # 500hz 
 
@@ -85,15 +86,18 @@ if __name__ == '__main__':
         command = "rosbag record -a"
         process = subprocess.Popen(
             'rosbag record -a'.format("my_rosbag_prefis"), stdout=subprocess.PIPE, shell=True, cwd=path)
-
+        #for I in range(1,3,3):
         while time_loop-start_time < time_exec:
-            pos = amp*math.sin(2*math.pi*v*(time_loop-start_time))
+            # pos = amp*math.sin(2*math.pi*v*(time_loop-start_time))
             # pos = amp*math.sin(2*math.pi*v*(time_loop-start_time)) + amp*math.sin(2*math.pi*(2*v)*(time_loop-start_time))/2  + 0*amp*math.sin(2*math.pi*(3*v)*(time_loop-start_time))/3 + 0*amp*math.sin(2*math.pi*(4*v)*(time_loop-start_time))/4
+            pos = 2* amp * ((time_loop - start_time) /(time_exec)) -amp
             pub.publish(pos)
             time_loop = time.time()
             rate.sleep()
             if rospy.ROSInterruptException:
                 pass
+
+
     finally:
         current_sub.unregister()
         ft_sub.unregister()
