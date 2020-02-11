@@ -1,11 +1,12 @@
-bldc_sim:
+pndbt:
   # Publish all joint states -----------------------------------
   joint_state_controller:
     type: joint_state_controller/JointStateController
-    publish_rate: 50  
-  
+    publish_rate: 250
   # Position Controllers ---------------------------------------
+  
+  shoulder_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: shoulder 
+    pid: {p: 100.0, i: 0.01, d: 10.0}
 
-  joint1_torque_controller:
-    type: effort_controllers/JointEffortController
-    joint: stand_rotor

@@ -1,25 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>	
-	<robot name="bldc_sim" xmlns:xacro="http://ros.org/wiki/xacro">
+	<robot name="pndbt" xmlns:xacro="http://ros.org/wiki/xacro">
 	<xacro:include filename="$(find pndbt_description)/urdf/pndbt.urdf.xacro"/>
 
-			<transmission name="tran0">
-		     <type>transmission_interface/SimpleTransmission</type>
-		     <joint name="stand_rotor">
-		      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-		     </joint>
-		     <actuator name="motor0">
-		      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>  
-		      <!--hardware_interface/-->
-		      <mechanicalReduction>6</mechanicalReduction>
-		     </actuator>
-		  	</transmission>
+        <transmission name="shoulder_transmission">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="shoulder">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="shoulder_motor">
+                <hardwareInterface>EffortJointInterface</hardwareInterface>
+                <mechanicalReduction>1</mechanicalReduction>
+            </actuator>
+        </transmission>
 
+        <transmission name="elbow_transmission">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="elbow">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="elbow_motor">
+                <hardwareInterface>EffortJointInterface</hardwareInterface>
+                <mechanicalReduction>1</mechanicalReduction>
+            </actuator>
+        </transmission>
 
-
-		<gazebo>
-		  <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-		    <robotNamespace>/bldc_sim</robotNamespace>
-		  </plugin>
-</gazebo>
+    <gazebo>
+        <plugin filename="libgazebo_ros_control.so" name="ros_control">
+            <robotNamespace>/pndbt</robotNamespace>
+        </plugin>
+    </gazebo>
 		
 </robot>
