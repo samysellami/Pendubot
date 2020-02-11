@@ -5,8 +5,6 @@ from sensor_msgs.msg import JointState
 from geometry_msgs.msg import WrenchStamped
 from std_msgs.msg import Float64
 import numpy as np
-import odrive
-from odrive.enums import *
 import math
 import time
 import rosbag
@@ -15,10 +13,10 @@ import signal
 import os
 import psutil
 import message_filters
-import roslib; roslib.load_manifest('pndbt')
 import rospy
-from urdf_parser_py.urdf import URDF
 import math
+import control
+from control.matlab import *
 
 class pndbt():
     """docstring for ClassName"""
@@ -33,14 +31,45 @@ class pndbt():
         self.theta = np.array([theta1, theta2, theta3, theta4, theta5])  
          
         
-    def D_mtrx(self, q, q_d):
+    def D_mtrx(self, q):
         D = np.zeros((2,2))
-        D[0,0] =  self.theta[1] + self.theta[2] + 2 * self.theta[3] * math.cos(q[1])
-        D[0,1] =  self.theta[2] + self.theta[3] * math.cos(q[1])
-        D[1,0] =  self.theta[2] + self.theta[3] * math.cos(q[1])
+        D[0,0] =  self.theta[0] + self.theta[1] + 2 * self.theta[3] * math.cos(q[1])
+        D[0,1] =  self.theta[1] + self.theta[2] * math.cos(q[1])
+        D[1,0] =  self.theta[1] + self.theta[2] * math.cos(q[1])
         D[1,1] =  self.theta[2]
         return D 
         
+    def C_mtrx(self, q, q_d):
+        C = np.zeros((2,2))
+        C[0,0] =  -self.theta[2] * math.sin(q[1]) * q_d[1]  
+        C[0,1] =  -self.theta[2] * math.sin(q[1]) * q_d[1] -self.theta[2] * math.sin(q[1]) * q_d[0]
+        C[1,0] =  self.theta[2] * math.sin(q[1]) * q_d[0]
+        C[1,1] =  0
+        return C 
+
+    def g_vctr(self, q):
+        g = np.zeros(2)
+        g[0] =  self.theta[3] * self.g * math.cos(q[0]) + self.theta[4] * self.g * math.cos(q[0] + q[1])   
+        g[1] =  self.theta[4] * self.g * math.cos(q[0] + q[1])
+        return g 
+
+
+    def A_lin(self):
+	C = np.zeros((4,4))	
+	C[0,2] = 1
+	C[1,3] = 1
+ 	C[2,0] = -(self.g * self.theta[1] * self.theta[3] - self.g * self.theta[2] * self.theta[4]) / (- self.theta[2] ** 2 + self.theta[0] * self.theta[1])
+	C[2,1] = (self.g * self.theta[2] * self.theta[4]) / (-  self.theta[2]**2 + self.theta[0] * self.theta[1])
+        C[3,0] =  (self.g * self.theta[0] * self.theta[4] + self.g * self.theta[1] * self.theta[3] - self.g * self.theta[2] * self.theta[3] - self.g * self.theta[2] 			* self.theta[4]) / (- self.theta[2] **2 + self.theta[0] * self.theta[1])
+	C[3,1] = (self.g * self.theta[0] * self.theta[4] - self.g * self.theta[2] * self.theta[4]) / (- self.theta[2] ** 2 + self.theta[0] * self.theta[1])
+        return C 
+
+    def B_lin(self):
+	B = np.zeros((4,1))
+	B[1,0] = self.theta[1] / (- self.theta[2] ** 2 + self.theta[0] * self.theta[1])
+ 	B[3,0] = -( self.theta[1]  -  self.theta[2] ) / (- self.theta[2] ** 2 + self.theta[0] * self.theta[1])
+        return B 
+
 if __name__ == '__main__':
 
     #rospy.init_node('python_command', anonymous=True)
@@ -48,5 +77,22 @@ if __name__ == '__main__':
     q_d  = np.zeros(2)
 
     pendubot  = pndbt()
-    print(pendubot.D_mtrx(q, q_d))
+    print(pendubot.B_lin())
+    Q = np.zeros((4, 4))
+    Q[0,0] = 10
+    Q[1,1] = 10
+    R = 0.1		
+    K, S, E = control.lqr(self.A_lin(), self.B_lin(), Q, R)
+
+    
+    
+
+
+
+
+
+
+
+
+
 
