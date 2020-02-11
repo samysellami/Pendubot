@@ -1,0 +1,9 @@
+<launch>
+   
+	<group ns="bldc">
+
+		<param name="robot_description" command="xacro --inorder '$(find pndbt_description)/urdf/pndbt.urdf.xacro'"/>
+	        <node pkg="pndbt" type="pndbt_command_python.py" name="pndbt_command" output="screen" />  
+
+	</group>
+</launch>
