@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>	
 	<robot name="bldc_sim" xmlns:xacro="http://ros.org/wiki/xacro">
 
+
+		<xacro:arg name="hardware_interface" default="PositionJointInterface"/>
+		<xacro:arg name="robot_name" default="bldc_sim"/>
+
+
+	  	<!-- Import all Gazebo-customization elements, including Gazebo colors -->
+  		<!-- <xacro:include filename="$(find pndbt_description)/urdf/pndbt.gazebo.xacro" />  -->
+  		<!-- Import Transmissions -->
+ 		<!-- <xacro:include filename="$(find pndbt_description)/urdf/pndbt.transmission.xacro" /> -->
+		  
+
+
 <!--SOME PROPERTIES!-->	
 		<xacro:property name="table_length" value="3" />
 		<xacro:property name="table_width" value="1.5" />
@@ -27,48 +39,51 @@
 
 		<xacro:property name="links_offset" value="0.06" />
 
-	
-		  <gazebo reference="table_down">
-		    <material>Gazebo/Grey</material>
-		  </gazebo>
-
-		  <gazebo reference="table_upper">
-		    <material>Gazebo/GreyTransparent</material>
-		  </gazebo>
 
 
-		  <gazebo reference="foot_1">
-		    <material>Gazebo/DarkGrey</material>
-		  </gazebo>
+		<gazebo reference="table_down">
+		  <material>Gazebo/Grey</material>
+		</gazebo>
 
-		  <gazebo reference="foot_2">
-		    <material>Gazebo/DarkGrey</material>
-		  </gazebo>
+		<gazebo reference="table_upper">
+		  <material>Gazebo/GreyTransparent</material>
+		</gazebo>
 
-		  <gazebo reference="foot_3">
-		    <material>Gazebo/DarkGrey</material>
-		  </gazebo>
 
-		  <gazebo reference="foot_4">
-		    <material>Gazebo/DarkGrey</material>
-		  </gazebo>
+		<gazebo reference="foot_1">
+		  <material>Gazebo/DarkGrey</material>
+		</gazebo>
 
-		  <gazebo reference="stand">
-		    <material>Gazebo/Black</material>
-		  </gazebo>
+		<gazebo reference="foot_2">
+		  <material>Gazebo/DarkGrey</material>
+		</gazebo>
+
+		<gazebo reference="foot_3">
+		  <material>Gazebo/DarkGrey</material>
+		</gazebo>
+
+		<gazebo reference="foot_4">
+		  <material>Gazebo/DarkGrey</material>
+		</gazebo>
+
+		<gazebo reference="stand">
+		  <material>Gazebo/Black</material>
+		</gazebo>
 
 		<gazebo reference="rotor">
-		    <material>Gazebo/Blue</material>
-		  </gazebo>
+		  <material>Gazebo/Blue</material>
+		</gazebo>
 
 		<gazebo reference="link1">
-		    <material>Gazebo/Yellow</material>
-		  </gazebo>
+		  <material>Gazebo/Yellow</material>
+		</gazebo>
 
 		<gazebo reference="link2">
-		    <material>Gazebo/Red</material>
-		  </gazebo>
+		  <material>Gazebo/Red</material>
+		</gazebo>
 
+
+   
 		<link name ="world"/>
 
 <!--FLOOR!-->	
