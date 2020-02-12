@@ -22,7 +22,8 @@ class pndbt():
     """docstring for ClassName"""
     def __init__(self):
       params = {'m1': 1.085, 'm2': 0.26, 'l1': 0.25, 'l2': 0.25, 'I1': 0.008, 'I2': 0.002, 'l_com1': 0.043, 'l_com2': 0.095} 
-      theta1 = params['m1'] * (params['l_com1']**2) +  params['m2'] * (params['l1']**2) +  params['I1']
+      theta1 = params['m1'] * (params['l_com1'])**2 +  params['m2'] * (params['l1'])**2 +  params['I1']
+      print(theta1)
       theta2 = params['m2'] * (params['l_com2']**2) +  params['I2']
       theta3 = params['m2'] * params['l1'] * params['l_com2'] 
       theta4 = params['m1'] * params['l_com1'] +  params['m2'] * params['l1']
@@ -33,10 +34,10 @@ class pndbt():
         
     def D_mtrx(self, q):
       D = np.zeros((2,2))
-      D[0,0] =  self.theta[0] + self.theta[1] + 2 * self.theta[3] * math.cos(q[1])
+      D[0,0] =  self.theta[0] + self.theta[1] + 2 * self.theta[2] * math.cos(q[1])
       D[0,1] =  self.theta[1] + self.theta[2] * math.cos(q[1])
       D[1,0] =  self.theta[1] + self.theta[2] * math.cos(q[1])
-      D[1,1] =  self.theta[2]
+      D[1,1] =  self.theta[1]
       return D 
         
     def C_mtrx(self, q, q_d):
@@ -74,18 +75,18 @@ class pndbt():
 if __name__ == '__main__':
 
     #rospy.init_node('python_command', anonymous=True)
-    q  = np.zeros(2)
+    q  = np.zeros(2)	
     q_d  = np.zeros(2)
 
     pendubot  = pndbt()
-    #print(pendubot.g_vctr())
+    print(pendubot.D_mtrx(q))
     
     Q = np.zeros((4, 4))
     Q[0,0] = 10
     Q[1,1] = 10
     R = 0.1		
-    K, S, E = control.lqr(pendubot.A_lin(), pendubot.B_lin(), Q, R)
-
+    #K, S, E = control.lqr(pendubot.A_lin(), pendubot.B_lin(), Q, R)
+    #print(K)
     
     
 
