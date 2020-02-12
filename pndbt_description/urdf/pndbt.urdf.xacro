@@ -6,10 +6,6 @@
 		<xacro:property name="table_width" value="1.5" />
 		<xacro:property name="table_height" value="0.05" />
 
-		<xacro:property name="foot_height" value="0.80" />
-		<xacro:property name="foot_width" value="0.07" />
-		<xacro:property name="foot_length" value="0.07" />	
-
 		<xacro:property name="stand_height" value="0.2" />
 		<xacro:property name="stand_length" value="0.4" />
 		<xacro:property name="stand_width" value="0.15" />
@@ -165,16 +161,16 @@
      	    			</material>
 	   		</visual>
 			<inertial>
-				<origin rpy="0 0 0" xyz ="0 0 0.043"/>   
-				<mass value="0.2"/>
+				<origin rpy="0 0 0" xyz ="0 0 -0.043"/>   
+				<mass value="1.085"/>
 				<inertia
 				      ixx="1.0" ixy="0.0" ixz="0.0"
 				      iyy="1.0" iyz="0.0"
-				      izz="1.0"/>
+				      izz="0.008"/>
 			</inertial>
 	 	</link>
 	 
-	 	<joint name="shoulder" type="continuous">
+	 	<joint name="j1_shoulder" type="continuous">
 		 	<parent link="rotor"/>
 		 	<child link="link1"/>
 		 	<axis xyz="1 0 0"/>
@@ -193,22 +189,17 @@
         				<color rgba="0 0 0.8 1"/>
      	    			</material>
 	   		</visual>
-			<collision>
-				<geometry>
-					<box size ="${link2_height} ${link2_width} ${link2_length}"/>
-			        </geometry>
-			</collision>
 			<inertial>
-				<origin rpy="0 0 0" xyz ="0 0 0.095"/>   
-				<mass value="0.2"/>
+				<origin rpy="0 0 0" xyz ="0 0 -0.095"/>   
+				<mass value="0.26"/>
 				<inertia
 				      ixx="1" ixy="0.0" ixz="0.0"
 				      iyy="1" iyz="0.0"
-				      izz="1"/>
+				      izz="0.002"/>
 				</inertial>
 	 	</link>
 	 
-	 	<joint name="elbow" type="continuous">
+	 	<joint name="j2_elbow" type="continuous">
 			<axis xyz="1 0 0"/>
 			<!--<limit effort="1000.0" lower="-3.1416" upper="3.1416" velocity="0.5"/>!-->
 		 	<parent link="link1"/>

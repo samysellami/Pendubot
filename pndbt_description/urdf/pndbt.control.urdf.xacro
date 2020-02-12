@@ -4,7 +4,7 @@
 
         <transmission name="shoulder_transmission">
             <type>transmission_interface/SimpleTransmission</type>
-            <joint name="shoulder">
+            <joint name="j1_shoulder">
                 <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
             </joint>
             <actuator name="shoulder_motor">
@@ -15,7 +15,7 @@
 
         <transmission name="elbow_transmission">
             <type>transmission_interface/SimpleTransmission</type>
-            <joint name="elbow">
+            <joint name="j2_elbow">
                 <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
             </joint>
             <actuator name="elbow_motor">

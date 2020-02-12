@@ -7,7 +7,7 @@ from std_msgs.msg import Float64
 import numpy as np
 import math
 import time
-import rosbag
+#import rosbag
 import glob
 import signal
 import os
@@ -20,7 +20,7 @@ from control.matlab import *
 
 class pndbt():
     """docstring for ClassName"""
-    def __init__(self):
+    def __init__(self, Q, R):
       params = {'m1': 1.085, 'm2': 0.26, 'l1': 0.25, 'l2': 0.25, 'I1': 0.008, 'I2': 0.002, 'l_com1': 0.043, 'l_com2': 0.095} 
       theta1 = params['m1'] * (params['l_com1'])**2 +  params['m2'] * (params['l1'])**2 +  params['I1']
       theta2 = params['m2'] * (params['l_com2']**2) +  params['I2']
@@ -29,6 +29,8 @@ class pndbt():
       theta5 = params['m2'] * params['l_com2']
       self.g = 9.81
       self.theta = np.array([theta1, theta2, theta3, theta4, theta5])  
+      K, S, E = control.lqr(self.A_lin(), self.B_lin(), Q, R)
+      self.K = K
          
         
     def D_mtrx(self, q):
@@ -71,25 +73,43 @@ class pndbt():
       B[3,0] = -( self.theta[1]  -  self.theta[2] ) / (- self.theta[2] ** 2 + self.theta[0] * self.theta[1])
       return B 
 
+
+    def callback(self,joint_states):
+      q = np.array(joint_states.position)
+      qf = np.array([0, math.pi])
+      q_d = np.array(joint_states.velocity)
+      x  = np.hstack(((q-qf,q_d)))
+      u = np.dot(-self.K, x.transpose())
+      #torque_pub.publish(u[0,0])
+      print(q-qf)
+
+
+
 if __name__ == '__main__':
 
-    #rospy.init_node('python_command', anonymous=True)
-    q  = np.array([-math.pi/2, math.pi/2])	
-    q_d  = np.array([1, 1])
+    rospy.init_node('python_command', anonymous=True)
 
-    pendubot  = pndbt()
-    print(pendubot.B_lin())
-    
+    #q  = np.array([-math.pi/2, math.pi/2])	
+    #q_d  = np.array([1, 1])
     Q = np.zeros((4, 4))
-    Q[0,0] = 1
-    Q[1,1] = 1
-    R = 0.1		
-    K, S, E = control.lqr(pendubot.A_lin(), pendubot.B_lin(), Q, R)
-    print(K)
+    Q[0,0] = 0.0001
+    Q[1,1] = 0.0001
+    R = 0.00001
+    pendubot  = pndbt(Q, R)    
+    print(pendubot.K)
     
     
+    time_exec = 20
+    rate = rospy.Rate(500)  # 500hz 
 
+    start_time = time.time()
+    time_loop = start_time
+    start_time = time.time()
 
+    torque_pub = rospy.Publisher('/pndbt/shoulder_torque_controller/command', Float64, queue_size=10)
+    joint_states_sub = rospy.Subscriber('/pndbt/joint_states', JointState, pendubot.callback)
+    rospy.spin()
+   
 
 
 

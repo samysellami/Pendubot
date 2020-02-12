@@ -7,6 +7,6 @@ pndbt:
   
   shoulder_position_controller:
     type: effort_controllers/JointPositionController
-    joint: shoulder 
+    joint: j1_shoulder 
     pid: {p: 100.0, i: 0.01, d: 10.0}
 
