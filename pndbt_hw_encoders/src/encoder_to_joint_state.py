@@ -142,7 +142,7 @@ def listener():
             msg.position[1] = encoder_2.getPosition(pos2, error2,time2)
             msg.velocity[1] = encoder_2.getVelocity(msg.position[1], time2)
             encoder_2.update(msg.position[1],msg.velocity[1],time2)
-	msg.header.stamp = rospy.Time.now()
+	    msg.header.stamp = rospy.Time.now()
         pub.publish(msg)
         rate.sleep()
 

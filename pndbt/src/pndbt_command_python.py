@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-import subprocess
 import rospy
 from sensor_msgs.msg import JointState
 from geometry_msgs.msg import WrenchStamped
@@ -7,7 +6,7 @@ from std_msgs.msg import Float64
 import numpy as np
 import math
 import time
-import rosbag
+#import rosbag
 import glob
 import signal
 import os
@@ -16,7 +15,6 @@ import message_filters
 import rospy
 import math
 import control
-from control.matlab import *
 
 class pndbt():
     """docstring for ClassName"""
@@ -85,6 +83,7 @@ if __name__ == '__main__':
     Q[1,1] = 10
     R = 0.1		
     K, S, E = control.lqr(pendubot.A_lin(), pendubot.B_lin(), Q, R)
+    print(K)
 
     
     
