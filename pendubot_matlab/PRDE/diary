@@ -1,0 +1,1495 @@
+MAXCUT 
+{Attempt to execute SCRIPT dsdp as a function:
+/home/shamil/Desktop/work/Projects/dynamics/PRDE/DSDP5.8/matlab/dsdp.m
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('maxcut', '/home/shamil/Desktop/work/Projects/dynamics/PRDE/DSDP5.8/matlab/maxcut.m', 47)" style="font-weight:bold">maxcut</a> (<a href="matlab: opentoline('/home/shamil/Desktop/work/Projects/dynamics/PRDE/DSDP5.8/matlab/maxcut.m',47,0)">line 47</a>)
+   [STAT,y,Xv] = dsdp(b,AC,OPTIONS,y0);
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('check', '/home/shamil/Desktop/work/Projects/dynamics/PRDE/DSDP5.8/matlab/check.m', 22)" style="font-weight:bold">check</a> (<a href="matlab: opentoline('/home/shamil/Desktop/work/Projects/dynamics/PRDE/DSDP5.8/matlab/check.m',22,0)">line 22</a>)
+  [y,X,obj] = maxcut(B);
+} 
+clear all
+clc
+check
+MAXCUT 
+{Attempt to execute SCRIPT dsdp as a function:
+/home/shamil/Desktop/work/Projects/dynamics/PRDE/DSDP5.8/matlab/dsdp.m
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('maxcut', '/home/shamil/Desktop/work/Projects/dynamics/PRDE/DSDP5.8/matlab/maxcut.m', 47)" style="font-weight:bold">maxcut</a> (<a href="matlab: opentoline('/home/shamil/Desktop/work/Projects/dynamics/PRDE/DSDP5.8/matlab/maxcut.m',47,0)">line 47</a>)
+   [STAT,y,Xv] = dsdp(b,AC,OPTIONS,y0);
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('check', '/home/shamil/Desktop/work/Projects/dynamics/PRDE/DSDP5.8/matlab/check.m', 22)" style="font-weight:bold">check</a> (<a href="matlab: opentoline('/home/shamil/Desktop/work/Projects/dynamics/PRDE/DSDP5.8/matlab/check.m',22,0)">line 22</a>)
+  [y,X,obj] = maxcut(B);
+} 
+testPRDE
+
+ num. of constraints = 153
+ dim. of sdp    var  = 707,   num. of sdp  blk  = 303
+*******************************************************************
+   SDPT3: Infeasible path-following algorithms
+*******************************************************************
+ version  predcorr  gam  expon  scale_data
+   HKM      1      0.000   1        0    
+it pstep dstep pinfeas dinfeas  gap      prim-obj      dual-obj    cputime
+-------------------------------------------------------------------
+ 0|0.000|0.000|4.4e+02|4.1e-01|5.8e+09| 4.120856e+09  0.000000e+00| 0:0:00| chol  1  1 
+ 1|0.027|0.009|4.3e+02|4.1e-01|5.7e+09| 4.037092e+09 -8.184581e+04| 0:0:00| chol  1  1 
+ 2|0.017|0.022|4.2e+02|4.0e-01|5.6e+09| 3.997468e+09 -1.723140e+05| 0:0:01| chol  1  1 
+ 3|0.133|0.135|3.7e+02|3.5e-01|4.9e+09| 3.579270e+09 -5.677750e+05| 0:0:01| chol  1  2 
+ 4|0.272|0.315|2.7e+02|2.4e-01|3.6e+09| 2.789950e+09 -1.046624e+06| 0:0:01| chol  1  2 
+ 5|0.940|0.821|1.6e+01|4.3e-02|3.7e+08| 3.282932e+08 -1.152032e+06| 0:0:01| chol  2  2 
+ 6|0.958|0.996|6.6e-01|1.6e-04|1.5e+07| 1.396875e+07 -1.033991e+06| 0:0:01| chol  2  3 
+ 7|1.000|0.937|6.6e-05|9.9e-06|3.2e+06| 2.808640e+06 -3.440310e+05| 0:0:01| chol  2  2 
+ 8|0.981|0.981|1.2e-04|2.3e-06|9.5e+04| 8.067269e+04 -5.349379e+03| 0:0:01| chol  2  2 
+ 9|0.950|0.986|6.0e-06|5.3e-07|6.1e+03| 7.914621e+03  2.453665e+03| 0:0:01| chol  2  1 
+10|1.000|1.000|2.9e-08|5.1e-07|3.0e+03| 5.405668e+03  2.717561e+03| 0:0:01| chol  2  1 
+11|0.881|0.994|2.7e-09|9.5e-09|5.1e+02| 3.767760e+03  3.263396e+03| 0:0:01| chol  1  1 
+12|1.000|0.984|5.7e-10|8.3e-10|5.0e+01| 3.407835e+03  3.358512e+03| 0:0:01| chol  1  1 
+13|0.978|0.964|5.4e-10|1.6e-10|1.4e+00| 3.374351e+03  3.373049e+03| 0:0:01| chol  1  1 
+14|0.958|0.977|7.6e-09|1.7e-11|5.6e-02| 3.373625e+03  3.373576e+03| 0:0:01| chol  1  1 
+15|1.000|0.946|6.4e-09|2.0e-12|5.0e-03| 3.373592e+03  3.373588e+03| 0:0:02| chol  1  1 
+16|1.000|0.866|2.0e-09|6.7e-13|1.9e-03| 3.373590e+03  3.373588e+03| 0:0:02| chol  1  1 
+17|0.766|0.869|3.6e-09|2.5e-13|7.5e-04| 3.373589e+03  3.373589e+03| 0:0:02| chol  1  1 
+18|1.000|0.876|8.9e-10|1.1e-13|3.6e-04| 3.373589e+03  3.373589e+03| 0:0:02|
+  stop: max(relative gap, infeasibilities) < 1.00e-07
+-------------------------------------------------------------------
+ number of iterations   = 18
+ primal objective value =  3.37358910e+03
+ dual   objective value =  3.37358879e+03
+ gap := trace(XZ)       = 3.57e-04
+ relative gap           = 5.29e-08
+ actual relative gap    = 4.62e-08
+ rel. primal infeas     = 8.86e-10
+ rel. dual   infeas     = 1.08e-13
+ norm(X), norm(y), norm(Z) = 6.0e+02, 6.1e+01, 2.0e+06
+ norm(A), norm(b), norm(C) = 9.5e+03, 1.4e+02, 2.0e+06
+ Total CPU time (secs)  = 1.72  
+ CPU time per iteration = 0.10  
+ termination code       =  0
+ DIMACS errors: 1.3e-09  0.0e+00  2.2e-12  0.0e+00  4.6e-08  5.3e-08
+-------------------------------------------------------------------
+
+ans = 
+
+  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
+
+    yalmipversion: '20181012'
+       yalmiptime: 0.7859
+       solvertime: 2.9942
+             info: 'Successfully solved (SDPT3-4)'
+          problem: 0
+
+Test is successfully solved
+testPRDE
+
+ num. of constraints = 153
+ dim. of sdp    var  = 707,   num. of sdp  blk  = 303
+*******************************************************************
+   SDPT3: Infeasible path-following algorithms
+*******************************************************************
+ version  predcorr  gam  expon  scale_data
+   HKM      1      0.000   1        0    
+it pstep dstep pinfeas dinfeas  gap      prim-obj      dual-obj    cputime
+-------------------------------------------------------------------
+ 0|0.000|0.000|4.4e+02|4.1e-01|5.8e+09| 4.120856e+09  0.000000e+00| 0:0:00| chol  1  1 
+ 1|0.027|0.009|4.3e+02|4.1e-01|5.7e+09| 4.037092e+09 -8.184581e+04| 0:0:00| chol  1  1 
+ 2|0.017|0.022|4.2e+02|4.0e-01|5.6e+09| 3.997468e+09 -1.723140e+05| 0:0:00| chol  1  1 
+ 3|0.133|0.135|3.7e+02|3.5e-01|4.9e+09| 3.579270e+09 -5.677750e+05| 0:0:00| chol  1  2 
+ 4|0.272|0.315|2.7e+02|2.4e-01|3.6e+09| 2.789950e+09 -1.046624e+06| 0:0:01| chol  1  2 
+ 5|0.940|0.821|1.6e+01|4.3e-02|3.7e+08| 3.282932e+08 -1.152032e+06| 0:0:01| chol  2  2 
+ 6|0.958|0.996|6.6e-01|1.6e-04|1.5e+07| 1.396875e+07 -1.033991e+06| 0:0:01| chol  2  3 
+ 7|1.000|0.937|6.6e-05|9.9e-06|3.2e+06| 2.808640e+06 -3.440310e+05| 0:0:01| chol  2  2 
+ 8|0.981|0.981|1.2e-04|2.3e-06|9.5e+04| 8.067269e+04 -5.349379e+03| 0:0:01| chol  2  2 
+ 9|0.950|0.986|6.0e-06|5.3e-07|6.1e+03| 7.914621e+03  2.453665e+03| 0:0:01| chol  2  1 
+10|1.000|1.000|2.9e-08|5.1e-07|3.0e+03| 5.405668e+03  2.717561e+03| 0:0:01| chol  2  1 
+11|0.881|0.994|2.7e-09|9.5e-09|5.1e+02| 3.767760e+03  3.263396e+03| 0:0:01| chol  1  1 
+12|1.000|0.984|5.7e-10|8.3e-10|5.0e+01| 3.407835e+03  3.358512e+03| 0:0:01| chol  1  1 
+13|0.978|0.964|5.4e-10|1.6e-10|1.4e+00| 3.374351e+03  3.373049e+03| 0:0:01| chol  1  1 
+14|0.958|0.977|7.6e-09|1.7e-11|5.6e-02| 3.373625e+03  3.373576e+03| 0:0:01| chol  1  1 
+15|1.000|0.946|6.4e-09|2.0e-12|5.0e-03| 3.373592e+03  3.373588e+03| 0:0:01| chol  1  1 
+16|1.000|0.866|2.0e-09|6.7e-13|1.9e-03| 3.373590e+03  3.373588e+03| 0:0:01| chol  1  1 
+17|0.766|0.869|3.6e-09|2.5e-13|7.5e-04| 3.373589e+03  3.373589e+03| 0:0:01| chol  1  1 
+18|1.000|0.876|8.9e-10|1.1e-13|3.6e-04| 3.373589e+03  3.373589e+03| 0:0:01|
+  stop: max(relative gap, infeasibilities) < 1.00e-07
+-------------------------------------------------------------------
+ number of iterations   = 18
+ primal objective value =  3.37358910e+03
+ dual   objective value =  3.37358879e+03
+ gap := trace(XZ)       = 3.57e-04
+ relative gap           = 5.29e-08
+ actual relative gap    = 4.62e-08
+ rel. primal infeas     = 8.86e-10
+ rel. dual   infeas     = 1.08e-13
+ norm(X), norm(y), norm(Z) = 6.0e+02, 6.1e+01, 2.0e+06
+ norm(A), norm(b), norm(C) = 9.5e+03, 1.4e+02, 2.0e+06
+ Total CPU time (secs)  = 1.39  
+ CPU time per iteration = 0.08  
+ termination code       =  0
+ DIMACS errors: 1.3e-09  0.0e+00  2.2e-12  0.0e+00  4.6e-08  5.3e-08
+-------------------------------------------------------------------
+
+ans = 
+
+  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
+
+    yalmipversion: '20181012'
+       yalmiptime: 0.6840
+       solvertime: 2.4787
+             info: 'Successfully solved (SDPT3-4)'
+          problem: 0
+
+Test is successfully solved
+trsv_lnrzn
+Loading Gait
+
+Solving ABG-equation for a given trajectory 
+
+73 successful steps
+4 failed attempts
+463 function evaluations
+
+Obtaining discreete switchin for linearized dynamics 
+
+testPRDE
+
+ num. of constraints = 153
+ dim. of sdp    var  = 707,   num. of sdp  blk  = 303
+*******************************************************************
+   SDPT3: Infeasible path-following algorithms
+*******************************************************************
+ version  predcorr  gam  expon  scale_data
+   HKM      1      0.000   1        0    
+it pstep dstep pinfeas dinfeas  gap      prim-obj      dual-obj    cputime
+-------------------------------------------------------------------
+ 0|0.000|0.000|4.4e+02|4.1e-01|5.8e+09| 4.120856e+09  0.000000e+00| 0:0:00| chol  1  1 
+ 1|0.027|0.009|4.3e+02|4.1e-01|5.7e+09| 4.037092e+09 -8.184581e+04| 0:0:00| chol  1  1 
+ 2|0.017|0.022|4.2e+02|4.0e-01|5.6e+09| 3.997468e+09 -1.723140e+05| 0:0:00| chol  1  1 
+ 3|0.133|0.135|3.7e+02|3.5e-01|4.9e+09| 3.579270e+09 -5.677750e+05| 0:0:00| chol  1  2 
+ 4|0.272|0.315|2.7e+02|2.4e-01|3.6e+09| 2.789950e+09 -1.046624e+06| 0:0:01| chol  1  2 
+ 5|0.940|0.821|1.6e+01|4.3e-02|3.7e+08| 3.282932e+08 -1.152032e+06| 0:0:01| chol  2  2 
+ 6|0.958|0.996|6.6e-01|1.6e-04|1.5e+07| 1.396875e+07 -1.033991e+06| 0:0:01| chol  2  3 
+ 7|1.000|0.937|6.6e-05|9.9e-06|3.2e+06| 2.808640e+06 -3.440310e+05| 0:0:01| chol  2  2 
+ 8|0.981|0.981|1.2e-04|2.3e-06|9.5e+04| 8.067269e+04 -5.349379e+03| 0:0:01| chol  2  2 
+ 9|0.950|0.986|6.0e-06|5.3e-07|6.1e+03| 7.914621e+03  2.453665e+03| 0:0:01| chol  2  1 
+10|1.000|1.000|2.9e-08|5.1e-07|3.0e+03| 5.405668e+03  2.717561e+03| 0:0:01| chol  2  1 
+11|0.881|0.994|2.7e-09|9.5e-09|5.1e+02| 3.767760e+03  3.263396e+03| 0:0:01| chol  1  1 
+12|1.000|0.984|5.7e-10|8.3e-10|5.0e+01| 3.407835e+03  3.358512e+03| 0:0:01| chol  1  1 
+13|0.978|0.964|5.4e-10|1.6e-10|1.4e+00| 3.374351e+03  3.373049e+03| 0:0:01| chol  1  1 
+14|0.958|0.977|7.6e-09|1.7e-11|5.6e-02| 3.373625e+03  3.373576e+03| 0:0:01| chol  1  1 
+15|1.000|0.946|6.4e-09|2.0e-12|5.0e-03| 3.373592e+03  3.373588e+03| 0:0:01| chol  1  1 
+16|1.000|0.866|2.0e-09|6.7e-13|1.9e-03| 3.373590e+03  3.373588e+03| 0:0:01| chol  1  1 
+17|0.766|0.869|3.6e-09|2.5e-13|7.5e-04| 3.373589e+03  3.373589e+03| 0:0:01| chol  1  1 
+18|1.000|0.876|8.9e-10|1.1e-13|3.6e-04| 3.373589e+03  3.373589e+03| 0:0:01|
+  stop: max(relative gap, infeasibilities) < 1.00e-07
+-------------------------------------------------------------------
+ number of iterations   = 18
+ primal objective value =  3.37358910e+03
+ dual   objective value =  3.37358879e+03
+ gap := trace(XZ)       = 3.57e-04
+ relative gap           = 5.29e-08
+ actual relative gap    = 4.62e-08
+ rel. primal infeas     = 8.86e-10
+ rel. dual   infeas     = 1.08e-13
+ norm(X), norm(y), norm(Z) = 6.0e+02, 6.1e+01, 2.0e+06
+ norm(A), norm(b), norm(C) = 9.5e+03, 1.4e+02, 2.0e+06
+ Total CPU time (secs)  = 1.37  
+ CPU time per iteration = 0.08  
+ termination code       =  0
+ DIMACS errors: 1.3e-09  0.0e+00  2.2e-12  0.0e+00  4.6e-08  5.3e-08
+-------------------------------------------------------------------
+
+ans = 
+
+  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
+
+    yalmipversion: '20181012'
+       yalmiptime: 0.6663
+       solvertime: 2.3883
+             info: 'Successfully solved (SDPT3-4)'
+          problem: 0
+
+Test is successfully solved
+trsv_lnrzn
+Loading Gait
+
+Solving ABG-equation for a given trajectory 
+
+73 successful steps
+4 failed attempts
+463 function evaluations
+
+Obtaining discreete switchin for linearized dynamics 
+
+dsgn_cntrl
+{Error using <a href="matlab:matlab.internal.language.introspective.errorDocCallback('solvePRDE')" style="font-weight:bold">solvePRDE</a>
+Too many input arguments.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dsgn_cntrl', '/home/shamil/Desktop/work/Projects/dynamics/five_link_planar_biped/dsgn_cntrl.m', 16)" style="font-weight:bold">dsgn_cntrl</a> (<a href="matlab: opentoline('/home/shamil/Desktop/work/Projects/dynamics/five_link_planar_biped/dsgn_cntrl.m',16,0)">line 16</a>)
+[K_mtrx, X] = solvePRDE(A,B,Q,R,L,t_r,optns);
+} 
+testPRDE
+{Not enough input arguments.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('solvePRDE', '/home/shamil/Desktop/work/Projects/dynamics/PRDE/solvePRDE.m', 4)" style="font-weight:bold">solvePRDE</a> (<a href="matlab: opentoline('/home/shamil/Desktop/work/Projects/dynamics/PRDE/solvePRDE.m',4,0)">line 4</a>)
+solver      = optns.solver;
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('testPRDE', '/home/shamil/Desktop/work/Projects/dynamics/PRDE/testPRDE.m', 13)" style="font-weight:bold">testPRDE</a> (<a href="matlab: opentoline('/home/shamil/Desktop/work/Projects/dynamics/PRDE/testPRDE.m',13,0)">line 13</a>)
+[K_mtrx, X] = solvePRDE(A,B,Q,R,t,optns);
+} 
+testPRDE
+
+ num. of constraints = 153
+ dim. of sdp    var  = 707,   num. of sdp  blk  = 303
+*******************************************************************
+   SDPT3: Infeasible path-following algorithms
+*******************************************************************
+ version  predcorr  gam  expon  scale_data
+   HKM      1      0.000   1        0    
+it pstep dstep pinfeas dinfeas  gap      prim-obj      dual-obj    cputime
+-------------------------------------------------------------------
+ 0|0.000|0.000|4.4e+02|4.1e-01|5.8e+09| 4.120856e+09  0.000000e+00| 0:0:00| chol  1  1 
+ 1|0.027|0.009|4.3e+02|4.1e-01|5.7e+09| 4.037092e+09 -8.184581e+04| 0:0:00| chol  1  1 
+ 2|0.017|0.022|4.2e+02|4.0e-01|5.6e+09| 3.997468e+09 -1.723140e+05| 0:0:00| chol  1  1 
+ 3|0.133|0.135|3.7e+02|3.5e-01|4.9e+09| 3.579270e+09 -5.677750e+05| 0:0:00| chol  1  2 
+ 4|0.272|0.315|2.7e+02|2.4e-01|3.6e+09| 2.789950e+09 -1.046624e+06| 0:0:01| chol  1  2 
+ 5|0.940|0.821|1.6e+01|4.3e-02|3.7e+08| 3.282932e+08 -1.152032e+06| 0:0:01| chol  2  2 
+ 6|0.958|0.996|6.6e-01|1.6e-04|1.5e+07| 1.396875e+07 -1.033991e+06| 0:0:01| chol  2  3 
+ 7|1.000|0.937|6.6e-05|9.9e-06|3.2e+06| 2.808640e+06 -3.440310e+05| 0:0:01| chol  2  2 
+ 8|0.981|0.981|1.2e-04|2.3e-06|9.5e+04| 8.067269e+04 -5.349379e+03| 0:0:01| chol  2  2 
+ 9|0.950|0.986|6.0e-06|5.3e-07|6.1e+03| 7.914621e+03  2.453665e+03| 0:0:01| chol  2  1 
+10|1.000|1.000|2.9e-08|5.1e-07|3.0e+03| 5.405668e+03  2.717561e+03| 0:0:01| chol  2  1 
+11|0.881|0.994|2.7e-09|9.5e-09|5.1e+02| 3.767760e+03  3.263396e+03| 0:0:01| chol  1  1 
+12|1.000|0.984|5.7e-10|8.3e-10|5.0e+01| 3.407835e+03  3.358512e+03| 0:0:01| chol  1  1 
+13|0.978|0.964|5.4e-10|1.6e-10|1.4e+00| 3.374351e+03  3.373049e+03| 0:0:01| chol  1  1 
+14|0.958|0.977|7.6e-09|1.7e-11|5.6e-02| 3.373625e+03  3.373576e+03| 0:0:01| chol  1  1 
+15|1.000|0.946|6.4e-09|2.0e-12|5.0e-03| 3.373592e+03  3.373588e+03| 0:0:01| chol  1  1 
+16|1.000|0.866|2.0e-09|6.7e-13|1.9e-03| 3.373590e+03  3.373588e+03| 0:0:01| chol  1  1 
+17|0.766|0.869|3.6e-09|2.5e-13|7.5e-04| 3.373589e+03  3.373589e+03| 0:0:01| chol  1  1 
+18|1.000|0.876|8.9e-10|1.1e-13|3.6e-04| 3.373589e+03  3.373589e+03| 0:0:01|
+  stop: max(relative gap, infeasibilities) < 1.00e-07
+-------------------------------------------------------------------
+ number of iterations   = 18
+ primal objective value =  3.37358910e+03
+ dual   objective value =  3.37358879e+03
+ gap := trace(XZ)       = 3.57e-04
+ relative gap           = 5.29e-08
+ actual relative gap    = 4.62e-08
+ rel. primal infeas     = 8.86e-10
+ rel. dual   infeas     = 1.08e-13
+ norm(X), norm(y), norm(Z) = 6.0e+02, 6.1e+01, 2.0e+06
+ norm(A), norm(b), norm(C) = 9.5e+03, 1.4e+02, 2.0e+06
+ Total CPU time (secs)  = 1.41  
+ CPU time per iteration = 0.08  
+ termination code       =  0
+ DIMACS errors: 1.3e-09  0.0e+00  2.2e-12  0.0e+00  4.6e-08  5.3e-08
+-------------------------------------------------------------------
+
+ans = 
+
+  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
+
+    yalmipversion: '20181012'
+       yalmiptime: 0.6948
+       solvertime: 2.4801
+             info: 'Successfully solved (SDPT3-4)'
+          problem: 0
+
+Test is successfully solved
+trsv_lnrzn
+Loading Gait
+
+Solving ABG-equation for a given trajectory 
+
+73 successful steps
+4 failed attempts
+463 function evaluations
+
+Obtaining discreete switchin for linearized dynamics 
+
+dsgn_cntrl
+{Undefined function or variable 'L'.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('solvePRDE', '/home/shamil/Desktop/work/Projects/dynamics/PRDE/solvePRDE.m', 56)" style="font-weight:bold">solvePRDE</a> (<a href="matlab: opentoline('/home/shamil/Desktop/work/Projects/dynamics/PRDE/solvePRDE.m',56,0)">line 56</a>)
+    C = [C, L'*xt1*L == xtN];
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dsgn_cntrl', '/home/shamil/Desktop/work/Projects/dynamics/five_link_planar_biped/dsgn_cntrl.m', 16)" style="font-weight:bold">dsgn_cntrl</a> (<a href="matlab: opentoline('/home/shamil/Desktop/work/Projects/dynamics/five_link_planar_biped/dsgn_cntrl.m',16,0)">line 16</a>)
+[K_mtrx, X] = solvePRDE(A,B,Q,R,t_r,optns,L);
+} 
+dsgn_cntrl
+{Undefined function 'isnan' for input arguments of type 'cell'.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('sdpvar/mtimes', '/home/shamil/Desktop/work/Projects/dynamics/PRDE/YALMIP-master/@sdpvar/mtimes.m', 48)" style="font-weight:bold"> * </a> (<a href="matlab: opentoline('/home/shamil/Desktop/work/Projects/dynamics/PRDE/YALMIP-master/@sdpvar/mtimes.m',48,0)">line 48</a>)
+    if any(isnan(X))
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('solvePRDE', '/home/shamil/Desktop/work/Projects/dynamics/PRDE/solvePRDE.m', 57)" style="font-weight:bold">solvePRDE</a> (<a href="matlab: opentoline('/home/shamil/Desktop/work/Projects/dynamics/PRDE/solvePRDE.m',57,0)">line 57</a>)
+    C = [C, L'*xt1*L == xtN];
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dsgn_cntrl', '/home/shamil/Desktop/work/Projects/dynamics/five_link_planar_biped/dsgn_cntrl.m', 16)" style="font-weight:bold">dsgn_cntrl</a> (<a href="matlab: opentoline('/home/shamil/Desktop/work/Projects/dynamics/five_link_planar_biped/dsgn_cntrl.m',16,0)">line 16</a>)
+[K_mtrx, X] = solvePRDE(A,B,Q,R,t_r,optns,L);
+} 
+dsgn_cntrl
+
+ num. of constraints = 2295
+ dim. of sdp    var  = 3069,   num. of sdp  blk  = 297
+ dim. of free   var  = 81
+ *** convert ublk to linear blk
+********************************************************************************************
+   SDPT3: homogeneous self-dual path-following algorithms
+********************************************************************************************
+ version  predcorr  gam  expon
+   HKM      1      0.000   1
+it pstep dstep pinfeas dinfeas  gap     mean(obj)    cputime    kap   tau    theta
+--------------------------------------------------------------------------------------------
+ 0|0.000|0.000|2.6e+06|8.4e+01|2.4e+11| 4.009535e+10| 0:0:02|2.4e+12|1.0e+00|1.0e+00| spchol 1  2 
+ 1|0.000|0.000|2.6e+06|8.4e+01|2.4e+11| 4.009535e+10| 0:0:56|2.4e+12|1.0e+00|1.0e+00| chol 1  2 
+ 2|0.000|0.000|2.6e+06|8.4e+01|2.4e+11| 4.009536e+10| 0:1:08|2.4e+12|1.0e+00|1.0e+00| chol 1  2 
+ 3|0.000|0.000|2.6e+06|8.4e+01|2.4e+11| 4.009538e+10| 0:1:19|2.4e+12|1.0e+00|1.0e+00| chol 1  2 
+ 4|0.000|0.000|2.6e+06|8.4e+01|2.4e+11| 4.009544e+10| 0:1:30|2.4e+12|1.0e+00|1.0e+00| chol 1  2 
+ 5|0.000|0.000|2.6e+06|8.4e+01|2.4e+11| 4.009563e+10| 0:1:41|2.4e+12|1.0e+00|1.0e+00| chol 1  2 
+ 6|0.000|0.000|2.6e+06|8.4e+01|2.4e+11| 4.009619e+10| 0:1:52|2.4e+12|1.0e+00|1.0e+00| chol 2  3 
+ 7|0.000|0.000|2.6e+06|8.4e+01|2.4e+11| 4.009793e+10| 0:2:03|2.4e+12|1.0e+00|1.0e+00| chol 2  3 
+ 8|0.000|0.000|2.6e+06|8.4e+01|2.4e+11| 4.010296e+10| 0:2:14|2.4e+12|1.0e+00|1.0e+00| chol 2  3 
+ 9|0.000|0.000|2.6e+06|8.4e+01|2.4e+11| 4.011839e+10| 0:2:25|2.4e+12|1.0e+00|1.0e+00| chol 3  4 
+10|0.000|0.000|2.6e+06|8.4e+01|2.4e+11| 4.016334e+10| 0:2:36|2.4e+12|1.0e+00|1.0e+00| chol 3  6 
+11|0.001|0.001|2.6e+06|8.4e+01|2.5e+11| 4.030159e+10| 0:2:47|2.4e+12|1.0e+00|1.0e+00| chol 7 14 
+12|0.003|0.003|2.6e+06|8.4e+01|2.5e+11| 4.070299e+10| 0:2:59|2.4e+12|1.0e+00|1.0e+00| chol12 18 
+13|0.006|0.006|2.9e+06|8.4e+01|2.6e+11| 4.158320e+10| 0:3:11|2.4e+12|1.0e+00|1.0e+00| chol19 14 
+14|0.013|0.013|1.2e+09|8.3e+01|2.8e+11| 4.372709e+10| 0:3:23|2.4e+12|1.0e+00|1.0e+00| chol^17  9 
+15|0.050|0.050|1.5e+13|8.1e+01|3.6e+11| 5.043084e+10| 0:3:35|2.4e+12|1.0e+00|9.8e-01| chol^22 48 
+16|0.041|0.041|2.5e+14|8.2e+01|4.4e+11| 5.765882e+10| 0:3:49|2.3e+12|9.8e-01|9.7e-01| chol^ 5 31 
+17|0.000|0.000|2.9e+14|8.2e+01|4.4e+11| 5.768720e+10| 0:4:01|2.3e+12|9.8e-01|9.7e-01| chol^89 53 
+18|0.000|0.000|2.0e+14|8.2e+01|4.4e+11| 5.768966e+10| 0:4:18|2.3e+12|9.8e-01|9.7e-01|{Operation terminated by user during <a href="matlab:matlab.internal.language.introspective.errorDocCallback('schurmat_sblk', '/home/shamil/Desktop/work/Projects/dynamics/PRDE/SDPT3-4.0/Solver/schurmat_sblk.m', 119)" style="font-weight:bold">schurmat_sblk</a> (<a href="matlab: opentoline('/home/shamil/Desktop/work/Projects/dynamics/PRDE/SDPT3-4.0/Solver/schurmat_sblk.m',119,0)">line 119</a>)
+
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('HSDHKMpred', '/home/shamil/Desktop/work/Projects/dynamics/PRDE/SDPT3-4.0/HSDSolver/HSDHKMpred.m', 57)" style="font-weight:bold">HSDHKMpred</a> (<a href="matlab: opentoline('/home/shamil/Desktop/work/Projects/dynamics/PRDE/SDPT3-4.0/HSDSolver/HSDHKMpred.m',57,0)">line 57</a>)
+             schur = schurmat_sblk(blk,At,par,schur,p,X,par.Zinv);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('HSDsqlpmain', '/home/shamil/Desktop/work/Projects/dynamics/PRDE/SDPT3-4.0/HSDSolver/HSDsqlpmain.m', 340)" style="font-weight:bold">HSDsqlpmain</a> (<a href="matlab: opentoline('/home/shamil/Desktop/work/Projects/dynamics/PRDE/SDPT3-4.0/HSDSolver/HSDsqlpmain.m',340,0)">line 340</a>)
+           HSDHKMpred(blk,At,par,rp,Rd,sigmu,X,Z,invZchol);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('sdpt3', '/home/shamil/Desktop/work/Projects/dynamics/PRDE/SDPT3-4.0/sdpt3.m', 279)" style="font-weight:bold">sdpt3</a> (<a href="matlab: opentoline('/home/shamil/Desktop/work/Projects/dynamics/PRDE/SDPT3-4.0/sdpt3.m',279,0)">line 279</a>)
+      HSDsqlpmain(blk3,At3,C3,b,par,X03,y0,Z03);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('callsdpt34', '/home/shamil/Desktop/work/Projects/dynamics/PRDE/YALMIP-master/solvers/callsdpt34.m', 152)" style="font-weight:bold">callsdpt34</a> (<a href="matlab: opentoline('/home/shamil/Desktop/work/Projects/dynamics/PRDE/YALMIP-master/solvers/callsdpt34.m',152,0)">line 152</a>)
+[obj,X,y,Z,info,runhist] =  sdpt3(blk,A,C,b,options.sdpt3,[],x0,[]);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('solvesdp', '/home/shamil/Desktop/work/Projects/dynamics/PRDE/YALMIP-master/extras/solvesdp.m', 353)" style="font-weight:bold">solvesdp</a> (<a href="matlab: opentoline('/home/shamil/Desktop/work/Projects/dynamics/PRDE/YALMIP-master/extras/solvesdp.m',353,0)">line 353</a>)
+        eval(['output = ' solver.call '(interfacedata);']);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('optimize', '/home/shamil/Desktop/work/Projects/dynamics/PRDE/YALMIP-master/extras/optimize.m', 31)" style="font-weight:bold">optimize</a> (<a href="matlab: opentoline('/home/shamil/Desktop/work/Projects/dynamics/PRDE/YALMIP-master/extras/optimize.m',31,0)">line 31</a>)
+[varargout{1:nargout}] = solvesdp(varargin{:});
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('solvePRDE', '/home/shamil/Desktop/work/Projects/dynamics/PRDE/solvePRDE.m', 59)" style="font-weight:bold">solvePRDE</a> (<a href="matlab: opentoline('/home/shamil/Desktop/work/Projects/dynamics/PRDE/solvePRDE.m',59,0)">line 59</a>)
+optimize(C,-J,sdpsettings('solver',solver,'sdpt3.maxit',200))
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dsgn_cntrl', '/home/shamil/Desktop/work/Projects/dynamics/five_link_planar_biped/dsgn_cntrl.m', 16)" style="font-weight:bold">dsgn_cntrl</a> (<a href="matlab: opentoline('/home/shamil/Desktop/work/Projects/dynamics/five_link_planar_biped/dsgn_cntrl.m',16,0)">line 16</a>)
+[K_mtrx, X] = solvePRDE(A,B,Q,R,t_r,optns,L);
+} 
+dsgn_cntrl
+
+ num. of constraints = 2295
+ dim. of sdp    var  = 3069,   num. of sdp  blk  = 297
+ dim. of free   var  = 81
+ *** convert ublk to linear blk
+********************************************************************************************
+   SDPT3: homogeneous self-dual path-following algorithms
+********************************************************************************************
+ version  predcorr  gam  expon
+   HKM      1      0.000   1
+it pstep dstep pinfeas dinfeas  gap     mean(obj)    cputime    kap   tau    theta
+--------------------------------------------------------------------------------------------
+ 0|0.000|0.000|2.6e+06|8.4e+01|2.4e+12| 4.009503e+11| 0:0:01|2.4e+13|1.0e+00|1.0e+00| spchol 1  2 
+ 1|0.000|0.000|2.6e+06|8.4e+01|2.4e+12| 4.009503e+11| 0:0:06|2.4e+13|1.0e+00|1.0e+00| chol 1  2 
+ 2|0.000|0.000|2.6e+06|8.4e+01|2.4e+12| 4.009504e+11| 0:0:17|2.4e+13|1.0e+00|1.0e+00| chol 1  2 
+ 3|0.000|0.000|2.6e+06|8.4e+01|2.4e+12| 4.009504e+11| 0:0:28|2.4e+13|1.0e+00|1.0e+00| chol 1  2 
+ 4|0.000|0.000|2.6e+06|8.4e+01|2.4e+12| 4.009504e+11| 0:0:39|2.4e+13|1.0e+00|1.0e+00| chol 1  2 
+ 5|0.000|0.000|2.6e+06|8.4e+01|2.4e+12| 4.009506e+11| 0:0:50|2.4e+13|1.0e+00|1.0e+00| chol 1  2 
+ 6|0.000|0.000|2.6e+06|8.4e+01|2.4e+12| 4.009512e+11| 0:1:01|2.4e+13|1.0e+00|1.0e+00| chol 2  3 
+ 7|0.000|0.000|2.6e+06|8.4e+01|2.4e+12| 4.009529e+11| 0:1:13|2.4e+13|1.0e+00|1.0e+00| chol 2  3 
+ 8|0.000|0.000|2.6e+06|8.4e+01|2.4e+12| 4.009579e+11| 0:1:23|2.4e+13|1.0e+00|1.0e+00| chol 2  4 
+ 9|0.000|0.000|2.6e+06|8.4e+01|2.4e+12| 4.009731e+11| 0:1:34|2.4e+13|1.0e+00|1.0e+00| chol 3  5 
+10|0.000|0.000|2.6e+06|8.4e+01|2.4e+12| 4.010180e+11| 0:1:45|2.4e+13|1.0e+00|1.0e+00| chol 4  7 
+11|0.000|0.000|2.6e+06|8.4e+01|2.4e+12| 4.011541e+11| 0:1:56|2.4e+13|1.0e+00|1.0e+00| chol 6 12 
+12|0.000|0.000|2.6e+06|8.4e+01|2.4e+12| 4.015554e+11| 0:2:08|2.4e+13|1.0e+00|1.0e+00| chol^ 5 25 
+13|0.001|0.001|2.6e+06|8.4e+01|2.4e+12| 4.024316e+11| 0:2:20|2.4e+13|1.0e+00|1.0e+00| chol^10  5 
+14|0.001|0.001|8.6e+11|8.4e+01|2.4e+12| 4.037970e+11| 0:2:32|2.4e+13|1.0e+00|1.0e+00| chol^24 11 
+15|0.003|0.003|9.0e+11|8.4e+01|2.5e+12| 4.079205e+11| 0:2:44|2.4e+13|1.0e+00|1.0e+00| chol^11  6 
+16|0.008|0.008|8.0e+11|8.4e+01|2.6e+12| 4.171914e+11| 0:2:55|2.4e+13|1.0e+00|1.0e+00| chol^ 7  3 
+17|0.025|0.025|3.4e+12|8.4e+01|2.9e+12| 4.437451e+11| 0:3:07|2.4e+13|9.9e-01|9.8e-01| chol^91  7 
+18|0.049|0.049|1.9e+13|8.3e+01|3.4e+12| 4.920021e+11| 0:3:22|2.3e+13|9.7e-01|9.6e-01| chol^43  6 
+19|0.037|0.037|8.2e+14|8.2e+01|4.1e+12| 5.550543e+11| 0:3:35|2.3e+13|9.7e-01|9.5e-01| chol^ 5 63 
+20|0.003|0.003|2.9e+15|8.2e+01|4.2e+12| 5.608017e+11| 0:3:49|2.3e+13|9.7e-01|9.5e-01| chol^ 8 33 
+21|0.004|0.004|2.1e+15|8.2e+01|4.3e+12| 5.683774e+11| 0:4:01|2.3e+13|9.7e-01|9.5e-01| chol^ 5  2 
+22|0.000|0.000|4.0e+15|8.2e+01|4.3e+12| 5.683796e+11| 0:4:12|2.3e+13|9.7e-01|9.5e-01|
+  Stop: steps are too short
+-------------------------------------------------------------------
+ number of iterations   = 22
+ primal objective value =  8.01900693e+11
+ dual   objective value =  0.00000000e+00
+ gap := trace(XZ)       = 2.41e+12
+ relative gap           = 6.01e+00
+ actual relative gap    = 1.00e+00
+ rel. primal infeas     = 2.62e+06
+ rel. dual   infeas     = 8.44e+01
+ norm(X), norm(y), norm(Z) = 2.7e+04, 0.0e+00, 1.3e+08
+ norm(A), norm(b), norm(C) = 3.1e+08, 3.0e+02, 4.2e+07
+ Total CPU time (secs)  = 251.95  
+ CPU time per iteration = 11.45  
+ termination code       = -5
+ DIMACS errors: 2.6e+06  0.0e+00  8.4e+01  0.0e+00  1.0e+00  3.0e+00
+-------------------------------------------------------------------
+
+ans = 
+
+  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
+
+    yalmipversion: '20181012'
+       yalmiptime: 9.3554
+       solvertime: 255.2613
+             info: 'Lack of progress (SDPT3-4)'
+          problem: 5
+
+dsgn_cntrl
+
+ num. of constraints = 2295
+ dim. of sdp    var  = 1287,   num. of sdp  blk  = 99
+ dim. of free   var  = 81
+ *** convert ublk to linear blk
+********************************************************************************************
+   SDPT3: homogeneous self-dual path-following algorithms
+********************************************************************************************
+ version  predcorr  gam  expon
+   HKM      1      0.000   1
+it pstep dstep pinfeas dinfeas  gap     mean(obj)    cputime    kap   tau    theta
+--------------------------------------------------------------------------------------------
+ 0|0.000|0.000|2.6e+06|8.7e+04|3.1e+09| 3.465104e+05| 0:0:01|3.1e+10|1.0e+00|1.0e+00| spchol 1  1 
+ 1|0.000|0.000|2.6e+06|8.7e+04|3.1e+09| 3.465056e+05| 0:0:04|3.1e+10|1.0e+00|1.0e+00| chol 1  2 
+ 2|0.000|0.000|2.6e+06|8.7e+04|3.1e+09| 3.465249e+05| 0:0:13|3.1e+10|1.0e+00|1.0e+00| chol 1  2 
+ 3|0.000|0.000|2.6e+06|8.7e+04|3.1e+09| 3.465176e+05| 0:0:21|3.1e+10|1.0e+00|1.0e+00| chol 1  2 
+ 4|0.000|0.000|2.6e+06|8.7e+04|3.1e+09| 3.465753e+05| 0:0:29|3.1e+10|1.0e+00|1.0e+00| chol 1  2 
+ 5|0.000|0.000|2.6e+06|8.7e+04|3.1e+09| 3.466796e+05| 0:0:38|3.1e+10|1.0e+00|1.0e+00| chol 1  2 
+ 6|0.000|0.000|2.6e+06|8.7e+04|3.1e+09| 3.470315e+05| 0:0:46|3.1e+10|1.0e+00|1.0e+00| chol 2  2 
+ 7|0.000|0.000|2.6e+06|8.7e+04|3.2e+09| 3.480389e+05| 0:0:54|3.1e+10|1.0e+00|1.0e+00| chol 2  3 
+ 8|0.001|0.001|2.6e+06|8.7e+04|3.2e+09| 3.510494e+05| 0:1:02|3.1e+10|1.0e+00|1.0e+00| chol 2  3 
+ 9|0.003|0.003|2.6e+06|8.7e+04|3.3e+09| 3.601305e+05| 0:1:11|3.1e+10|1.0e+00|1.0e+00| chol 3  4 
+10|0.010|0.010|2.6e+06|8.7e+04|3.5e+09| 3.870093e+05| 0:1:19|3.1e+10|1.0e+00|1.0e+00| chol 4  6 
+11|0.030|0.030|2.6e+06|8.7e+04|4.2e+09| 4.659060e+05| 0:1:27|3.1e+10|1.0e+00|9.9e-01| chol 7  8 
+12|0.087|0.087|2.5e+06|8.5e+04|6.0e+09| 6.800457e+05| 0:1:35|3.0e+10|1.0e+00|9.7e-01| chol{Operation terminated by user during <a href="matlab:matlab.internal.language.introspective.errorDocCallback('HSDbicgstab>matvec', '/home/shamil/Desktop/work/Projects/dynamics/PRDE/SDPT3-4.0/HSDSolver/HSDbicgstab.m', 94)" style="font-weight:bold">HSDbicgstab>matvec</a> (<a href="matlab: opentoline('/home/shamil/Desktop/work/Projects/dynamics/PRDE/SDPT3-4.0/HSDSolver/HSDbicgstab.m',94,0)">line 94</a>)
+
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('HSDbicgstab', '/home/shamil/Desktop/work/Projects/dynamics/PRDE/SDPT3-4.0/HSDSolver/HSDbicgstab.m', 54)" style="font-weight:bold">HSDbicgstab</a> (<a href="matlab: opentoline('/home/shamil/Desktop/work/Projects/dynamics/PRDE/SDPT3-4.0/HSDSolver/HSDbicgstab.m',54,0)">line 54</a>)
+     if isstruct(A); t = matvec(A,s_hat); else; t = mexMatvec(A,s_hat); end;
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('HSDlinsysolve', '/home/shamil/Desktop/work/Projects/dynamics/PRDE/SDPT3-4.0/HSDSolver/HSDlinsysolve.m', 132)" style="font-weight:bold">HSDlinsysolve</a> (<a href="matlab: opentoline('/home/shamil/Desktop/work/Projects/dynamics/PRDE/SDPT3-4.0/HSDSolver/HSDlinsysolve.m',132,0)">line 132</a>)
+             [xx,resnrm,solve_ok] =
+             HSDbicgstab(coeff,rhs,L,[],[],printlevel);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('HSDHKMpred', '/home/shamil/Desktop/work/Projects/dynamics/PRDE/SDPT3-4.0/HSDSolver/HSDHKMpred.m', 82)" style="font-weight:bold">HSDHKMpred</a> (<a href="matlab: opentoline('/home/shamil/Desktop/work/Projects/dynamics/PRDE/SDPT3-4.0/HSDSolver/HSDHKMpred.m',82,0)">line 82</a>)
+    [xx,coeff,L] = HSDlinsysolve(par,schur,UU,EE,par.Umat,rhs);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('HSDsqlpmain', '/home/shamil/Desktop/work/Projects/dynamics/PRDE/SDPT3-4.0/HSDSolver/HSDsqlpmain.m', 340)" style="font-weight:bold">HSDsqlpmain</a> (<a href="matlab: opentoline('/home/shamil/Desktop/work/Projects/dynamics/PRDE/SDPT3-4.0/HSDSolver/HSDsqlpmain.m',340,0)">line 340</a>)
+           HSDHKMpred(blk,At,par,rp,Rd,sigmu,X,Z,invZchol);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('sdpt3', '/home/shamil/Desktop/work/Projects/dynamics/PRDE/SDPT3-4.0/sdpt3.m', 279)" style="font-weight:bold">sdpt3</a> (<a href="matlab: opentoline('/home/shamil/Desktop/work/Projects/dynamics/PRDE/SDPT3-4.0/sdpt3.m',279,0)">line 279</a>)
+      HSDsqlpmain(blk3,At3,C3,b,par,X03,y0,Z03);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('callsdpt34', '/home/shamil/Desktop/work/Projects/dynamics/PRDE/YALMIP-master/solvers/callsdpt34.m', 152)" style="font-weight:bold">callsdpt34</a> (<a href="matlab: opentoline('/home/shamil/Desktop/work/Projects/dynamics/PRDE/YALMIP-master/solvers/callsdpt34.m',152,0)">line 152</a>)
+[obj,X,y,Z,info,runhist] =  sdpt3(blk,A,C,b,options.sdpt3,[],x0,[]);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('solvesdp', '/home/shamil/Desktop/work/Projects/dynamics/PRDE/YALMIP-master/extras/solvesdp.m', 353)" style="font-weight:bold">solvesdp</a> (<a href="matlab: opentoline('/home/shamil/Desktop/work/Projects/dynamics/PRDE/YALMIP-master/extras/solvesdp.m',353,0)">line 353</a>)
+        eval(['output = ' solver.call '(interfacedata);']);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('optimize', '/home/shamil/Desktop/work/Projects/dynamics/PRDE/YALMIP-master/extras/optimize.m', 31)" style="font-weight:bold">optimize</a> (<a href="matlab: opentoline('/home/shamil/Desktop/work/Projects/dynamics/PRDE/YALMIP-master/extras/optimize.m',31,0)">line 31</a>)
+[varargout{1:nargout}] = solvesdp(varargin{:});
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('solvePRDE', '/home/shamil/Desktop/work/Projects/dynamics/PRDE/solvePRDE.m', 60)" style="font-weight:bold">solvePRDE</a> (<a href="matlab: opentoline('/home/shamil/Desktop/work/Projects/dynamics/PRDE/solvePRDE.m',60,0)">line 60</a>)
+optimize(C,-J,sdpsettings('solver',solver,'sdpt3.maxit',200))
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dsgn_cntrl', '/home/shamil/Desktop/work/Projects/dynamics/five_link_planar_biped/dsgn_cntrl.m', 16)" style="font-weight:bold">dsgn_cntrl</a> (<a href="matlab: opentoline('/home/shamil/Desktop/work/Projects/dynamics/five_link_planar_biped/dsgn_cntrl.m',16,0)">line 16</a>)
+[K_mtrx, X] = solvePRDE(A,B,Q,R,t_r,optns,L);
+} 
+dsgn_cntrl
+
+ num. of constraints = 2295
+ dim. of sdp    var  = 3069,   num. of sdp  blk  = 297
+ dim. of free   var  = 81
+ *** convert ublk to linear blk
+********************************************************************************************
+   SDPT3: homogeneous self-dual path-following algorithms
+********************************************************************************************
+ version  predcorr  gam  expon
+   HKM      1      0.000   1
+it pstep dstep pinfeas dinfeas  gap     mean(obj)    cputime    kap   tau    theta
+--------------------------------------------------------------------------------------------
+ 0|0.000|0.000|2.6e+06|8.4e+01|2.4e+12| 4.009503e+11| 0:0:01|2.4e+13|1.0e+00|1.0e+00| spchol 1  2 
+ 1|0.000|0.000|2.6e+06|8.4e+01|2.4e+12| 4.009503e+11| 0:0:05|2.4e+13|1.0e+00|1.0e+00| chol 1  2 
+ 2|0.000|0.000|2.6e+06|8.4e+01|2.4e+12| 4.009504e+11| 0:0:16|2.4e+13|1.0e+00|1.0e+00| chol 1  2 
+ 3|0.000|0.000|2.6e+06|8.4e+01|2.4e+12| 4.009504e+11| 0:0:27|2.4e+13|1.0e+00|1.0e+00| chol 1  2 
+ 4|0.000|0.000|2.6e+06|8.4e+01|2.4e+12| 4.009504e+11| 0:0:40|2.4e+13|1.0e+00|1.0e+00| chol 1  2 
+ 5|0.000|0.000|2.6e+06|8.4e+01|2.4e+12| 4.009506e+11| 0:0:52|2.4e+13|1.0e+00|1.0e+00| chol 1  2 
+ 6|0.000|0.000|2.6e+06|8.4e+01|2.4e+12| 4.009512e+11| 0:1:03|2.4e+13|1.0e+00|1.0e+00| chol 2  3 
+ 7|0.000|0.000|2.6e+06|8.4e+01|2.4e+12| 4.009529e+11| 0:1:14|2.4e+13|1.0e+00|1.0e+00| chol 2  3 
+ 8|0.000|0.000|2.6e+06|8.4e+01|2.4e+12| 4.009579e+11| 0:1:26|2.4e+13|1.0e+00|1.0e+00| chol 2  4 
+ 9|0.000|0.000|2.6e+06|8.4e+01|2.4e+12| 4.009731e+11| 0:1:38|2.4e+13|1.0e+00|1.0e+00| chol 3  5 
+10|0.000|0.000|2.6e+06|8.4e+01|2.4e+12| 4.010180e+11| 0:1:51|2.4e+13|1.0e+00|1.0e+00| chol 4  7 
+11|0.000|0.000|2.6e+06|8.4e+01|2.4e+12| 4.011541e+11| 0:2:02|2.4e+13|1.0e+00|1.0e+00| chol 6 12 
+12|0.000|0.000|2.6e+06|8.4e+01|2.4e+12| 4.015554e+11| 0:2:14|2.4e+13|1.0e+00|1.0e+00| chol^ 5 25 
+13|0.001|0.001|2.6e+06|8.4e+01|2.4e+12| 4.024316e+11| 0:2:28|2.4e+13|1.0e+00|1.0e+00| chol^10  5 
+14|0.001|0.001|8.6e+11|8.4e+01|2.4e+12| 4.037970e+11| 0:2:42|2.4e+13|1.0e+00|1.0e+00| chol{Operation terminated by user during <a href="matlab:matlab.internal.language.introspective.errorDocCallback('linsysolvefun', '/home/shamil/Desktop/work/Projects/dynamics/PRDE/SDPT3-4.0/Solver/linsysolvefun.m', 18)" style="font-weight:bold">linsysolvefun</a> (<a href="matlab: opentoline('/home/shamil/Desktop/work/Projects/dynamics/PRDE/SDPT3-4.0/Solver/linsysolvefun.m',18,0)">line 18</a>)
+
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('HSDlinsysolve', '/home/shamil/Desktop/work/Projects/dynamics/PRDE/SDPT3-4.0/HSDSolver/HSDlinsysolve.m', 118)" style="font-weight:bold">HSDlinsysolve</a> (<a href="matlab: opentoline('/home/shamil/Desktop/work/Projects/dynamics/PRDE/SDPT3-4.0/HSDSolver/HSDlinsysolve.m',118,0)">line 118</a>)
+             tmp = coeff.mat12'*linsysolvefun(L,coeff.mat12)-coeff.mat22;
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('HSDHKMpred', '/home/shamil/Desktop/work/Projects/dynamics/PRDE/SDPT3-4.0/HSDSolver/HSDHKMpred.m', 82)" style="font-weight:bold">HSDHKMpred</a> (<a href="matlab: opentoline('/home/shamil/Desktop/work/Projects/dynamics/PRDE/SDPT3-4.0/HSDSolver/HSDHKMpred.m',82,0)">line 82</a>)
+    [xx,coeff,L] = HSDlinsysolve(par,schur,UU,EE,par.Umat,rhs);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('HSDsqlpmain', '/home/shamil/Desktop/work/Projects/dynamics/PRDE/SDPT3-4.0/HSDSolver/HSDsqlpmain.m', 340)" style="font-weight:bold">HSDsqlpmain</a> (<a href="matlab: opentoline('/home/shamil/Desktop/work/Projects/dynamics/PRDE/SDPT3-4.0/HSDSolver/HSDsqlpmain.m',340,0)">line 340</a>)
+           HSDHKMpred(blk,At,par,rp,Rd,sigmu,X,Z,invZchol);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('sdpt3', '/home/shamil/Desktop/work/Projects/dynamics/PRDE/SDPT3-4.0/sdpt3.m', 279)" style="font-weight:bold">sdpt3</a> (<a href="matlab: opentoline('/home/shamil/Desktop/work/Projects/dynamics/PRDE/SDPT3-4.0/sdpt3.m',279,0)">line 279</a>)
+      HSDsqlpmain(blk3,At3,C3,b,par,X03,y0,Z03);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('callsdpt34', '/home/shamil/Desktop/work/Projects/dynamics/PRDE/YALMIP-master/solvers/callsdpt34.m', 152)" style="font-weight:bold">callsdpt34</a> (<a href="matlab: opentoline('/home/shamil/Desktop/work/Projects/dynamics/PRDE/YALMIP-master/solvers/callsdpt34.m',152,0)">line 152</a>)
+[obj,X,y,Z,info,runhist] =  sdpt3(blk,A,C,b,options.sdpt3,[],x0,[]);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('solvesdp', '/home/shamil/Desktop/work/Projects/dynamics/PRDE/YALMIP-master/extras/solvesdp.m', 353)" style="font-weight:bold">solvesdp</a> (<a href="matlab: opentoline('/home/shamil/Desktop/work/Projects/dynamics/PRDE/YALMIP-master/extras/solvesdp.m',353,0)">line 353</a>)
+        eval(['output = ' solver.call '(interfacedata);']);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('optimize', '/home/shamil/Desktop/work/Projects/dynamics/PRDE/YALMIP-master/extras/optimize.m', 31)" style="font-weight:bold">optimize</a> (<a href="matlab: opentoline('/home/shamil/Desktop/work/Projects/dynamics/PRDE/YALMIP-master/extras/optimize.m',31,0)">line 31</a>)
+[varargout{1:nargout}] = solvesdp(varargin{:});
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('solvePRDE', '/home/shamil/Desktop/work/Projects/dynamics/PRDE/solvePRDE.m', 60)" style="font-weight:bold">solvePRDE</a> (<a href="matlab: opentoline('/home/shamil/Desktop/work/Projects/dynamics/PRDE/solvePRDE.m',60,0)">line 60</a>)
+optimize(C,-J,sdpsettings('solver',solver,'sdpt3.maxit',200))
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dsgn_cntrl', '/home/shamil/Desktop/work/Projects/dynamics/five_link_planar_biped/dsgn_cntrl.m', 16)" style="font-weight:bold">dsgn_cntrl</a> (<a href="matlab: opentoline('/home/shamil/Desktop/work/Projects/dynamics/five_link_planar_biped/dsgn_cntrl.m',16,0)">line 16</a>)
+[K_mtrx, X] = solvePRDE(A,B,Q,R,t_r,optns,L);
+} 
+dsgn_cntrl
+
+ num. of constraints = 1845
+ dim. of sdp    var  = 3069,   num. of sdp  blk  = 297
+ dim. of free   var  = 81
+ *** convert ublk to linear blk
+********************************************************************************************
+   SDPT3: homogeneous self-dual path-following algorithms
+********************************************************************************************
+ version  predcorr  gam  expon
+   HKM      1      0.000   1
+it pstep dstep pinfeas dinfeas  gap     mean(obj)    cputime    kap   tau    theta
+--------------------------------------------------------------------------------------------
+ 0|0.000|0.000|2.6e+06|8.4e+01|2.4e+12| 4.009503e+11| 0:0:01|2.4e+13|1.0e+00|1.0e+00| spchol 1  2 
+ 1|0.000|0.000|2.6e+06|8.4e+01|2.4e+12| 4.009503e+11| 0:0:05|2.4e+13|1.0e+00|1.0e+00| chol 1  2 
+ 2|0.000|0.000|2.6e+06|8.4e+01|2.4e+12| 4.009504e+11| 0:0:12|2.4e+13|1.0e+00|1.0e+00| chol 1  2 
+ 3|0.000|0.000|2.6e+06|8.4e+01|2.4e+12| 4.009504e+11| 0:0:20|2.4e+13|1.0e+00|1.0e+00| chol 1  2 
+ 4|0.000|0.000|2.6e+06|8.4e+01|2.4e+12| 4.009504e+11| 0:0:27|2.4e+13|1.0e+00|1.0e+00| chol 1  2 
+ 5|0.000|0.000|2.6e+06|8.4e+01|2.4e+12| 4.009506e+11| 0:0:35|2.4e+13|1.0e+00|1.0e+00| chol 1  3 
+ 6|0.000|0.000|2.6e+06|8.4e+01|2.4e+12| 4.009512e+11| 0:0:42|2.4e+13|1.0e+00|1.0e+00| chol 2  3 
+ 7|0.000|0.000|2.6e+06|8.4e+01|2.4e+12| 4.009529e+11| 0:0:50|2.4e+13|1.0e+00|1.0e+00| chol 2  3 
+ 8|0.000|0.000|2.6e+06|8.4e+01|2.4e+12| 4.009579e+11| 0:0:57|2.4e+13|1.0e+00|1.0e+00| chol 2  3 
+ 9|0.000|0.000|2.6e+06|8.4e+01|2.4e+12| 4.009732e+11| 0:1:05|2.4e+13|1.0e+00|1.0e+00| chol 3  5 
+10|0.000|0.000|2.6e+06|8.4e+01|2.4e+12| 4.010179e+11| 0:1:13|2.4e+13|1.0e+00|1.0e+00| chol 4  6 
+11|0.000|0.000|2.6e+06|8.4e+01|2.4e+12| 4.011547e+11| 0:1:21|2.4e+13|1.0e+00|1.0e+00| chol 9 15 
+12|0.000|0.000|2.6e+06|8.4e+01|2.4e+12| 4.015543e+11| 0:1:29|2.4e+13|1.0e+00|1.0e+00| chol^10 23 
+13|0.001|0.001|2.6e+06|8.4e+01|2.4e+12| 4.024965e+11| 0:1:37|2.4e+13|1.0e+00|1.0e+00| chol^11 28 
+14|0.002|0.002|2.6e+06|8.4e+01|2.5e+12| 4.047351e+11| 0:1:46|2.4e+13|1.0e+00|1.0e+00| chol21 19 
+15|0.005|0.005|7.7e+09|8.4e+01|2.5e+12| 4.106893e+11| 0:1:54|2.4e+13|1.0e+00|1.0e+00| chol^14 26 
+16|0.013|0.013|5.6e+13|8.4e+01|2.7e+12| 4.261960e+11| 0:2:02|2.4e+13|1.0e+00|9.9e-01| chol^ 7  9 
+17|0.029|0.029|4.5e+13|8.3e+01|3.0e+12| 4.537098e+11| 0:2:10|2.3e+13|9.9e-01|9.8e-01| chol^24 19 
+18|0.075|0.075|5.8e+13|8.2e+01|3.9e+12| 5.359950e+11| 0:2:19|2.2e+13|9.6e-01|9.4e-01| chol^18 43 
+19|0.000|0.000|1.1e+15|8.3e+01|3.9e+12| 5.372811e+11| 0:2:28|2.2e+13|9.6e-01|9.4e-01| chol^28  8 
+20|0.002|0.002|1.1e+15|8.3e+01|4.0e+12| 5.405883e+11| 0:2:37|2.2e+13|9.6e-01|9.4e-01| chol{Operation terminated by user during <a href="matlab:matlab.internal.language.introspective.errorDocCallback('HSDbicgstab>matvec', '/home/shamil/Desktop/work/Projects/dynamics/PRDE/SDPT3-4.0/HSDSolver/HSDbicgstab.m', 94)" style="font-weight:bold">HSDbicgstab>matvec</a> (<a href="matlab: opentoline('/home/shamil/Desktop/work/Projects/dynamics/PRDE/SDPT3-4.0/HSDSolver/HSDbicgstab.m',94,0)">line 94</a>)
+
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('HSDbicgstab', '/home/shamil/Desktop/work/Projects/dynamics/PRDE/SDPT3-4.0/HSDSolver/HSDbicgstab.m', 49)" style="font-weight:bold">HSDbicgstab</a> (<a href="matlab: opentoline('/home/shamil/Desktop/work/Projects/dynamics/PRDE/SDPT3-4.0/HSDSolver/HSDbicgstab.m',49,0)">line 49</a>)
+     if isstruct(A); v = matvec(A,p_hat); else; v = mexMatvec(A,p_hat); end;
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('HSDlinsysolve', '/home/shamil/Desktop/work/Projects/dynamics/PRDE/SDPT3-4.0/HSDSolver/HSDlinsysolve.m', 132)" style="font-weight:bold">HSDlinsysolve</a> (<a href="matlab: opentoline('/home/shamil/Desktop/work/Projects/dynamics/PRDE/SDPT3-4.0/HSDSolver/HSDlinsysolve.m',132,0)">line 132</a>)
+             [xx,resnrm,solve_ok] =
+             HSDbicgstab(coeff,rhs,L,[],[],printlevel);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('HSDHKMpred', '/home/shamil/Desktop/work/Projects/dynamics/PRDE/SDPT3-4.0/HSDSolver/HSDHKMpred.m', 82)" style="font-weight:bold">HSDHKMpred</a> (<a href="matlab: opentoline('/home/shamil/Desktop/work/Projects/dynamics/PRDE/SDPT3-4.0/HSDSolver/HSDHKMpred.m',82,0)">line 82</a>)
+    [xx,coeff,L] = HSDlinsysolve(par,schur,UU,EE,par.Umat,rhs);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('HSDsqlpmain', '/home/shamil/Desktop/work/Projects/dynamics/PRDE/SDPT3-4.0/HSDSolver/HSDsqlpmain.m', 340)" style="font-weight:bold">HSDsqlpmain</a> (<a href="matlab: opentoline('/home/shamil/Desktop/work/Projects/dynamics/PRDE/SDPT3-4.0/HSDSolver/HSDsqlpmain.m',340,0)">line 340</a>)
+           HSDHKMpred(blk,At,par,rp,Rd,sigmu,X,Z,invZchol);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('sdpt3', '/home/shamil/Desktop/work/Projects/dynamics/PRDE/SDPT3-4.0/sdpt3.m', 279)" style="font-weight:bold">sdpt3</a> (<a href="matlab: opentoline('/home/shamil/Desktop/work/Projects/dynamics/PRDE/SDPT3-4.0/sdpt3.m',279,0)">line 279</a>)
+      HSDsqlpmain(blk3,At3,C3,b,par,X03,y0,Z03);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('callsdpt34', '/home/shamil/Desktop/work/Projects/dynamics/PRDE/YALMIP-master/solvers/callsdpt34.m', 152)" style="font-weight:bold">callsdpt34</a> (<a href="matlab: opentoline('/home/shamil/Desktop/work/Projects/dynamics/PRDE/YALMIP-master/solvers/callsdpt34.m',152,0)">line 152</a>)
+[obj,X,y,Z,info,runhist] =  sdpt3(blk,A,C,b,options.sdpt3,[],x0,[]);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('solvesdp', '/home/shamil/Desktop/work/Projects/dynamics/PRDE/YALMIP-master/extras/solvesdp.m', 353)" style="font-weight:bold">solvesdp</a> (<a href="matlab: opentoline('/home/shamil/Desktop/work/Projects/dynamics/PRDE/YALMIP-master/extras/solvesdp.m',353,0)">line 353</a>)
+        eval(['output = ' solver.call '(interfacedata);']);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('optimize', '/home/shamil/Desktop/work/Projects/dynamics/PRDE/YALMIP-master/extras/optimize.m', 31)" style="font-weight:bold">optimize</a> (<a href="matlab: opentoline('/home/shamil/Desktop/work/Projects/dynamics/PRDE/YALMIP-master/extras/optimize.m',31,0)">line 31</a>)
+[varargout{1:nargout}] = solvesdp(varargin{:});
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('solvePRDE', '/home/shamil/Desktop/work/Projects/dynamics/PRDE/solvePRDE.m', 60)" style="font-weight:bold">solvePRDE</a> (<a href="matlab: opentoline('/home/shamil/Desktop/work/Projects/dynamics/PRDE/solvePRDE.m',60,0)">line 60</a>)
+optimize(C,-J,sdpsettings('solver',solver,'sdpt3.maxit',200))
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dsgn_cntrl', '/home/shamil/Desktop/work/Projects/dynamics/five_link_planar_biped/dsgn_cntrl.m', 16)" style="font-weight:bold">dsgn_cntrl</a> (<a href="matlab: opentoline('/home/shamil/Desktop/work/Projects/dynamics/five_link_planar_biped/dsgn_cntrl.m',16,0)">line 16</a>)
+[K_mtrx, X] = solvePRDE(A,B,Q,R,t_r,optns,L);
+} 
+dsgn_cntrl
+
+ num. of constraints = 2745
+ dim. of sdp    var  = 3069,   num. of sdp  blk  = 297
+ dim. of free   var  = 81
+ *** convert ublk to linear blk
+********************************************************************************************
+   SDPT3: homogeneous self-dual path-following algorithms
+********************************************************************************************
+ version  predcorr  gam  expon
+   HKM      1      0.000   1
+it pstep dstep pinfeas dinfeas  gap     mean(obj)    cputime    kap   tau    theta
+--------------------------------------------------------------------------------------------
+ 0|0.000|0.000|2.6e+06|8.4e+01|2.4e+12| 4.009503e+11| 0:0:03|2.4e+13|1.0e+00|1.0e+00| spchol 1  2 
+ 1|0.000|0.000|2.6e+06|8.4e+01|2.4e+12| 4.009503e+11| 0:0:18|2.4e+13|1.0e+00|1.0e+00| chol 1  2 
+ 2|0.000|0.000|2.6e+06|8.4e+01|2.4e+12| 4.009504e+11| 0:0:35|2.4e+13|1.0e+00|1.0e+00| chol 1  2 
+ 3|0.000|0.000|2.6e+06|8.4e+01|2.4e+12| 4.009504e+11| 0:1:00|2.4e+13|1.0e+00|1.0e+00| chol 1  2 
+ 4|0.000|0.000|2.6e+06|8.4e+01|2.4e+12| 4.009504e+11| 0:1:16|2.4e+13|1.0e+00|1.0e+00| chol 1  2 
+ 5|0.000|0.000|2.6e+06|8.4e+01|2.4e+12| 4.009506e+11| 0:1:35|2.4e+13|1.0e+00|1.0e+00| chol 1  2 
+ 6|0.000|0.000|2.6e+06|8.4e+01|2.4e+12| 4.009512e+11| 0:1:51|2.4e+13|1.0e+00|1.0e+00| chol 2  3 
+ 7|0.000|0.000|2.6e+06|8.4e+01|2.4e+12| 4.009529e+11| 0:2:06|2.4e+13|1.0e+00|1.0e+00| chol 2  3 
+ 8|0.000|0.000|2.6e+06|8.4e+01|2.4e+12| 4.009579e+11| 0:2:22|2.4e+13|1.0e+00|1.0e+00| chol 2  4 
+ 9|0.000|0.000|2.6e+06|8.4e+01|2.4e+12| 4.009731e+11| 0:2:37|2.4e+13|1.0e+00|1.0e+00| chol 3  6 
+10|0.000|0.000|2.6e+06|8.4e+01|2.4e+12| 4.010180e+11| 0:2:52|2.4e+13|1.0e+00|1.0e+00| chol 6  8 
+11|0.000|0.000|2.6e+06|8.4e+01|2.4e+12| 4.011536e+11| 0:3:09|2.4e+13|1.0e+00|1.0e+00| chol 8 16 
+12|0.000|0.000|2.6e+06|8.4e+01|2.4e+12| 4.015422e+11| 0:3:27|2.4e+13|1.0e+00|1.0e+00| chol^18  4 
+13|0.000|0.000|1.0e+13|8.4e+01|2.4e+12| 4.022599e+11| 0:3:49|2.4e+13|1.0e+00|1.0e+00| chol^ 4 34 
+14|0.001|0.001|1.0e+13|8.4e+01|2.4e+12| 4.033004e+11| 0:4:08|2.4e+13|1.0e+00|1.0e+00| chol^ 6 24 
+15|0.002|0.002|1.6e+13|8.4e+01|2.5e+12| 4.067069e+11| 0:4:31|2.4e+13|1.0e+00|1.0e+00| chol^13  2 
+16|0.005|0.005|7.3e+12|8.4e+01|2.5e+12| 4.129838e+11| 0:4:51|2.4e+13|1.0e+00|1.0e+00| chol^24  7 
+17|0.017|0.017|5.5e+12|8.4e+01|2.8e+12| 4.355329e+11| 0:5:08|2.4e+13|9.9e-01|9.9e-01| chol^ 9 15 
+18|0.018|0.018|8.2e+14|8.3e+01|3.1e+12| 4.625061e+11| 0:5:26|2.4e+13|9.9e-01|9.9e-01| chol^128 15 
+19|0.001|0.001|1.4e+15|8.3e+01|3.1e+12| 4.649055e+11| 0:6:02|2.4e+13|9.9e-01|9.9e-01| chol^19 144 
+20|0.000|0.000|1.2e+15|8.3e+01|3.1e+12| 4.649238e+11| 0:6:36|2.4e+13|9.9e-01|9.9e-01| chol^31 17 
+21|0.000|0.000|1.7e+15|8.3e+01|3.1e+12| 4.650330e+11| 0:6:59|2.4e+13|9.9e-01|9.9e-01|
+  Stop: steps are too short
+-------------------------------------------------------------------
+ number of iterations   = 21
+ primal objective value =  8.01900693e+11
+ dual   objective value =  0.00000000e+00
+ gap := trace(XZ)       = 2.41e+12
+ relative gap           = 6.01e+00
+ actual relative gap    = 1.00e+00
+ rel. primal infeas     = 2.64e+06
+ rel. dual   infeas     = 8.44e+01
+ norm(X), norm(y), norm(Z) = 2.7e+04, 0.0e+00, 1.3e+08
+ norm(A), norm(b), norm(C) = 3.3e+08, 3.0e+02, 4.2e+07
+ Total CPU time (secs)  = 419.43  
+ CPU time per iteration = 19.97  
+ termination code       = -5
+ DIMACS errors: 2.6e+06  0.0e+00  8.4e+01  0.0e+00  1.0e+00  3.0e+00
+-------------------------------------------------------------------
+
+ans = 
+
+  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
+
+    yalmipversion: '20181012'
+       yalmiptime: 44.1373
+       solvertime: 448.3654
+             info: 'Lack of progress (SDPT3-4)'
+          problem: 5
+
+{Operation terminated by user during <a href="matlab:matlab.internal.language.introspective.errorDocCallback('strescape', '/usr/local/MATLAB/R2018a/toolbox/matlab/strfun/private/strescape.m', 15)" style="font-weight:bold">strescape</a> (<a href="matlab: opentoline('/usr/local/MATLAB/R2018a/toolbox/matlab/strfun/private/strescape.m',15,0)">line 15</a>)
+
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('strsplit', '/usr/local/MATLAB/R2018a/toolbox/matlab/strfun/strsplit.m', 109)" style="font-weight:bold">strsplit</a> (<a href="matlab: opentoline('/usr/local/MATLAB/R2018a/toolbox/matlab/strfun/strsplit.m',109,0)">line 109</a>)
+    aDelim = strescape(aDelim);
+
+In
+<a href="matlab:matlab.internal.language.introspective.errorDocCallback('matlab.unittest.internal.services.suitecreation.located.SimulinkTestSuiteCreationService>getFilenameFromParentName', '/usr/local/MATLAB/R2018a/toolbox/stm/stm/matlabunit/+matlab/+unittest/+internal/+services/+suitecreation/+located/SimulinkTestSuiteCreationService.m', 74)" style="font-weight:bold">matlab.unittest.internal.services.suitecreation.located.SimulinkTestSuiteCreationService>getFilenameFromParentName</a>
+(<a href="matlab: opentoline('/usr/local/MATLAB/R2018a/toolbox/stm/stm/matlabunit/+matlab/+unittest/+internal/+services/+suitecreation/+located/SimulinkTestSuiteCreationService.m',74,0)">line 74</a>)
+c = strsplit(parentName, delimiter);
+
+In
+<a href="matlab:matlab.internal.language.introspective.errorDocCallback('matlab.unittest.internal.services.suitecreation.located.SimulinkTestSuiteCreationService/selectFactory', '/usr/local/MATLAB/R2018a/toolbox/stm/stm/matlabunit/+matlab/+unittest/+internal/+services/+suitecreation/+located/SimulinkTestSuiteCreationService.m', 16)" style="font-weight:bold">matlab.unittest.internal.services.suitecreation.located.SimulinkTestSuiteCreationService/selectFactory</a>
+(<a href="matlab: opentoline('/usr/local/MATLAB/R2018a/toolbox/stm/stm/matlabunit/+matlab/+unittest/+internal/+services/+suitecreation/+located/SimulinkTestSuiteCreationService.m',16,0)">line 16</a>)
+            fileName = getFilenameFromParentName(liaison.ParentName);
+            
+In
+<a href="matlab:matlab.internal.language.introspective.errorDocCallback('matlab.unittest.internal.services.suitecreation.SuiteCreationService/fulfill', '/usr/local/MATLAB/R2018a/toolbox/matlab/testframework/unittest/core/+matlab/+unittest/+internal/+services/+suitecreation/SuiteCreationService.m', 32)" style="font-weight:bold">matlab.unittest.internal.services.suitecreation.SuiteCreationService/fulfill</a>
+(<a href="matlab: opentoline('/usr/local/MATLAB/R2018a/toolbox/matlab/testframework/unittest/core/+matlab/+unittest/+internal/+services/+suitecreation/SuiteCreationService.m',32,0)">line 32</a>)
+                services(idx).selectFactory(liaison);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('matlab.unittest.internal.ui.toolstrip.getFunctionFileInfoForToolstrip', '/usr/local/MATLAB/R2018a/toolbox/matlab/testframework/ui/matlab/+matlab/+unittest/+internal/+ui/+toolstrip/getFunctionFileInfoForToolstrip.m', 13)" style="font-weight:bold">matlab.unittest.internal.ui.toolstrip.getFunctionFileInfoForToolstrip</a>
+(<a href="matlab: opentoline('/usr/local/MATLAB/R2018a/toolbox/matlab/testframework/ui/matlab/+matlab/+unittest/+internal/+ui/+toolstrip/getFunctionFileInfoForToolstrip.m',13,0)">line 13</a>)
+    fulfill(locatedServices, liaison);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('matlab.unittest.internal.ui.toolstrip.getFileInfoForToolstrip', '/usr/local/MATLAB/R2018a/toolbox/matlab/testframework/ui/matlab/+matlab/+unittest/+internal/+ui/+toolstrip/getFileInfoForToolstrip.m', 35)" style="font-weight:bold">matlab.unittest.internal.ui.toolstrip.getFileInfoForToolstrip</a> (<a href="matlab: opentoline('/usr/local/MATLAB/R2018a/toolbox/matlab/testframework/ui/matlab/+matlab/+unittest/+internal/+ui/+toolstrip/getFileInfoForToolstrip.m',35,0)">line 35</a>)
+        isTestFile = getFunctionFileInfoForToolstrip(file,parseTree);
+} 
+Exception in thread "AWT-EventQueue-0" com.mathworks.mvm.exec.MvmCancellationException
+	at com.mathworks.mvm.exec.FutureResult.getInternal(FutureResult.java:409)
+	at com.mathworks.mvm.exec.FutureFevalResult.getInternal(FutureFevalResult.java:49)
+	at com.mathworks.mvm.exec.FutureResult.get(FutureResult.java:262)
+	at com.mathworks.toolbox.matlab.testframework.ui.toolstrip.RunTestsToolSetMatlabCommandSender$2.done(RunTestsToolSetMatlabCommandSender.java:60)
+	at com.mathworks.mvm.exec.MvmSwingWorker$1$1.run(MvmSwingWorker.java:142)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:311)
+	at java.awt.EventQueue.dispatchEventImpl(EventQueue.java:756)
+	at java.awt.EventQueue.access$500(EventQueue.java:97)
+	at java.awt.EventQueue$3.run(EventQueue.java:709)
+	at java.awt.EventQueue$3.run(EventQueue.java:703)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:80)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:726)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:201)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:116)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:105)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:93)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:82)
+dsgn_cntrl
+dsgn_cntrl
+
+ num. of constraints = 1170
+ dim. of sdp    var  = 3069,   num. of sdp  blk  = 297
+ dim. of free   var  = 81
+ *** convert ublk to linear blk
+********************************************************************************************
+   SDPT3: homogeneous self-dual path-following algorithms
+********************************************************************************************
+ version  predcorr  gam  expon
+   HKM      1      0.000   1
+it pstep dstep pinfeas dinfeas  gap     mean(obj)    cputime    kap   tau    theta
+--------------------------------------------------------------------------------------------
+ 0|0.000|0.000|2.2e+06|8.4e+01|2.8e+11| 4.687127e+10| 0:0:01|2.8e+12|1.0e+00|1.0e+00| spchol 1  2 
+ 1|0.000|0.000|2.2e+06|8.4e+01|2.8e+11| 4.687128e+10| 0:0:04|2.8e+12|1.0e+00|1.0e+00| chol 1  3 
+ 2|0.000|0.000|2.2e+06|8.4e+01|2.8e+11| 4.687128e+10| 0:0:07|2.8e+12|1.0e+00|1.0e+00| chol 1  3 
+ 3|0.000|0.000|2.2e+06|8.4e+01|2.8e+11| 4.687130e+10| 0:0:10|2.8e+12|1.0e+00|1.0e+00| chol 1  3 
+ 4|0.000|0.000|2.2e+06|8.4e+01|2.8e+11| 4.687136e+10| 0:0:13|2.8e+12|1.0e+00|1.0e+00| chol 1  5 
+ 5|0.000|0.000|2.2e+06|8.4e+01|2.8e+11| 4.687152e+10| 0:0:16|2.8e+12|1.0e+00|1.0e+00| chol 2  8 
+ 6|0.000|0.000|2.2e+06|8.4e+01|2.8e+11| 4.687202e+10| 0:0:19|2.8e+12|1.0e+00|1.0e+00| chol 2  5 
+ 7|0.000|0.000|2.2e+06|8.4e+01|2.8e+11| 4.687366e+10| 0:0:22|2.8e+12|1.0e+00|1.0e+00| chol 2  4 
+ 8|0.000|0.000|2.2e+06|8.4e+01|2.8e+11| 4.687716e+10| 0:0:25|2.8e+12|1.0e+00|1.0e+00| chol 3  4 
+ 9|0.000|0.000|2.2e+06|8.4e+01|2.8e+11| 4.688445e+10| 0:0:28|2.8e+12|1.0e+00|1.0e+00| chol 3  4 
+10|0.001|0.001|2.1e+06|8.4e+01|2.8e+11| 4.692300e+10| 0:0:31|2.8e+12|1.0e+00|1.0e+00| chol 3  4 
+11|0.001|0.001|2.1e+06|8.4e+01|2.8e+11| 4.705690e+10| 0:0:35|2.8e+12|1.0e+00|1.0e+00| chol 3  4 
+12|0.001|0.001|2.0e+06|8.4e+01|2.9e+11| 4.721717e+10| 0:0:38|2.8e+12|1.0e+00|1.0e+00| chol 3  5 
+13|0.005|0.005|1.9e+06|8.4e+01|2.9e+11| 4.787314e+10| 0:0:41|2.8e+12|1.0e+00|1.0e+00| chol 4  6 
+14|0.006|0.006|1.6e+06|8.4e+01|3.0e+11| 4.883925e+10| 0:0:44|2.8e+12|1.0e+00|9.9e-01| chol 7  5 
+15|0.023|0.023|1.3e+06|8.4e+01|3.3e+11| 5.121706e+10| 0:0:47|2.7e+12|9.9e-01|9.8e-01| chol 5  6 
+16|0.049|0.049|7.1e+06|8.1e+01|4.1e+11| 5.833830e+10| 0:0:50|2.7e+12|9.9e-01|9.7e-01| chol 4  6 
+17|0.115|0.115|2.2e+07|8.0e+01|5.6e+11| 7.207252e+10| 0:0:53|2.5e+12|9.5e-01|9.1e-01| chol 5  5 
+18|0.442|0.442|6.6e+07|7.2e+01|1.1e+12| 1.262891e+11| 0:0:56|1.7e+12|8.1e-01|6.9e-01| chol 5  6 
+19|0.590|0.590|2.1e+07|5.8e+01|1.5e+12| 1.866514e+11| 0:0:59|9.8e+11|6.9e-01|4.8e-01| chol 6 12 
+20|1.000|1.000|4.2e+08|2.6e+01|1.1e+12| 1.942300e+11| 0:1:02|8.7e+10|6.3e-01|2.0e-01| chol 9  9 
+21|0.856|0.856|4.8e+08|1.2e+01|5.2e+11| 1.209563e+11| 0:1:05|4.9e+09|6.9e-01|9.7e-02| chol 6  6 
+22|0.903|0.903|8.4e+08|6.8e+00|3.1e+11| 8.180827e+10| 0:1:08|3.3e+08|7.2e-01|5.8e-02| chol 8  9 
+23|1.000|1.000|1.4e+09|4.2e+00|1.7e+11| 4.912663e+10| 0:1:11|6.0e+07|7.4e-01|3.7e-02| chol 6  7 
+24|0.769|0.769|3.5e+09|3.9e+00|1.5e+11| 4.163260e+10| 0:1:15|4.9e+07|6.8e-01|3.2e-02| chol 8  7 
+25|1.000|1.000|6.5e+09|3.3e+00|1.1e+11| 2.929830e+10| 0:1:18|3.7e+07|6.1e-01|2.4e-02| chol 7  9 
+26|0.639|0.639|5.5e+09|2.8e+00|8.9e+10| 2.382624e+10| 0:1:21|2.7e+07|6.1e-01|2.0e-02| chol 8  8 
+27|0.282|0.282|5.2e+09|3.0e+00|9.7e+10| 2.541890e+10| 0:1:24|2.6e+07|5.7e-01|2.0e-02| chol 7  9 
+28|0.435|0.435|6.0e+09|3.5e+00|1.1e+11| 2.817614e+10| 0:1:27|2.6e+07|4.8e-01|2.0e-02| chol 7  8 
+29|0.391|0.391|6.7e+09|4.2e+00|1.4e+11| 3.313848e+10| 0:1:30|2.7e+07|4.0e-01|2.0e-02| chol^12  8 
+30|0.078|0.078|6.5e+09|4.3e+00|1.4e+11| 3.386576e+10| 0:1:33|2.6e+07|3.9e-01|2.0e-02| chol^12  8 
+31|0.476|0.476|7.7e+09|5.1e+00|1.8e+11| 4.277868e+10| 0:1:36|2.6e+07|3.3e-01|2.0e-02| chol 6 12 
+32|0.565|0.565|9.2e+09|6.4e+00|2.4e+11| 5.659178e+10| 0:1:39|2.8e+07|2.5e-01|1.9e-02| chol 8  9 
+33|0.547|0.547|8.5e+09|6.8e+00|2.7e+11| 6.437796e+10| 0:1:43|2.6e+07|2.2e-01|1.8e-02| chol 6  6 
+34|0.672|0.672|8.5e+09|7.8e+00|3.1e+11| 7.679180e+10| 0:1:46|2.6e+07|1.8e-01|1.7e-02| chol 7 20 
+35|0.755|0.755|8.2e+09|9.1e+00|3.6e+11| 9.353379e+10| 0:1:50|2.5e+07|1.4e-01|1.5e-02| chol 8  6 
+36|0.646|0.646|4.5e+09|9.6e+00|3.7e+11| 1.010112e+11| 0:1:53|2.2e+07|1.3e-01|1.5e-02| chol10  7 
+37|0.644|0.644|4.2e+09|1.1e+01|4.3e+11| 1.178002e+11| 0:1:57|2.1e+07|1.0e-01|1.4e-02| chol 7  6 
+38|0.647|0.647|3.4e+09|1.2e+01|4.8e+11| 1.316315e+11| 0:2:00|2.0e+07|8.9e-02|1.3e-02| chol 8  8 
+39|0.610|0.610|1.1e+09|1.3e+01|5.2e+11| 1.428329e+11| 0:2:04|1.8e+07|7.8e-02|1.2e-02| chol 7 10 
+40|0.261|0.261|6.1e+08|1.3e+01|5.3e+11| 1.444813e+11| 0:2:08|1.7e+07|7.5e-02|1.2e-02| chol 6 10 
+41|0.635|0.635|8.2e+08|1.4e+01|5.7e+11| 1.610190e+11| 0:2:12|1.6e+07|6.5e-02|1.1e-02| chol 8  8 
+42|0.612|0.612|8.6e+08|1.5e+01|5.8e+11| 1.699575e+11| 0:2:16|1.5e+07|5.9e-02|1.0e-02| chol 7 10 
+43|0.398|0.398|1.0e+09|1.5e+01|5.9e+11| 1.731656e+11| 0:2:19|1.4e+07|5.6e-02|9.8e-03| chol 6  8 
+44|0.624|0.624|2.2e+09|1.5e+01|5.6e+11| 1.784755e+11| 0:2:23|1.2e+07|5.3e-02|9.3e-03| chol 6  7 
+45|0.395|0.395|2.1e+09|1.5e+01|5.6e+11| 1.814433e+11| 0:2:26|1.2e+07|5.1e-02|9.0e-03| chol 5  6 
+46|0.508|0.508|2.3e+09|1.5e+01|5.4e+11| 1.839611e+11| 0:2:30|1.1e+07|4.9e-02|8.6e-03| chol 6  8 
+47|0.561|0.561|2.6e+09|1.5e+01|5.0e+11| 1.908358e+11| 0:2:33|9.9e+06|4.6e-02|8.2e-03| chol 6 10 
+48|0.545|0.545|2.8e+09|1.5e+01|4.6e+11| 1.910321e+11| 0:2:38|8.6e+06|4.5e-02|7.9e-03| chol 6 11 
+49|0.615|0.615|3.6e+09|1.5e+01|4.1e+11| 1.944875e+11| 0:2:42|7.6e+06|4.4e-02|7.6e-03| chol 6  6 
+50|0.508|0.508|3.1e+09|1.4e+01|3.6e+11| 1.935865e+11| 0:2:46|6.6e+06|4.3e-02|7.4e-03| chol 6  6 
+51|0.456|0.456|3.5e+09|1.4e+01|3.2e+11| 1.898506e+11| 0:2:49|5.8e+06|4.4e-02|7.2e-03| chol 5  6 
+52|0.536|0.536|2.5e+09|1.4e+01|2.7e+11| 1.894973e+11| 0:2:52|5.0e+06|4.3e-02|7.0e-03| chol 7  6 
+53|0.267|0.267|2.6e+09|1.3e+01|2.6e+11| 1.853396e+11| 0:2:55|4.6e+06|4.4e-02|6.9e-03| chol 7 10 
+54|0.490|0.490|1.7e+09|1.3e+01|2.2e+11| 1.817579e+11| 0:2:58|4.0e+06|4.4e-02|6.7e-03| chol 6  7 
+55|0.360|0.360|1.4e+09|1.2e+01|2.0e+11| 1.793008e+11| 0:3:01|3.6e+06|4.5e-02|6.6e-03| chol 6  6 
+56|0.473|0.473|7.9e+08|1.2e+01|1.7e+11| 1.740730e+11| 0:3:05|3.1e+06|4.6e-02|6.4e-03| chol 7 10 
+57|0.454|0.454|1.7e+09|1.2e+01|1.4e+11| 1.723117e+11| 0:3:08|2.8e+06|4.6e-02|6.3e-03| chol 6  7 
+58|0.543|0.543|5.8e+08|1.1e+01|1.2e+11| 1.683287e+11| 0:3:11|2.3e+06|4.7e-02|6.2e-03| chol 8  7 
+59|0.459|0.459|6.1e+08|1.1e+01|1.0e+11| 1.641363e+11| 0:3:14|2.0e+06|4.7e-02|6.1e-03| chol 7  8 
+60|0.606|0.606|5.7e+08|1.0e+01|8.2e+10| 1.583692e+11| 0:3:17|1.7e+06|4.8e-02|5.9e-03| chol 7 16 
+61|0.448|0.448|7.8e+08|9.9e+00|7.1e+10| 1.535718e+11| 0:3:20|1.4e+06|4.9e-02|5.8e-03| chol10 16 
+62|0.719|0.719|5.2e+08|9.5e+00|5.0e+10| 1.482325e+11| 0:3:23|1.2e+06|5.0e-02|5.6e-03| chol17 19 
+63|0.383|0.383|4.8e+08|9.2e+00|4.6e+10| 1.447961e+11| 0:3:27|9.9e+05|5.1e-02|5.6e-03| chol16  6 
+64|0.659|0.659|1.2e+08|8.8e+00|3.6e+10| 1.396515e+11| 0:3:31|7.9e+05|5.2e-02|5.4e-03| chol^ 5 20 
+65|0.533|0.533|6.4e+08|8.6e+00|3.0e+10| 1.359098e+11| 0:3:36|6.7e+05|5.3e-02|5.4e-03| chol^ 9 10 
+66|0.547|0.547|2.4e+08|8.3e+00|2.6e+10| 1.313305e+11| 0:3:39|5.6e+05|5.4e-02|5.3e-03| chol20 17 
+67|0.270|0.270|7.8e+07|8.1e+00|2.5e+10| 1.290814e+11| 0:3:44|5.2e+05|5.4e-02|5.2e-03| chol^10 20 
+68|0.614|0.614|3.6e+08|7.8e+00|2.0e+10| 1.238917e+11| 0:3:47|4.4e+05|5.6e-02|5.1e-03| chol18 13 
+69|0.217|0.217|1.6e+08|7.7e+00|1.9e+10| 1.222223e+11| 0:3:51|4.2e+05|5.6e-02|5.1e-03| chol^ 8  2 
+70|0.001|0.001|1.6e+08|7.7e+00|1.9e+10| 1.221813e+11| 0:3:54|4.2e+05|5.6e-02|5.1e-03| chol
+  HSDlinsysolve: Schur complement matrix not positive definite
+  switch to LU factor lu ^13 14 
+71|0.716|0.716|1.2e+08|7.5e+00|1.4e+10| 1.219171e+11| 0:3:58|3.5e+05|5.7e-02|5.0e-03| lu ^13 16 
+72|0.595|0.595|2.4e+08|7.3e+00|1.1e+10| 1.191392e+11| 0:4:01|2.8e+05|5.8e-02|5.0e-03| lu ^19 14 
+73|0.714|0.714|6.4e+08|7.1e+00|8.8e+09| 1.183095e+11| 0:4:04|2.2e+05|5.9e-02|4.9e-03| lu ^11  9 
+74|0.440|0.440|4.4e+08|7.0e+00|7.9e+09| 1.168820e+11| 0:4:08|1.9e+05|5.9e-02|4.9e-03| lu 20 20 
+75|0.708|0.708|2.7e+08|6.8e+00|6.0e+09| 1.144897e+11| 0:4:12|1.6e+05|6.0e-02|4.9e-03| lu  9 19 
+76|0.362|0.362|3.2e+08|6.8e+00|5.6e+09| 1.139722e+11| 0:4:15|1.4e+05|6.1e-02|4.9e-03| lu 12 20 
+77|0.741|0.741|1.2e+08|6.6e+00|4.2e+09| 1.123121e+11| 0:4:18|1.1e+05|6.1e-02|4.8e-03| lu 15 13 
+78|0.489|0.489|5.4e+08|6.6e+00|3.6e+09| 1.112920e+11| 0:4:22|9.5e+04|6.2e-02|4.8e-03| lu ^10 18 
+79|0.813|0.813|5.7e+08|6.5e+00|2.5e+09| 1.103850e+11| 0:4:25|7.3e+04|6.2e-02|4.8e-03| lu ^ 3 20 
+80|0.619|0.619|3.4e+08|6.4e+00|2.0e+09| 1.096511e+11| 0:4:28|5.8e+04|6.3e-02|4.8e-03| lu ^ 2 10 
+81|0.702|0.702|8.3e+07|6.4e+00|1.5e+09| 1.088284e+11| 0:4:31|4.4e+04|6.3e-02|4.7e-03| lu ^18 16 
+82|0.775|0.775|1.6e+08|6.3e+00|1.1e+09| 1.084811e+11| 0:4:35|3.3e+04|6.3e-02|4.7e-03| lu ^19 11 
+83|0.849|0.849|3.4e+08|6.3e+00|7.7e+08| 1.080425e+11| 0:4:38|2.3e+04|6.3e-02|4.7e-03| lu 11 20 
+84|0.753|0.753|9.2e+07|6.3e+00|5.6e+08| 1.076504e+11| 0:4:41|1.7e+04|6.4e-02|4.7e-03| lu ^16 15 
+85|0.765|0.765|4.5e+08|6.3e+00|4.3e+08| 1.075014e+11| 0:4:44|1.2e+04|6.4e-02|4.7e-03| lu ^13  6 
+86|0.873|0.873|6.7e+07|6.2e+00|3.0e+08| 1.073830e+11| 0:4:47|9.0e+03|6.4e-02|4.7e-03| lu 19  7 
+87|0.867|0.867|4.2e+08|6.2e+00|1.7e+08| 1.072873e+11| 0:4:51|6.2e+03|6.4e-02|4.7e-03| lu 14 18 
+88|0.739|0.739|4.1e+08|6.2e+00|1.3e+08| 1.072876e+11| 0:4:54|4.1e+03|6.4e-02|4.7e-03| lu 17 17 
+89|0.686|0.686|2.1e+08|6.2e+00|1.0e+08| 1.072532e+11| 0:4:57|3.0e+03|6.4e-02|4.7e-03| lu ^16 12 
+90|0.948|0.948|1.1e+08|6.2e+00|6.3e+07| 1.071939e+11| 0:5:01|2.0e+03|6.4e-02|4.7e-03| lu 15 12 
+91|0.753|0.753|3.8e+08|6.2e+00|4.7e+07| 1.072107e+11| 0:5:04|1.4e+03|6.4e-02|4.7e-03| lu ^11 15 
+92|0.982|0.982|3.9e+08|6.2e+00|1.3e+07| 1.072130e+11| 0:5:07|9.4e+02|6.4e-02|4.7e-03| lu ^20 20 
+93|0.977|0.977|3.4e+08|6.2e+00|5.8e+06| 1.072084e+11| 0:5:10|2.7e+02|6.4e-02|4.7e-03|
+  Stop: infeas has deteriorated too much, 3.4e+08
+-------------------------------------------------------------------
+ number of iterations   = 93
+ primal objective value =  9.37425456e+10
+ dual   objective value =  0.00000000e+00
+ gap := trace(XZ)       = 2.81e+11
+ relative gap           = 6.00e+00
+ actual relative gap    = 1.00e+00
+ rel. primal infeas     = 2.16e+06
+ rel. dual   infeas     = 8.44e+01
+ norm(X), norm(y), norm(Z) = 3.5e+03, 0.0e+00, 1.3e+08
+ norm(A), norm(b), norm(C) = 1.1e+08, 5.8e+01, 4.2e+07
+ Total CPU time (secs)  = 310.40  
+ CPU time per iteration = 3.34  
+ termination code       = -7
+ DIMACS errors: 2.2e+06  0.0e+00  8.4e+01  0.0e+00  1.0e+00  3.0e+00
+-------------------------------------------------------------------
+
+ans = 
+
+  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
+
+    yalmipversion: '20181012'
+       yalmiptime: 11.0884
+       solvertime: 312.6911
+             info: 'Numerical problems (SDPT3-4)'
+          problem: 4
+
+dsgn_cntrl
+
+ num. of constraints = 1170
+ dim. of sdp    var  = 3069,   num. of sdp  blk  = 297
+ dim. of free   var  = 81
+ *** convert ublk to linear blk
+********************************************************************************************
+   SDPT3: homogeneous self-dual path-following algorithms
+********************************************************************************************
+ version  predcorr  gam  expon
+   HKM      1      0.000   1
+it pstep dstep pinfeas dinfeas  gap     mean(obj)    cputime    kap   tau    theta
+--------------------------------------------------------------------------------------------
+ 0|0.000|0.000|2.2e+06|8.4e+01|2.8e+11| 4.687127e+10| 0:0:00|2.8e+12|1.0e+00|1.0e+00| spchol 1  2 
+ 1|0.000|0.000|2.2e+06|8.4e+01|2.8e+11| 4.687127e+10| 0:0:02|2.8e+12|1.0e+00|1.0e+00| chol 1  4 
+ 2|0.000|0.000|2.2e+06|8.4e+01|2.8e+11| 4.687127e+10| 0:0:05|2.8e+12|1.0e+00|1.0e+00| chol 1  5 
+ 3|0.000|0.000|2.2e+06|8.4e+01|2.8e+11| 4.687129e+10| 0:0:08|2.8e+12|1.0e+00|1.0e+00| chol 1  5 
+ 4|0.000|0.000|2.2e+06|8.4e+01|2.8e+11| 4.687135e+10| 0:0:11|2.8e+12|1.0e+00|1.0e+00| chol 1 20 
+ 5|0.000|0.000|2.2e+06|8.4e+01|2.8e+11| 4.687152e+10| 0:0:14|2.8e+12|1.0e+00|1.0e+00| chol 2  3 
+ 6|0.000|0.000|2.2e+06|8.4e+01|2.8e+11| 4.687201e+10| 0:0:17|2.8e+12|1.0e+00|1.0e+00| chol 2  4 
+ 7|0.000|0.000|2.2e+06|8.4e+01|2.8e+11| 4.687365e+10| 0:0:20|2.8e+12|1.0e+00|1.0e+00| chol 2  4 
+ 8|0.000|0.000|2.2e+06|8.4e+01|2.8e+11| 4.687714e+10| 0:0:23|2.8e+12|1.0e+00|1.0e+00| chol 2  4 
+ 9|0.000|0.000|2.2e+06|8.4e+01|2.8e+11| 4.688440e+10| 0:0:26|2.8e+12|1.0e+00|1.0e+00| chol 3  4 
+10|0.001|0.001|2.1e+06|8.4e+01|2.8e+11| 4.692292e+10| 0:0:29|2.8e+12|1.0e+00|1.0e+00| chol 3  4 
+11|0.001|0.001|2.1e+06|8.4e+01|2.8e+11| 4.705674e+10| 0:0:32|2.8e+12|1.0e+00|1.0e+00| chol 3  5 
+12|0.001|0.001|2.1e+06|8.4e+01|2.9e+11| 4.721701e+10| 0:0:35|2.8e+12|1.0e+00|1.0e+00| chol 4  4 
+13|0.005|0.005|1.8e+06|8.4e+01|2.9e+11| 4.787346e+10| 0:0:38|2.8e+12|1.0e+00|1.0e+00| chol 4  5 
+14|0.006|0.006|1.7e+06|8.4e+01|3.0e+11| 4.883955e+10| 0:0:41|2.8e+12|1.0e+00|9.9e-01| chol 5  6 
+15|0.023|0.023|1.4e+06|8.4e+01|3.3e+11| 5.121979e+10| 0:0:44|2.7e+12|9.9e-01|9.8e-01| chol 4  9 
+16|0.049|0.049|6.9e+06|8.1e+01|4.1e+11| 5.835178e+10| 0:0:47|2.7e+12|9.9e-01|9.7e-01| chol 6  6 
+17|0.116|0.116|1.9e+07|8.0e+01|5.6e+11| 7.204330e+10| 0:0:50|2.5e+12|9.5e-01|9.1e-01| chol 7  7 
+18|0.439|0.439|6.2e+07|7.2e+01|1.1e+12| 1.267794e+11| 0:0:53|1.8e+12|8.1e-01|7.0e-01| chol 5  7 
+19|0.590|0.590|2.3e+07|5.8e+01|1.6e+12| 1.883065e+11| 0:0:56|9.9e+11|6.9e-01|4.8e-01| chol 7  7 
+20|1.000|1.000|2.5e+08|2.6e+01|1.1e+12| 1.938966e+11| 0:1:00|8.5e+10|6.3e-01|2.0e-01| chol 6  8 
+21|0.854|0.854|4.8e+08|1.2e+01|5.2e+11| 1.195401e+11| 0:1:03|4.7e+09|6.9e-01|9.6e-02| chol 7  6 
+22|0.903|0.903|8.0e+08|6.7e+00|3.0e+11| 8.031085e+10| 0:1:06|3.1e+08|7.2e-01|5.7e-02| chol 8  8 
+23|1.000|1.000|1.1e+09|4.1e+00|1.7e+11| 4.783090e+10| 0:1:09|5.9e+07|7.4e-01|3.6e-02| chol10  9 
+24|0.764|0.764|3.0e+09|3.8e+00|1.5e+11| 4.044996e+10| 0:1:12|4.8e+07|6.9e-01|3.1e-02| chol 8  6 
+25|1.000|1.000|6.4e+09|3.2e+00|1.1e+11| 2.917954e+10| 0:1:15|3.6e+07|6.2e-01|2.3e-02| chol 6  8 
+26|0.592|0.592|6.7e+09|2.9e+00|9.5e+10| 2.520385e+10| 0:1:18|2.9e+07|5.9e-01|2.1e-02| chol 7  8 
+27|0.504|0.504|5.7e+09|3.3e+00|1.1e+11| 2.781187e+10| 0:1:21|2.6e+07|5.2e-01|2.0e-02| chol10  9 
+28|0.397|0.397|6.2e+09|3.8e+00|1.2e+11| 3.076067e+10| 0:1:24|2.6e+07|4.5e-01|2.0e-02| chol 7 11 
+29|0.399|0.399|6.7e+09|4.3e+00|1.5e+11| 3.492900e+10| 0:1:28|2.6e+07|3.9e-01|2.0e-02| chol 7 14 
+30|0.150|0.150|6.5e+09|4.4e+00|1.5e+11| 3.615457e+10| 0:1:31|2.6e+07|3.8e-01|2.0e-02| chol 7  7 
+31|0.553|0.553|8.0e+09|5.3e+00|2.0e+11| 4.596879e+10| 0:1:34|2.6e+07|3.1e-01|2.0e-02| chol 8  6 
+32|0.229|0.229|7.8e+09|5.6e+00|2.1e+11| 4.914625e+10| 0:1:37|2.6e+07|2.9e-01|1.9e-02| chol 6  8 
+33|0.640|0.640|7.8e+09|6.7e+00|2.8e+11| 6.533039e+10| 0:1:40|2.7e+07|2.3e-01|1.8e-02| chol 6 14 
+34|0.636|0.636|6.5e+09|7.4e+00|3.1e+11| 7.515041e+10| 0:1:43|2.7e+07|2.0e-01|1.7e-02| chol11  6 
+35|0.690|0.690|5.4e+09|8.0e+00|3.3e+11| 8.454408e+10| 0:1:46|2.5e+07|1.7e-01|1.6e-02| chol^ 9  8 
+36|0.649|0.649|5.3e+09|8.9e+00|3.6e+11| 9.626965e+10| 0:1:50|2.4e+07|1.4e-01|1.5e-02| chol 6  7 
+37|0.657|0.657|3.4e+09|1.0e+01|4.2e+11| 1.135785e+11| 0:1:53|2.3e+07|1.2e-01|1.4e-02| chol^10 14 
+38|0.679|0.679|3.0e+09|1.1e+01|4.6e+11| 1.276330e+11| 0:1:56|2.1e+07|1.0e-01|1.3e-02| chol 7 11 
+39|0.490|0.490|1.4e+09|1.2e+01|5.0e+11| 1.392331e+11| 0:1:59|2.0e+07|8.8e-02|1.3e-02| chol^ 8  7 
+40|0.657|0.657|1.0e+09|1.3e+01|5.5e+11| 1.536610e+11| 0:2:02|1.9e+07|7.7e-02|1.2e-02| chol11  6 
+41|0.425|0.425|1.1e+09|1.4e+01|6.0e+11| 1.665222e+11| 0:2:05|1.8e+07|6.9e-02|1.2e-02| chol 6 12 
+42|0.672|0.672|2.7e+09|1.6e+01|6.6e+11| 1.903484e+11| 0:2:09|1.8e+07|5.7e-02|1.1e-02| chol 5  5 
+43|0.422|0.422|1.8e+09|1.6e+01|6.8e+11| 1.950384e+11| 0:2:12|1.6e+07|5.4e-02|1.0e-02| chol 5 10 
+44|0.615|0.615|1.4e+09|1.6e+01|6.6e+11| 1.966830e+11| 0:2:15|1.4e+07|5.1e-02|9.6e-03| chol10  6 
+45|0.331|0.331|2.1e+09|1.6e+01|6.4e+11| 1.938118e+11| 0:2:18|1.3e+07|5.0e-02|9.3e-03| chol 6  6 
+46|0.512|0.512|3.6e+09|1.5e+01|6.0e+11| 1.921246e+11| 0:2:21|1.2e+07|4.9e-02|8.9e-03| chol 7  7 
+47|0.513|0.513|2.6e+09|1.5e+01|5.6e+11| 1.981697e+11| 0:2:24|1.1e+07|4.6e-02|8.5e-03| chol 6  8 
+48|0.449|0.449|2.8e+09|1.5e+01|5.2e+11| 1.936704e+11| 0:2:27|9.6e+06|4.6e-02|8.2e-03| chol 6  6 
+49|0.573|0.573|3.3e+09|1.5e+01|4.5e+11| 1.945113e+11| 0:2:30|8.6e+06|4.5e-02|7.8e-03| chol 7  5 
+50|0.600|0.600|2.3e+09|1.4e+01|3.9e+11| 1.937130e+11| 0:2:34|7.4e+06|4.5e-02|7.5e-03| chol 7  8 
+51|0.565|0.565|2.1e+09|1.4e+01|3.3e+11| 1.963305e+11| 0:2:37|6.5e+06|4.3e-02|7.3e-03| chol 6 10 
+52|0.440|0.440|2.1e+09|1.4e+01|2.9e+11| 1.906295e+11| 0:2:40|5.4e+06|4.4e-02|7.1e-03| chol 6 10 
+53|0.484|0.484|1.7e+09|1.3e+01|2.5e+11| 1.872546e+11| 0:2:43|4.7e+06|4.4e-02|7.0e-03| chol 6 15 
+54|0.385|0.385|1.1e+09|1.3e+01|2.3e+11| 1.838541e+11| 0:2:47|4.2e+06|4.5e-02|6.8e-03| chol 8 12 
+55|0.448|0.448|1.2e+09|1.2e+01|2.0e+11| 1.799790e+11| 0:2:50|3.6e+06|4.5e-02|6.7e-03| chol 7  7 
+56|0.333|0.333|1.0e+09|1.2e+01|1.8e+11| 1.783260e+11| 0:2:53|3.3e+06|4.6e-02|6.6e-03| chol 8 17 
+57|0.427|0.427|1.1e+09|1.2e+01|1.6e+11| 1.722191e+11| 0:2:56|2.9e+06|4.7e-02|6.4e-03| chol10 13 
+58|0.398|0.398|1.6e+09|1.1e+01|1.3e+11| 1.696946e+11| 0:2:59|2.6e+06|4.7e-02|6.3e-03| chol 7 15 
+59|0.473|0.473|1.6e+09|1.1e+01|1.1e+11| 1.635934e+11| 0:3:02|2.2e+06|4.8e-02|6.2e-03| chol 8 12 
+60|0.433|0.433|8.3e+08|1.0e+01|9.4e+10| 1.604803e+11| 0:3:06|2.0e+06|4.9e-02|6.1e-03| chol 9  9 
+61|0.624|0.624|8.5e+08|1.0e+01|7.7e+10| 1.547521e+11| 0:3:09|1.6e+06|5.0e-02|5.9e-03| chol10 20 
+62|0.663|0.663|2.4e+08|9.7e+00|5.1e+10| 1.516934e+11| 0:3:12|1.3e+06|5.0e-02|5.8e-03| chol16 20 
+63|0.426|0.426|2.1e+08|9.4e+00|4.7e+10| 1.468435e+11| 0:3:15|1.1e+06|5.1e-02|5.7e-03| chol 9  8 
+64|0.582|0.582|3.1e+08|9.0e+00|3.8e+10| 1.424525e+11| 0:3:19|8.6e+05|5.2e-02|5.6e-03| chol^15  5 
+65|0.235|0.235|1.5e+08|8.9e+00|3.5e+10| 1.407142e+11| 0:3:22|8.0e+05|5.3e-02|5.6e-03| chol20 20 
+66|0.694|0.694|9.0e+07|8.6e+00|2.4e+10| 1.365793e+11| 0:3:25|6.3e+05|5.4e-02|5.4e-03| chol20  2 
+67|0.018|0.018|9.2e+07|8.5e+00|2.4e+10| 1.364014e+11| 0:3:28|6.2e+05|5.4e-02|5.4e-03| chol
+  HSDlinsysolve: Schur complement matrix not positive definite
+  switch to LU factor lu  6 20 
+68|0.522|0.522|5.3e+08|8.3e+00|2.1e+10| 1.322652e+11| 0:3:32|4.9e+05|5.5e-02|5.4e-03| lu 18 10 
+69|0.660|0.660|1.2e+08|8.0e+00|1.6e+10| 1.273127e+11| 0:3:35|3.9e+05|5.6e-02|5.3e-03| lu  9 10 
+70|0.463|0.463|1.9e+08|7.9e+00|1.4e+10| 1.274981e+11| 0:3:38|3.4e+05|5.6e-02|5.2e-03| lu 20 20 
+71|0.739|0.739|3.6e+08|7.7e+00|1.0e+10| 1.258376e+11| 0:3:42|2.6e+05|5.7e-02|5.2e-03| lu 18  4 
+72|0.220|0.220|1.9e+08|7.6e+00|1.0e+10| 1.250137e+11| 0:3:45|2.4e+05|5.7e-02|5.2e-03| lu ^ 6 20 
+73|0.784|0.784|1.0e+09|7.4e+00|7.2e+09| 1.245581e+11| 0:3:48|1.9e+05|5.8e-02|5.1e-03| lu ^19 16 
+74|0.513|0.513|6.6e+08|7.3e+00|6.3e+09| 1.230444e+11| 0:3:51|1.6e+05|5.9e-02|5.1e-03| lu 19 11 
+75|0.821|0.821|6.6e+07|7.2e+00|4.3e+09| 1.204341e+11| 0:3:55|1.2e+05|5.9e-02|5.0e-03| lu ^15 20 
+76|0.460|0.460|6.1e+08|7.1e+00|4.0e+09| 1.201139e+11| 0:3:58|1.0e+05|6.0e-02|5.0e-03| lu 12 20 
+77|0.841|0.841|1.2e+08|7.0e+00|2.5e+09| 1.190079e+11| 0:4:02|7.7e+04|6.0e-02|5.0e-03| lu 10 14 
+78|0.649|0.649|2.0e+08|7.0e+00|1.9e+09| 1.182605e+11| 0:4:05|5.7e+04|6.0e-02|5.0e-03| lu  8  9 
+79|0.755|0.755|4.6e+08|6.9e+00|1.4e+09| 1.180945e+11| 0:4:08|4.1e+04|6.1e-02|5.0e-03| lu ^13 12 
+80|0.756|0.756|1.5e+08|6.9e+00|1.0e+09| 1.176803e+11| 0:4:11|2.9e+04|6.1e-02|5.0e-03| lu 11  8 
+81|0.869|0.869|3.1e+08|6.8e+00|7.7e+08| 1.171623e+11| 0:4:14|2.1e+04|6.1e-02|5.0e-03| lu  8 10 
+82|0.580|0.580|2.8e+08|6.8e+00|6.5e+08| 1.171352e+11| 0:4:17|1.7e+04|6.1e-02|5.0e-03| lu ^10 15 
+83|0.842|0.842|3.2e+08|6.8e+00|4.7e+08| 1.170304e+11| 0:4:21|1.3e+04|6.1e-02|4.9e-03| lu 14 20 
+84|0.803|0.803|3.9e+08|6.8e+00|3.2e+08| 1.168499e+11| 0:4:24|9.7e+03|6.1e-02|4.9e-03| lu ^ 5 14 
+85|0.783|0.783|5.1e+08|6.8e+00|2.6e+08| 1.168775e+11| 0:4:27|6.9e+03|6.1e-02|4.9e-03| lu  9  4 
+86|0.863|0.863|1.3e+08|6.8e+00|1.9e+08| 1.168159e+11| 0:4:30|5.2e+03|6.1e-02|4.9e-03| lu 18 12 
+87|1.000|1.000|1.4e+09|6.8e+00|7.0e+07| 1.167459e+11| 0:4:33|3.5e+03|6.1e-02|4.9e-03| lu  8 10 
+88|0.645|0.645|6.8e+08|6.8e+00|6.3e+07| 1.167836e+11| 0:4:37|2.1e+03|6.1e-02|4.9e-03| lu ^ 3 14 
+89|0.922|0.922|1.9e+08|6.8e+00|3.1e+07| 1.167747e+11| 0:4:40|1.3e+03|6.1e-02|4.9e-03| lu 12  5 
+90|0.938|0.938|2.3e+08|6.8e+00|1.7e+07| 1.167563e+11| 0:4:43|6.3e+02|6.1e-02|4.9e-03| lu ^16 15 
+91|0.938|0.938|5.1e+08|6.8e+00|1.0e+07| 1.167981e+11| 0:4:46|3.4e+02|6.1e-02|4.9e-03|
+  Stop: infeas has deteriorated too much, 5.1e+08
+-------------------------------------------------------------------
+ number of iterations   = 91
+ primal objective value =  9.37425308e+10
+ dual   objective value =  0.00000000e+00
+ gap := trace(XZ)       = 2.81e+11
+ relative gap           = 6.00e+00
+ actual relative gap    = 1.00e+00
+ rel. primal infeas     = 2.16e+06
+ rel. dual   infeas     = 8.44e+01
+ norm(X), norm(y), norm(Z) = 3.5e+03, 0.0e+00, 1.3e+08
+ norm(A), norm(b), norm(C) = 1.1e+08, 5.8e+01, 4.2e+07
+ Total CPU time (secs)  = 286.38  
+ CPU time per iteration = 3.15  
+ termination code       = -7
+ DIMACS errors: 2.2e+06  0.0e+00  8.4e+01  0.0e+00  1.0e+00  3.0e+00
+-------------------------------------------------------------------
+
+ans = 
+
+  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
+
+    yalmipversion: '20181012'
+       yalmiptime: 2.9954
+       solvertime: 287.9866
+             info: 'Numerical problems (SDPT3-4)'
+          problem: 4
+
+dsgn_cntrl
+
+ num. of constraints = 1170
+ dim. of sdp    var  = 3069,   num. of sdp  blk  = 297
+ dim. of free   var  = 81
+ *** convert ublk to linear blk
+********************************************************************************************
+   SDPT3: homogeneous self-dual path-following algorithms
+********************************************************************************************
+ version  predcorr  gam  expon
+   HKM      1      0.000   1
+it pstep dstep pinfeas dinfeas  gap     mean(obj)    cputime    kap   tau    theta
+--------------------------------------------------------------------------------------------
+ 0|0.000|0.000|2.2e+06|8.4e+01|2.8e+11| 4.687127e+10| 0:0:00|2.8e+12|1.0e+00|1.0e+00| spchol 1  2 
+ 1|0.000|0.000|2.2e+06|8.4e+01|2.8e+11| 4.687127e+10| 0:0:02|2.8e+12|1.0e+00|1.0e+00| chol 1  3 
+ 2|0.000|0.000|2.2e+06|8.4e+01|2.8e+11| 4.687127e+10| 0:0:05|2.8e+12|1.0e+00|1.0e+00| chol 1  3 
+ 3|0.000|0.000|2.2e+06|8.4e+01|2.8e+11| 4.687129e+10| 0:0:08|2.8e+12|1.0e+00|1.0e+00| chol 1  3 
+ 4|0.000|0.000|2.2e+06|8.4e+01|2.8e+11| 4.687135e+10| 0:0:12|2.8e+12|1.0e+00|1.0e+00| chol 1  3 
+ 5|0.000|0.000|2.2e+06|8.4e+01|2.8e+11| 4.687152e+10| 0:0:17|2.8e+12|1.0e+00|1.0e+00| chol 2  3 
+ 6|0.000|0.000|2.2e+06|8.4e+01|2.8e+11| 4.687202e+10| 0:0:22|2.8e+12|1.0e+00|1.0e+00| chol 2  3 
+ 7|0.000|0.000|2.2e+06|8.4e+01|2.8e+11| 4.687367e+10| 0:0:26|2.8e+12|1.0e+00|1.0e+00| chol 2  6 
+ 8|0.000|0.000|2.2e+06|8.4e+01|2.8e+11| 4.687714e+10| 0:0:31|2.8e+12|1.0e+00|1.0e+00| chol 2  5 
+ 9|0.000|0.000|2.2e+06|8.4e+01|2.8e+11| 4.688434e+10| 0:0:34|2.8e+12|1.0e+00|1.0e+00| chol 2  3 
+10|0.001|0.001|2.1e+06|8.4e+01|2.8e+11| 4.692305e+10| 0:0:37|2.8e+12|1.0e+00|1.0e+00| chol 3  4 
+11|0.001|0.001|2.1e+06|8.4e+01|2.8e+11| 4.705881e+10| 0:0:40|2.8e+12|1.0e+00|1.0e+00| chol 4  5 
+12|0.001|0.001|2.1e+06|8.4e+01|2.9e+11| 4.722265e+10| 0:0:44|2.8e+12|1.0e+00|1.0e+00| chol 3  4 
+13|0.005|0.005|2.1e+06|8.4e+01|2.9e+11| 4.785835e+10| 0:0:47|2.8e+12|1.0e+00|1.0e+00| chol 3  6 
+14|0.006|0.006|1.9e+06|8.4e+01|3.0e+11| 4.881782e+10| 0:0:50|2.8e+12|1.0e+00|9.9e-01| chol 4  6 
+15|0.022|0.022|1.4e+06|8.4e+01|3.3e+11| 5.118675e+10| 0:0:54|2.7e+12|9.9e-01|9.8e-01| chol 4  4 
+16|0.046|0.046|6.3e+06|8.1e+01|4.1e+11| 5.792571e+10| 0:0:58|2.7e+12|9.9e-01|9.7e-01| chol 6 10 
+17|0.116|0.116|2.3e+07|8.0e+01|5.5e+11| 7.134189e+10| 0:1:02|2.5e+12|9.5e-01|9.1e-01| chol 8  6 
+18|0.409|0.409|8.3e+07|7.2e+01|1.0e+12| 1.208438e+11| 0:1:05|1.8e+12|8.2e-01|7.1e-01| chol 8  6 
+19|0.579|0.579|8.0e+07|5.9e+01|1.5e+12| 1.817454e+11| 0:1:09|1.0e+12|7.0e-01|4.9e-01| chol^ 7  7 
+20|1.000|1.000|9.1e+07|2.7e+01|1.1e+12| 1.950713e+11| 0:1:12|1.0e+11|6.3e-01|2.0e-01| chol14  8 
+21|0.851|0.851|5.5e+08|1.2e+01|5.2e+11| 1.188249e+11| 0:1:16|5.4e+09|6.9e-01|9.8e-02| chol 9  4 
+22|0.900|0.900|5.5e+08|6.7e+00|3.0e+11| 8.069894e+10| 0:1:20|3.7e+08|7.3e-01|5.7e-02| chol12  8 
+23|1.000|1.000|1.1e+09|4.3e+00|1.8e+11| 5.092321e+10| 0:1:23|6.3e+07|7.4e-01|3.8e-02| chol13  8 
+24|0.532|0.532|2.8e+09|4.4e+00|1.8e+11| 4.978938e+10| 0:1:27|5.6e+07|6.8e-01|3.5e-02| chol 7 10 
+25|1.000|1.000|7.5e+09|4.0e+00|1.5e+11| 3.826481e+10| 0:1:31|4.7e+07|5.7e-01|2.7e-02| chol 7  6 
+26|0.758|0.758|6.8e+09|3.2e+00|1.1e+11| 2.747015e+10| 0:1:35|3.2e+07|5.7e-01|2.2e-02| chol12  7 
+27|0.287|0.287|6.1e+09|3.4e+00|1.1e+11| 2.886342e+10| 0:1:38|3.0e+07|5.3e-01|2.1e-02| chol 8 18 
+28|0.411|0.411|6.2e+09|3.9e+00|1.3e+11| 3.187161e+10| 0:1:41|3.0e+07|4.6e-01|2.1e-02| chol 9  5 
+29|0.390|0.390|6.5e+09|4.6e+00|1.6e+11| 3.694273e+10| 0:1:44|3.0e+07|3.9e-01|2.1e-02| chol 6  7 
+30|0.356|0.356|6.7e+09|5.0e+00|1.8e+11| 4.092449e+10| 0:1:47|2.9e+07|3.5e-01|2.1e-02| chol 9  6 
+31|0.502|0.502|8.5e+09|6.0e+00|2.2e+11| 5.110939e+10| 0:1:50|3.0e+07|2.8e-01|2.0e-02| chol 7  7 
+32|0.620|0.620|8.3e+09|6.8e+00|2.6e+11| 6.108363e+10| 0:1:54|2.8e+07|2.3e-01|1.9e-02| chol 7  7 
+33|0.640|0.640|6.5e+09|7.6e+00|2.9e+11| 7.172256e+10| 0:1:57|2.7e+07|2.0e-01|1.8e-02| chol 8 15 
+34|0.645|0.645|4.7e+09|8.0e+00|3.1e+11| 7.961290e+10| 0:2:00|2.4e+07|1.7e-01|1.6e-02| chol 6  7 
+35|0.608|0.608|4.0e+09|8.6e+00|3.3e+11| 8.806311e+10| 0:2:03|2.3e+07|1.5e-01|1.6e-02| chol12 18 
+36|0.694|0.694|2.9e+09|9.6e+00|3.7e+11| 1.009200e+11| 0:2:07|2.1e+07|1.3e-01|1.5e-02| chol 5 11 
+37|0.660|0.660|3.0e+09|1.1e+01|4.2e+11| 1.169002e+11| 0:2:10|2.1e+07|1.1e-01|1.4e-02| chol 8  9 
+38|0.572|0.572|4.6e+08|1.3e+01|5.0e+11| 1.370271e+11| 0:2:13|2.0e+07|8.8e-02|1.3e-02| chol 7  6 
+39|0.641|0.641|9.0e+08|1.3e+01|5.4e+11| 1.471082e+11| 0:2:16|1.9e+07|7.7e-02|1.2e-02| chol 6  6 
+40|0.609|0.609|1.1e+09|1.5e+01|6.2e+11| 1.707945e+11| 0:2:20|1.8e+07|6.3e-02|1.1e-02| chol 9  6 
+41|0.503|0.503|1.7e+09|1.5e+01|6.3e+11| 1.744942e+11| 0:2:23|1.7e+07|5.9e-02|1.1e-02| chol 6  6 
+42|0.578|0.578|3.1e+09|1.6e+01|6.4e+11| 1.840315e+11| 0:2:26|1.5e+07|5.3e-02|1.0e-02| chol 8  7 
+43|0.472|0.472|4.2e+09|1.6e+01|6.4e+11| 1.867434e+11| 0:2:29|1.4e+07|5.0e-02|9.6e-03| chol 5  9 
+44|0.523|0.523|2.1e+09|1.6e+01|6.0e+11| 1.861979e+11| 0:2:32|1.2e+07|4.9e-02|9.1e-03| chol^ 6 20 
+45|0.443|0.443|3.0e+09|1.5e+01|5.7e+11| 1.813413e+11| 0:2:36|1.1e+07|4.9e-02|8.7e-03| chol 6  5 
+46|0.511|0.511|4.4e+09|1.5e+01|5.2e+11| 1.850723e+11| 0:2:39|1.0e+07|4.7e-02|8.3e-03| chol 6  6 
+47|0.474|0.474|3.5e+09|1.5e+01|4.7e+11| 1.824916e+11| 0:2:42|8.9e+06|4.6e-02|8.0e-03| chol 6 20 
+48|0.528|0.528|3.5e+09|1.4e+01|4.2e+11| 1.816011e+11| 0:2:45|7.9e+06|4.6e-02|7.7e-03| chol 7  5 
+49|0.570|0.570|2.1e+09|1.4e+01|3.7e+11| 1.785124e+11| 0:2:48|6.8e+06|4.5e-02|7.4e-03| chol 5  8 
+50|0.541|0.541|2.7e+09|1.3e+01|3.2e+11| 1.774712e+11| 0:2:51|6.0e+06|4.5e-02|7.1e-03| chol 6  8 
+51|0.538|0.538|2.6e+09|1.3e+01|2.7e+11| 1.754117e+11| 0:2:55|5.1e+06|4.5e-02|6.9e-03| chol 6  9 
+52|0.350|0.350|1.9e+09|1.3e+01|2.5e+11| 1.714749e+11| 0:2:58|4.6e+06|4.6e-02|6.8e-03| chol 6 11 
+53|0.423|0.423|1.8e+09|1.2e+01|2.3e+11| 1.679941e+11| 0:3:01|4.1e+06|4.6e-02|6.6e-03| chol 5  5 
+54|0.334|0.334|1.4e+09|1.2e+01|2.1e+11| 1.655434e+11| 0:3:04|3.7e+06|4.7e-02|6.5e-03| chol 6  6 
+55|0.447|0.447|1.3e+09|1.1e+01|1.8e+11| 1.621643e+11| 0:3:08|3.4e+06|4.7e-02|6.4e-03| chol 7 12 
+56|0.308|0.308|1.4e+09|1.1e+01|1.7e+11| 1.601472e+11| 0:3:11|3.1e+06|4.8e-02|6.3e-03| chol 7  7 
+57|0.508|0.508|1.3e+09|1.1e+01|1.5e+11| 1.568994e+11| 0:3:14|2.7e+06|4.9e-02|6.1e-03| chol 7  9 
+58|0.480|0.480|1.7e+09|1.0e+01|1.2e+11| 1.555744e+11| 0:3:18|2.5e+06|4.9e-02|6.0e-03| chol 6  8 
+59|0.667|0.667|5.5e+08|1.0e+01|9.1e+10| 1.529568e+11| 0:3:21|2.0e+06|4.9e-02|5.9e-03| chol13  7 
+60|0.375|0.375|4.6e+08|9.9e+00|8.3e+10| 1.512897e+11| 0:3:24|1.8e+06|4.9e-02|5.8e-03| chol 8 11 
+61|0.608|0.608|1.3e+09|9.5e+00|6.8e+10| 1.470057e+11| 0:3:27|1.4e+06|5.0e-02|5.7e-03| chol 8 20 
+62|0.379|0.379|3.8e+08|9.3e+00|6.1e+10| 1.447266e+11| 0:3:31|1.3e+06|5.1e-02|5.6e-03| chol14  8 
+63|0.729|0.729|1.3e+09|9.0e+00|4.8e+10| 1.408105e+11| 0:3:34|1.0e+06|5.1e-02|5.5e-03| chol^ 5 20 
+64|0.428|0.428|3.1e+08|8.8e+00|4.3e+10| 1.376157e+11| 0:3:38|9.0e+05|5.2e-02|5.4e-03| chol13  9 
+65|0.508|0.508|7.7e+08|8.5e+00|3.5e+10| 1.341299e+11| 0:3:41|7.8e+05|5.3e-02|5.3e-03| chol13 20 
+66|0.612|0.612|2.2e+08|8.2e+00|2.7e+10| 1.301585e+11| 0:3:45|6.3e+05|5.4e-02|5.2e-03| chol20 11 
+67|0.221|0.221|9.7e+07|8.1e+00|2.5e+10| 1.289596e+11| 0:3:48|5.9e+05|5.4e-02|5.2e-03| chol^ 7 20 
+68|0.662|0.662|8.3e+08|7.9e+00|2.0e+10| 1.247421e+11| 0:3:52|4.7e+05|5.5e-02|5.1e-03| chol^ 8 20 
+69|0.322|0.322|4.3e+08|7.8e+00|1.8e+10| 1.230251e+11| 0:3:56|4.2e+05|5.5e-02|5.1e-03| chol
+  HSDlinsysolve: Schur complement matrix not positive definite
+  switch to LU factor lu  9 20 
+70|0.812|0.812|1.8e+08|7.5e+00|1.3e+10| 1.235694e+11| 0:4:00|3.2e+05|5.6e-02|5.0e-03| lu  8 13 
+71|0.349|0.349|1.3e+08|7.5e+00|1.2e+10| 1.225026e+11| 0:4:03|2.9e+05|5.6e-02|5.0e-03| lu 10 11 
+72|0.810|0.810|1.6e+08|7.3e+00|7.8e+09| 1.200904e+11| 0:4:07|2.2e+05|5.7e-02|4.9e-03| lu 10 13 
+73|0.612|0.612|5.3e+08|7.2e+00|6.5e+09| 1.201770e+11| 0:4:10|1.7e+05|5.7e-02|4.9e-03| lu  9 12 
+74|0.771|0.771|1.9e+08|7.1e+00|4.4e+09| 1.192015e+11| 0:4:13|1.3e+05|5.8e-02|4.9e-03| lu ^ 9 12 
+75|0.646|0.646|4.2e+08|7.0e+00|3.6e+09| 1.180513e+11| 0:4:17|9.4e+04|5.8e-02|4.8e-03| lu 17  7 
+76|0.751|0.751|5.7e+07|7.0e+00|2.7e+09| 1.180864e+11| 0:4:20|7.2e+04|5.9e-02|4.8e-03| lu ^10  4 
+77|0.713|0.713|4.2e+08|6.9e+00|2.0e+09| 1.174921e+11| 0:4:23|5.5e+04|5.9e-02|4.8e-03| lu ^ 8 15 
+78|0.900|0.900|1.4e+08|6.9e+00|1.2e+09| 1.167707e+11| 0:4:27|3.9e+04|5.9e-02|4.8e-03| lu 12 20 
+79|0.620|0.620|4.9e+08|6.8e+00|1.0e+09| 1.169112e+11| 0:4:31|2.8e+04|5.9e-02|4.8e-03| lu 20 11 
+80|0.871|0.871|2.7e+08|6.8e+00|7.6e+08| 1.167129e+11| 0:4:34|2.0e+04|5.9e-02|4.8e-03| lu 15 14 
+81|0.794|0.794|1.2e+08|6.8e+00|4.8e+08| 1.164552e+11| 0:4:37|1.5e+04|5.9e-02|4.8e-03| lu 14  7 
+82|0.798|0.798|4.0e+07|6.8e+00|3.7e+08| 1.166146e+11| 0:4:41|1.0e+04|5.9e-02|4.8e-03| lu 17  7 
+83|0.867|0.867|4.8e+08|6.8e+00|2.4e+08| 1.165892e+11| 0:4:44|7.2e+03|5.9e-02|4.8e-03| lu  7 16 
+84|0.797|0.797|4.0e+08|6.8e+00|2.0e+08| 1.164902e+11| 0:4:47|5.0e+03|6.0e-02|4.8e-03| lu 11 13 
+85|0.807|0.807|6.7e+07|6.8e+00|1.4e+08| 1.165921e+11| 0:4:50|3.9e+03|6.0e-02|4.8e-03| lu ^19 20 
+86|0.943|0.943|1.3e+08|6.8e+00|8.1e+07| 1.166083e+11| 0:4:54|2.6e+03|6.0e-02|4.8e-03| lu ^ 8  8 
+87|1.000|1.000|7.8e+08|6.8e+00|4.6e+07| 1.165710e+11| 0:4:58|1.5e+03|6.0e-02|4.8e-03| lu 10 11 
+88|0.817|0.817|1.4e+08|6.8e+00|3.6e+07| 1.166362e+11| 0:5:01|9.6e+02|6.0e-02|4.8e-03| lu  9 18 
+89|0.944|0.944|6.0e+07|6.8e+00|1.6e+07| 1.166389e+11| 0:5:04|6.9e+02|6.0e-02|4.8e-03| lu ^ 2 20 
+90|0.797|0.797|6.9e+07|6.8e+00|8.5e+06| 1.166372e+11| 0:5:08|3.7e+02|6.0e-02|4.8e-03| lu 20 20 
+91|0.674|0.674|7.1e+08|6.8e+00|7.0e+06| 1.166645e+11| 0:5:12|2.3e+02|6.0e-02|4.8e-03|
+  Stop: infeas has deteriorated too much, 7.1e+08
+-------------------------------------------------------------------
+ number of iterations   = 91
+ primal objective value =  9.37425308e+10
+ dual   objective value =  0.00000000e+00
+ gap := trace(XZ)       = 2.81e+11
+ relative gap           = 6.00e+00
+ actual relative gap    = 1.00e+00
+ rel. primal infeas     = 2.16e+06
+ rel. dual   infeas     = 8.44e+01
+ norm(X), norm(y), norm(Z) = 3.5e+03, 0.0e+00, 1.3e+08
+ norm(A), norm(b), norm(C) = 1.1e+08, 5.8e+01, 4.2e+07
+ Total CPU time (secs)  = 311.88  
+ CPU time per iteration = 3.43  
+ termination code       = -7
+ DIMACS errors: 2.2e+06  0.0e+00  8.4e+01  0.0e+00  1.0e+00  3.0e+00
+-------------------------------------------------------------------
+
+ans = 
+
+  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
+
+    yalmipversion: '20181012'
+       yalmiptime: 2.9978
+       solvertime: 315.0721
+             info: 'Numerical problems (SDPT3-4)'
+          problem: 4
+
+dsgn_cntrl
+
+ num. of constraints = 1170
+ dim. of sdp    var  = 3069,   num. of sdp  blk  = 297
+ dim. of free   var  = 81
+ *** convert ublk to linear blk
+********************************************************************************************
+   SDPT3: homogeneous self-dual path-following algorithms
+********************************************************************************************
+ version  predcorr  gam  expon
+   HKM      1      0.000   1
+it pstep dstep pinfeas dinfeas  gap     mean(obj)    cputime    kap   tau    theta
+--------------------------------------------------------------------------------------------
+ 0|0.000|0.000|2.2e+06|8.4e+01|2.8e+11| 4.687129e+10| 0:0:00|2.8e+12|1.0e+00|1.0e+00| spchol 1  2 
+ 1|0.000|0.000|2.2e+06|8.4e+01|2.8e+11| 4.687129e+10| 0:0:02|2.8e+12|1.0e+00|1.0e+00| chol 1  4 
+ 2|0.000|0.000|2.2e+06|8.4e+01|2.8e+11| 4.687130e+10| 0:0:05|2.8e+12|1.0e+00|1.0e+00| chol 1  3 
+ 3|0.000|0.000|2.2e+06|8.4e+01|2.8e+11| 4.687132e+10| 0:0:08|2.8e+12|1.0e+00|1.0e+00| chol 1  3 
+ 4|0.000|0.000|2.2e+06|8.4e+01|2.8e+11| 4.687137e+10| 0:0:11|2.8e+12|1.0e+00|1.0e+00| chol 2  6 
+ 5|0.000|0.000|2.2e+06|8.4e+01|2.8e+11| 4.687154e+10| 0:0:14|2.8e+12|1.0e+00|1.0e+00| chol 2  3 
+ 6|0.000|0.000|2.2e+06|8.4e+01|2.8e+11| 4.687203e+10| 0:0:17|2.8e+12|1.0e+00|1.0e+00| chol 2  7 
+ 7|0.000|0.000|2.2e+06|8.4e+01|2.8e+11| 4.687368e+10| 0:0:20|2.8e+12|1.0e+00|1.0e+00| chol 2  6 
+ 8|0.000|0.000|2.2e+06|8.4e+01|2.8e+11| 4.687719e+10| 0:0:23|2.8e+12|1.0e+00|1.0e+00| chol 2  3 
+ 9|0.000|0.000|2.2e+06|8.4e+01|2.8e+11| 4.688453e+10| 0:0:26|2.8e+12|1.0e+00|1.0e+00| chol 3 12 
+10|0.001|0.001|2.1e+06|8.4e+01|2.8e+11| 4.692312e+10| 0:0:30|2.8e+12|1.0e+00|1.0e+00| chol 3  3 
+11|0.001|0.001|2.1e+06|8.4e+01|2.8e+11| 4.705719e+10| 0:0:33|2.8e+12|1.0e+00|1.0e+00| chol 3  4 
+12|0.001|0.001|2.1e+06|8.4e+01|2.9e+11| 4.721779e+10| 0:0:36|2.8e+12|1.0e+00|1.0e+00| chol 4  4 
+13|0.005|0.005|2.1e+06|8.4e+01|2.9e+11| 4.787550e+10| 0:0:40|2.8e+12|1.0e+00|1.0e+00| chol 3  7 
+14|0.006|0.006|2.0e+06|8.4e+01|3.0e+11| 4.884470e+10| 0:0:45|2.8e+12|1.0e+00|9.9e-01| chol 3  5 
+15|0.023|0.023|1.4e+06|8.4e+01|3.3e+11| 5.123132e+10| 0:0:49|2.7e+12|9.9e-01|9.8e-01| chol 5  6 
+16|0.049|0.049|6.5e+06|8.1e+01|4.1e+11| 5.839157e+10| 0:0:53|2.7e+12|9.9e-01|9.7e-01| chol 5  6 
+17|0.116|0.116|2.4e+07|8.0e+01|5.6e+11| 7.210681e+10| 0:0:57|2.5e+12|9.5e-01|9.1e-01| chol 6  9 
+18|0.442|0.442|6.9e+07|7.2e+01|1.1e+12| 1.267308e+11| 0:1:00|1.7e+12|8.1e-01|6.9e-01| chol 6  6 
+19|0.591|0.591|4.6e+07|5.8e+01|1.6e+12| 1.874698e+11| 0:1:04|9.8e+11|6.9e-01|4.8e-01| chol 8  7 
+20|1.000|1.000|2.8e+08|2.6e+01|1.1e+12| 1.931188e+11| 0:1:07|8.3e+10|6.3e-01|1.9e-01| chol 6  7 
+21|0.844|0.844|3.7e+08|1.1e+01|4.9e+11| 1.146321e+11| 0:1:10|4.4e+09|7.0e-01|9.4e-02| chol 6  7 
+22|0.895|0.895|3.9e+08|6.2e+00|2.7e+11| 7.394964e+10| 0:1:14|2.9e+08|7.4e-01|5.4e-02| chol 9  8 
+23|1.000|1.000|1.3e+09|3.7e+00|1.5e+11| 4.378568e+10| 0:1:17|5.3e+07|7.7e-01|3.4e-02| chol 8 20 
+24|0.464|0.464|2.0e+09|3.6e+00|1.4e+11| 4.063563e+10| 0:1:20|4.7e+07|7.3e-01|3.1e-02| chol13  8 
+25|1.000|1.000|4.9e+09|3.2e+00|1.1e+11| 3.049912e+10| 0:1:24|3.9e+07|6.4e-01|2.4e-02| chol 6  8 
+26|0.783|0.783|5.9e+09|2.8e+00|9.0e+10| 2.432209e+10| 0:1:27|2.8e+07|6.0e-01|2.0e-02| chol 8  9 
+27|0.465|0.465|5.4e+09|3.2e+00|1.0e+11| 2.684908e+10| 0:1:30|2.6e+07|5.3e-01|2.0e-02| chol 7  6 
+28|0.401|0.401|5.5e+09|3.6e+00|1.2e+11| 3.004067e+10| 0:1:34|2.5e+07|4.7e-01|2.0e-02| chol 6 20 
+29|0.424|0.424|6.1e+09|4.3e+00|1.4e+11| 3.464958e+10| 0:1:37|2.6e+07|3.9e-01|2.0e-02| chol15  8 
+30|0.112|0.112|6.0e+09|4.4e+00|1.4e+11| 3.559386e+10| 0:1:41|2.5e+07|3.8e-01|2.0e-02| chol 7  6 
+31|0.475|0.475|7.0e+09|5.1e+00|1.8e+11| 4.415155e+10| 0:1:44|2.5e+07|3.2e-01|2.0e-02| chol 7  7 
+32|0.399|0.399|8.2e+09|6.0e+00|2.2e+11| 5.341919e+10| 0:1:47|2.7e+07|2.7e-01|1.9e-02| chol 6  6 
+33|0.619|0.619|7.6e+09|6.6e+00|2.6e+11| 6.344822e+10| 0:1:51|2.6e+07|2.3e-01|1.8e-02| chol 8  6 
+34|0.661|0.661|7.9e+09|7.3e+00|2.9e+11| 7.339242e+10| 0:1:54|2.5e+07|1.9e-01|1.7e-02| chol20 20 
+35|0.678|0.678|4.8e+09|7.8e+00|3.0e+11| 8.154035e+10| 0:1:58|2.3e+07|1.7e-01|1.6e-02| chol19  6 
+36|0.674|0.674|4.2e+09|9.3e+00|3.6e+11| 9.886510e+10| 0:2:02|2.3e+07|1.3e-01|1.5e-02| chol 6  6 
+37|0.689|0.689|2.7e+09|1.0e+01|3.9e+11| 1.111366e+11| 0:2:05|2.1e+07|1.1e-01|1.4e-02| chol12 20 
+38|0.713|0.713|1.6e+09|1.1e+01|4.2e+11| 1.248424e+11| 0:2:08|1.9e+07|9.6e-02|1.3e-02| chol 6  6 
+39|0.119|0.119|1.6e+09|1.1e+01|4.3e+11| 1.254229e+11| 0:2:11|1.8e+07|9.5e-02|1.3e-02| chol 6  6 
+40|0.682|0.682|4.1e+08|1.2e+01|4.7e+11| 1.384136e+11| 0:2:14|1.7e+07|8.4e-02|1.2e-02| chol 5  6 
+41|0.372|0.372|6.0e+08|1.3e+01|5.1e+11| 1.468576e+11| 0:2:17|1.6e+07|7.7e-02|1.2e-02| chol 7  6 
+42|0.734|0.734|6.6e+08|1.4e+01|5.4e+11| 1.651666e+11| 0:2:21|1.6e+07|6.6e-02|1.1e-02| chol 6  6 
+43|0.456|0.456|1.1e+09|1.4e+01|5.7e+11| 1.723604e+11| 0:2:24|1.5e+07|6.1e-02|1.0e-02| chol 8  7 
+44|0.673|0.673|1.4e+09|1.5e+01|5.6e+11| 1.859054e+11| 0:2:27|1.4e+07|5.4e-02|9.6e-03| chol 6  5 
+45|0.277|0.277|1.6e+09|1.5e+01|5.6e+11| 1.849788e+11| 0:2:31|1.3e+07|5.3e-02|9.4e-03| chol 6  6 
+46|0.592|0.592|1.9e+09|1.5e+01|5.2e+11| 1.859068e+11| 0:2:34|1.1e+07|5.1e-02|8.9e-03| chol 5  6 
+47|0.476|0.476|3.1e+09|1.4e+01|5.0e+11| 1.870347e+11| 0:2:37|1.0e+07|5.0e-02|8.5e-03| chol 6  8 
+48|0.522|0.522|5.3e+09|1.4e+01|4.5e+11| 1.853727e+11| 0:2:41|9.0e+06|4.9e-02|8.2e-03| chol 5  6 
+49|0.601|0.601|4.3e+09|1.4e+01|4.0e+11| 1.862019e+11| 0:2:44|8.0e+06|4.8e-02|7.9e-03| chol 6  6 
+50|0.575|0.575|4.1e+09|1.4e+01|3.4e+11| 1.875047e+11| 0:2:47|7.0e+06|4.6e-02|7.6e-03| chol 6  9 
+51|0.519|0.519|2.9e+09|1.4e+01|2.9e+11| 1.885338e+11| 0:2:51|6.0e+06|4.6e-02|7.4e-03| chol 7  6 
+52|0.439|0.439|2.5e+09|1.3e+01|2.6e+11| 1.824325e+11| 0:2:54|5.1e+06|4.6e-02|7.2e-03| chol 8 10 
+53|0.480|0.480|2.9e+09|1.3e+01|2.3e+11| 1.782697e+11| 0:2:57|4.3e+06|4.7e-02|7.0e-03| chol 5  8 
+54|0.368|0.368|2.7e+09|1.2e+01|2.0e+11| 1.738656e+11| 0:3:00|3.9e+06|4.8e-02|6.9e-03| chol10 14 
+55|0.459|0.459|2.7e+09|1.2e+01|1.8e+11| 1.696385e+11| 0:3:04|3.4e+06|4.9e-02|6.7e-03| chol 8 14 
+56|0.314|0.314|2.0e+09|1.1e+01|1.6e+11| 1.671910e+11| 0:3:07|3.2e+06|4.9e-02|6.6e-03| chol 8  9 
+57|0.479|0.479|1.7e+09|1.1e+01|1.4e+11| 1.632058e+11| 0:3:10|2.8e+06|5.0e-02|6.5e-03| chol 6  8 
+58|0.462|0.462|1.2e+09|1.1e+01|1.2e+11| 1.616855e+11| 0:3:13|2.5e+06|5.0e-02|6.3e-03| chol 6 12 
+59|0.478|0.478|6.0e+08|1.0e+01|1.0e+11| 1.562336e+11| 0:3:16|2.1e+06|5.1e-02|6.2e-03| chol 9 20 
+60|0.670|0.670|7.5e+08|9.9e+00|7.0e+10| 1.525570e+11| 0:3:20|1.7e+06|5.1e-02|6.0e-03| chol15 11 
+61|0.580|0.580|2.5e+08|9.5e+00|5.5e+10| 1.473858e+11| 0:3:23|1.3e+06|5.3e-02|5.9e-03| chol^13 12 
+62|0.229|0.229|6.1e+08|9.3e+00|5.3e+10| 1.449119e+11| 0:3:26|1.2e+06|5.3e-02|5.8e-03| chol^ 4 20 
+63|0.612|0.612|1.1e+09|8.9e+00|4.3e+10| 1.401814e+11| 0:3:30|9.8e+05|5.4e-02|5.7e-03| chol^13 12 
+64|0.353|0.353|1.1e+09|8.7e+00|3.9e+10| 1.371291e+11| 0:3:33|8.7e+05|5.5e-02|5.7e-03| chol10 20 
+65|0.618|0.618|1.1e+08|8.3e+00|3.2e+10| 1.329916e+11| 0:3:36|7.2e+05|5.6e-02|5.5e-03| chol20 20 
+66|0.524|0.524|3.5e+08|8.0e+00|2.7e+10| 1.286005e+11| 0:3:40|6.2e+05|5.7e-02|5.4e-03| chol^ 8 20 
+67|0.139|0.139|1.7e+08|8.0e+00|2.6e+10| 1.273187e+11| 0:3:43|5.9e+05|5.8e-02|5.4e-03| chol^ 7 20 
+68|0.652|0.652|2.5e+08|7.6e+00|1.9e+10| 1.221866e+11| 0:3:47|4.9e+05|5.9e-02|5.3e-03| chol^ 6 20 
+69|0.001|0.001|2.4e+08|7.6e+00|1.9e+10| 1.221084e+11| 0:3:50|4.9e+05|5.9e-02|5.3e-03| chol
+  HSDlinsysolve: Schur complement matrix not positive definite
+  switch to LU factor lu ^ 8 20 
+70|0.498|0.498|5.2e+08|7.4e+00|1.7e+10| 1.210060e+11| 0:3:53|4.1e+05|6.0e-02|5.3e-03| lu ^ 8 20 
+71|0.583|0.583|5.8e+08|7.2e+00|1.4e+10| 1.181400e+11| 0:3:56|3.4e+05|6.1e-02|5.2e-03| lu 16 20 
+72|0.264|0.264|1.4e+08|7.1e+00|1.3e+10| 1.166687e+11| 0:4:00|3.2e+05|6.2e-02|5.2e-03| lu ^ 5 20 
+73|0.670|0.670|4.4e+08|6.9e+00|1.0e+10| 1.148249e+11| 0:4:03|2.7e+05|6.3e-02|5.1e-03| lu 13 12 
+74|0.274|0.274|3.4e+08|6.8e+00|1.0e+10| 1.136422e+11| 0:4:06|2.5e+05|6.3e-02|5.1e-03| lu ^ 9 20 
+75|0.723|0.723|7.2e+08|6.6e+00|7.5e+09| 1.104222e+11| 0:4:09|2.1e+05|6.4e-02|5.0e-03| lu  8  7 
+76|0.420|0.420|9.2e+07|6.5e+00|6.7e+09| 1.094079e+11| 0:4:13|1.8e+05|6.5e-02|5.0e-03| lu 10 10 
+77|0.800|0.800|5.5e+08|6.3e+00|4.6e+09| 1.071418e+11| 0:4:16|1.4e+05|6.6e-02|4.9e-03| lu  9  8 
+78|0.499|0.499|2.3e+08|6.2e+00|4.0e+09| 1.057781e+11| 0:4:19|1.2e+05|6.7e-02|4.9e-03| lu 20 20 
+79|0.722|0.722|2.1e+07|6.1e+00|3.1e+09| 1.042461e+11| 0:4:23|9.1e+04|6.7e-02|4.9e-03| lu 16 11 
+80|0.462|0.462|1.8e+08|6.1e+00|2.6e+09| 1.034433e+11| 0:4:26|7.8e+04|6.8e-02|4.9e-03| lu 13 20 
+81|0.842|0.842|4.8e+08|6.0e+00|1.7e+09| 1.022139e+11| 0:4:29|5.8e+04|6.8e-02|4.8e-03| lu ^13  8 
+82|0.570|0.570|1.9e+08|5.9e+00|1.5e+09| 1.018080e+11| 0:4:32|4.5e+04|6.9e-02|4.8e-03| lu 12 15 
+83|0.864|0.864|4.4e+08|5.9e+00|9.3e+08| 1.010999e+11| 0:4:36|3.3e+04|6.9e-02|4.8e-03| lu ^ 5 20 
+84|0.489|0.489|2.8e+08|5.9e+00|8.4e+08| 1.007610e+11| 0:4:39|2.6e+04|6.9e-02|4.8e-03| lu 15 15 
+85|0.753|0.753|7.8e+07|5.8e+00|5.9e+08| 1.004452e+11| 0:4:42|2.0e+04|6.9e-02|4.8e-03| lu  8 12 
+86|0.899|0.899|5.7e+08|5.8e+00|3.2e+08| 1.001841e+11| 0:4:45|1.3e+04|6.9e-02|4.8e-03| lu 13 20 
+87|0.777|0.777|2.4e+08|5.8e+00|2.4e+08| 9.999906e+10| 0:4:49|8.3e+03|6.9e-02|4.8e-03| lu 10 18 
+88|0.935|0.935|1.3e+08|5.8e+00|1.3e+08| 9.997129e+10| 0:4:52|5.4e+03|7.0e-02|4.8e-03| lu 13 20 
+89|0.653|0.653|1.6e+08|5.8e+00|1.1e+08| 9.990832e+10| 0:4:55|3.7e+03|7.0e-02|4.8e-03| lu  9 15 
+90|0.723|0.723|3.8e+08|5.8e+00|7.5e+07| 9.986815e+10| 0:4:58|2.7e+03|7.0e-02|4.8e-03| lu 10  9 
+91|0.597|0.597|3.6e+08|5.8e+00|6.3e+07| 9.985678e+10| 0:5:02|2.0e+03|7.0e-02|4.8e-03| lu ^ 7 15 
+92|0.913|0.913|2.1e+08|5.8e+00|2.1e+07| 9.983494e+10| 0:5:05|1.4e+03|7.0e-02|4.8e-03| lu 20 20 
+93|0.977|0.977|8.9e+07|5.8e+00|1.1e+07| 9.981813e+10| 0:5:08|4.7e+02|7.0e-02|4.8e-03| lu 15 10 
+94|0.985|0.985|3.2e+08|5.8e+00|5.8e+06| 9.983444e+10| 0:5:11|2.4e+02|7.0e-02|4.8e-03|
+  Stop: infeas has deteriorated too much, 3.2e+08
+-------------------------------------------------------------------
+ number of iterations   = 94
+ primal objective value =  9.37425753e+10
+ dual   objective value =  0.00000000e+00
+ gap := trace(XZ)       = 2.81e+11
+ relative gap           = 6.00e+00
+ actual relative gap    = 1.00e+00
+ rel. primal infeas     = 2.16e+06
+ rel. dual   infeas     = 8.44e+01
+ norm(X), norm(y), norm(Z) = 3.5e+03, 0.0e+00, 1.3e+08
+ norm(A), norm(b), norm(C) = 1.1e+08, 5.8e+01, 4.2e+07
+ Total CPU time (secs)  = 311.36  
+ CPU time per iteration = 3.31  
+ termination code       = -7
+ DIMACS errors: 2.2e+06  0.0e+00  8.4e+01  0.0e+00  1.0e+00  3.0e+00
+-------------------------------------------------------------------
+
+ans = 
+
+  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
+
+    yalmipversion: '20181012'
+       yalmiptime: 2.7246
+       solvertime: 312.9368
+             info: 'Numerical problems (SDPT3-4)'
+          problem: 4
+
+dsgn_cntrl
+
+ num. of constraints = 720
+ dim. of sdp    var  = 3069,   num. of sdp  blk  = 297
+ dim. of free   var  = 81
+ *** convert ublk to linear blk
+********************************************************************************************
+   SDPT3: homogeneous self-dual path-following algorithms
+********************************************************************************************
+ version  predcorr  gam  expon
+   HKM      1      0.000   1
+it pstep dstep pinfeas dinfeas  gap     mean(obj)    cputime    kap   tau    theta
+--------------------------------------------------------------------------------------------
+ 0|0.000|0.000|2.0e+06|8.4e+01|3.9e+11| 6.517168e+10| 0:0:00|3.9e+12|1.0e+00|1.0e+00| spchol 1  2 
+ 1|0.000|0.000|2.0e+06|8.4e+01|3.9e+11| 6.517168e+10| 0:0:01|3.9e+12|1.0e+00|1.0e+00| chol 1  2 
+ 2|0.000|0.000|2.0e+06|8.4e+01|3.9e+11| 6.517169e+10| 0:0:02|3.9e+12|1.0e+00|1.0e+00| chol 1  2 
+ 3|0.000|0.000|2.0e+06|8.4e+01|3.9e+11| 6.517171e+10| 0:0:04|3.9e+12|1.0e+00|1.0e+00| chol 1  2 
+ 4|0.000|0.000|2.0e+06|8.4e+01|3.9e+11| 6.517177e+10| 0:0:05|3.9e+12|1.0e+00|1.0e+00| chol 1  2 
+ 5|0.000|0.000|2.0e+06|8.4e+01|3.9e+11| 6.517194e+10| 0:0:06|3.9e+12|1.0e+00|1.0e+00| chol 2  2 
+ 6|0.000|0.000|2.0e+06|8.4e+01|3.9e+11| 6.517244e+10| 0:0:08|3.9e+12|1.0e+00|1.0e+00| chol 2  2 
+ 7|0.000|0.000|2.0e+06|8.4e+01|3.9e+11| 6.517391e+10| 0:0:09|3.9e+12|1.0e+00|1.0e+00| chol 2  2 
+ 8|0.000|0.000|2.0e+06|8.4e+01|3.9e+11| 6.517866e+10| 0:0:10|3.9e+12|1.0e+00|1.0e+00| chol 2  2 
+ 9|0.000|0.000|2.0e+06|8.4e+01|3.9e+11| 6.518694e+10| 0:0:12|3.9e+12|1.0e+00|1.0e+00| chol 2  4 
+10|0.001|0.001|2.0e+06|8.4e+01|3.9e+11| 6.522207e+10| 0:0:13|3.9e+12|1.0e+00|1.0e+00| chol 3  4 
+11|0.001|0.001|2.0e+06|8.4e+01|3.9e+11| 6.534642e+10| 0:0:14|3.9e+12|1.0e+00|1.0e+00| chol 3  4 
+12|0.002|0.002|1.9e+06|8.4e+01|4.0e+11| 6.577343e+10| 0:0:16|3.9e+12|1.0e+00|1.0e+00| chol 3  5 
+13|0.003|0.003|1.8e+06|8.4e+01|4.0e+11| 6.629169e+10| 0:0:17|3.9e+12|1.0e+00|1.0e+00| chol 3  6 
+14|0.016|0.016|1.5e+06|8.4e+01|4.3e+11| 6.869731e+10| 0:0:18|3.9e+12|9.9e-01|9.9e-01| chol 4  5 
+15|0.016|0.016|1.8e+06|8.3e+01|4.7e+11| 7.227310e+10| 0:0:20|3.8e+12|9.9e-01|9.8e-01| chol 5  5 
+16|0.068|0.068|7.2e+06|8.3e+01|6.1e+11| 8.409309e+10| 0:0:21|3.7e+12|9.7e-01|9.5e-01| chol 4  7 
+17|0.148|0.148|3.2e+07|8.3e+01|9.8e+11| 1.167831e+11| 0:0:23|3.4e+12|9.0e-01|8.9e-01| chol 9  6 
+18|0.349|0.349|7.5e+07|8.0e+01|1.8e+12| 1.884713e+11| 0:0:24|2.6e+12|7.9e-01|7.5e-01| chol 7  5 
+19|0.809|0.809|2.3e+07|5.6e+01|2.6e+12| 3.180807e+11| 0:0:25|1.0e+12|6.3e-01|4.2e-01| chol 6  2 
+20|0.923|0.923|4.8e+08|3.4e+01|2.3e+12| 3.547732e+11| 0:0:27|1.9e+11|5.6e-01|2.3e-01| chol 8  8 
+21|0.876|0.876|1.1e+09|1.8e+01|1.2e+12| 2.497881e+11| 0:0:28|1.2e+10|5.9e-01|1.2e-01| chol 6  8 
+22|0.845|0.845|4.0e+09|1.3e+01|9.8e+11| 2.236837e+11| 0:0:30|2.5e+09|5.7e-01|8.6e-02| chol 7  9 
+23|0.663|0.663|5.1e+09|1.1e+01|8.2e+11| 1.920985e+11| 0:0:31|1.0e+09|5.6e-01|7.1e-02| chol 7  6 
+24|0.393|0.393|4.5e+09|1.1e+01|8.3e+11| 1.926516e+11| 0:0:32|7.2e+08|5.3e-01|6.7e-02| chol 6  7 
+25|0.628|0.628|4.7e+09|1.1e+01|8.6e+11| 1.929157e+11| 0:0:34|4.6e+08|4.5e-01|5.8e-02| chol 6 10 
+26|0.600|0.600|3.5e+09|1.3e+01|1.1e+12| 2.278505e+11| 0:0:35|3.5e+08|3.6e-01|5.5e-02| chol 7 10 
+27|0.582|0.582|3.4e+09|1.3e+01|1.2e+12| 2.349720e+11| 0:0:37|2.7e+08|3.1e-01|4.9e-02| chol11  5 
+28|0.632|0.632|1.9e+09|1.3e+01|1.2e+12| 2.325205e+11| 0:0:38|2.0e+08|2.8e-01|4.4e-02| chol 6  6 
+29|0.676|0.676|2.9e+09|1.4e+01|1.3e+12| 2.447149e+11| 0:0:39|1.8e+08|2.3e-01|3.8e-02| chol 5  7 
+30|0.681|0.681|2.0e+09|1.3e+01|1.2e+12| 2.249796e+11| 0:0:41|1.3e+08|2.2e-01|3.4e-02| chol 7  8 
+31|0.723|0.723|5.6e+08|1.4e+01|1.3e+12| 2.435088e+11| 0:0:42|1.2e+08|1.8e-01|3.0e-02| chol 7  6 
+32|0.715|0.715|8.6e+08|1.4e+01|1.1e+12| 2.322340e+11| 0:0:43|9.5e+07|1.6e-01|2.6e-02| chol 6  6 
+33|0.753|0.753|1.9e+09|1.3e+01|9.9e+11| 2.145032e+11| 0:0:45|7.2e+07|1.5e-01|2.3e-02| chol 7  7 
+34|0.682|0.682|2.2e+09|1.4e+01|1.0e+12| 2.344586e+11| 0:0:46|6.8e+07|1.2e-01|2.1e-02| chol 6  5 
+35|0.581|0.581|3.0e+09|1.4e+01|9.8e+11| 2.321864e+11| 0:0:48|5.6e+07|1.1e-01|1.9e-02| chol 5  5 
+36|0.645|0.645|2.3e+09|1.4e+01|8.9e+11| 2.290305e+11| 0:0:49|4.7e+07|1.0e-01|1.7e-02| chol 5  5 
+37|0.631|0.631|2.2e+09|1.3e+01|7.5e+11| 2.199378e+11| 0:0:51|3.7e+07|1.0e-01|1.6e-02| chol 5  6 
+38|0.518|0.518|2.4e+09|1.2e+01|6.3e+11| 2.041997e+11| 0:0:52|2.9e+07|1.0e-01|1.5e-02| chol 7  5 
+39|0.586|0.586|2.3e+09|1.3e+01|5.9e+11| 2.090653e+11| 0:0:53|2.6e+07|9.4e-02|1.4e-02| chol 4  4 
+40|0.550|0.550|2.9e+09|1.2e+01|5.1e+11| 2.030482e+11| 0:0:55|2.2e+07|9.2e-02|1.3e-02| chol 5  5 
+41|0.590|0.590|3.0e+09|1.2e+01|4.4e+11| 2.086151e+11| 0:0:56|1.9e+07|8.7e-02|1.2e-02| chol 5  6 
+42|0.490|0.490|2.2e+09|1.2e+01|4.0e+11| 2.112536e+11| 0:0:58|1.6e+07|8.3e-02|1.2e-02| chol 6  5 
+43|0.560|0.560|2.4e+09|1.2e+01|3.8e+11| 2.169119e+11| 0:0:59|1.4e+07|7.9e-02|1.1e-02| chol 5  4 
+44|0.757|0.757|7.6e+08|1.3e+01|3.5e+11| 2.381601e+11| 0:1:00|1.2e+07|6.9e-02|1.1e-02| chol 4  5 
+45|0.730|0.730|6.0e+08|1.3e+01|2.5e+11| 2.355633e+11| 0:1:02|9.4e+06|6.5e-02|9.9e-03| chol 4  4 
+46|0.599|0.599|2.2e+09|1.2e+01|2.1e+11| 2.303466e+11| 0:1:03|7.2e+06|6.3e-02|9.2e-03| chol 4  4 
+47|0.347|0.347|1.4e+09|1.2e+01|1.9e+11| 2.278309e+11| 0:1:05|6.3e+06|6.1e-02|8.8e-03| chol 4  3 
+48|0.446|0.446|1.3e+09|1.2e+01|1.7e+11| 2.272968e+11| 0:1:06|5.4e+06|5.8e-02|8.4e-03| chol 5  5 
+49|0.409|0.409|7.2e+08|1.2e+01|1.4e+11| 2.240973e+11| 0:1:07|4.6e+06|5.7e-02|8.0e-03| chol 5  4 
+50|0.083|0.083|7.4e+08|1.2e+01|1.4e+11| 2.216312e+11| 0:1:09|4.4e+06|5.7e-02|7.9e-03| chol 4  4 
+51|0.666|0.666|2.6e+08|1.1e+01|1.3e+11| 2.209092e+11| 0:1:10|3.4e+06|5.4e-02|7.3e-03| chol 4  5 
+52|0.413|0.413|1.3e+08|1.1e+01|1.1e+11| 2.127894e+11| 0:1:11|2.9e+06|5.4e-02|6.9e-03| chol 4  5 
+53|0.392|0.392|8.7e+08|1.0e+01|9.4e+10| 1.995394e+11| 0:1:13|2.4e+06|5.5e-02|6.5e-03| chol 4  5 
+54|0.438|0.438|2.9e+08|9.6e+00|8.1e+10| 1.926742e+11| 0:1:14|2.1e+06|5.4e-02|6.1e-03| chol 5  5 
+55|0.316|0.316|3.5e+08|9.3e+00|7.3e+10| 1.872918e+11| 0:1:16|1.9e+06|5.3e-02|5.9e-03| chol 5  5 
+56|0.237|0.237|3.9e+08|9.0e+00|7.0e+10| 1.822221e+11| 0:1:17|1.7e+06|5.4e-02|5.7e-03| chol 4  5 
+57|0.487|0.487|1.7e+09|8.6e+00|5.9e+10| 1.769771e+11| 0:1:18|1.5e+06|5.3e-02|5.4e-03| chol 5  4 
+58|0.258|0.258|1.0e+09|8.4e+00|5.6e+10| 1.728006e+11| 0:1:20|1.3e+06|5.3e-02|5.2e-03| chol 5  5 
+59|0.427|0.427|7.5e+08|7.8e+00|5.1e+10| 1.631366e+11| 0:1:21|1.1e+06|5.4e-02|4.9e-03| chol 5  4 
+60|0.258|0.258|9.5e+08|7.6e+00|4.7e+10| 1.600808e+11| 0:1:23|1.1e+06|5.3e-02|4.8e-03| chol 5  4 
+61|0.404|0.404|8.4e+08|7.1e+00|4.2e+10| 1.519056e+11| 0:1:24|9.3e+05|5.4e-02|4.6e-03| chol 5  5 
+62|0.792|0.792|5.5e+08|7.0e+00|2.6e+10| 1.524440e+11| 0:1:26|8.2e+05|5.0e-02|4.2e-03| chol 5  5 
+63|0.403|0.403|4.7e+08|6.8e+00|2.3e+10| 1.481160e+11| 0:1:27|6.5e+05|5.0e-02|4.1e-03| chol 5  5 
+64|0.485|0.485|1.5e+09|6.6e+00|2.0e+10| 1.443378e+11| 0:1:28|5.2e+05|5.0e-02|3.9e-03| chol 5  6 
+65|0.144|0.144|1.6e+09|6.5e+00|2.0e+10| 1.429728e+11| 0:1:30|4.8e+05|5.0e-02|3.9e-03| chol 5  5 
+66|0.598|0.598|2.6e+09|6.3e+00|1.7e+10| 1.385474e+11| 0:1:31|3.8e+05|5.0e-02|3.7e-03| chol 5  6 
+67|0.491|0.491|7.0e+08|6.0e+00|1.5e+10| 1.318995e+11| 0:1:32|3.1e+05|5.1e-02|3.6e-03| chol 5  4 
+68|0.672|0.672|2.6e+08|5.7e+00|1.0e+10| 1.255581e+11| 0:1:34|2.6e+05|5.1e-02|3.4e-03| chol 5  6 
+69|0.406|0.406|7.2e+08|5.5e+00|9.3e+09| 1.225659e+11| 0:1:35|2.2e+05|5.1e-02|3.4e-03| chol 5  5 
+70|0.679|0.679|6.6e+08|5.4e+00|7.5e+09| 1.230061e+11| 0:1:36|1.7e+05|5.1e-02|3.3e-03| chol 5  5 
+71|0.479|0.479|4.6e+08|5.4e+00|6.5e+09| 1.225478e+11| 0:1:38|1.5e+05|5.1e-02|3.2e-03| chol 8  6 
+72|0.701|0.701|1.4e+09|5.2e+00|5.0e+09| 1.201958e+11| 0:1:39|1.2e+05|5.1e-02|3.2e-03| chol 5  5 
+73|0.767|0.767|2.9e+09|5.2e+00|4.2e+09| 1.214358e+11| 0:1:41|8.9e+04|5.0e-02|3.1e-03| chol 6  6 
+74|0.713|0.713|3.4e+09|5.1e+00|3.3e+09| 1.204988e+11| 0:1:42|7.2e+04|5.0e-02|3.1e-03| chol 6  8 
+75|0.530|0.530|8.2e+08|5.1e+00|3.0e+09| 1.189508e+11| 0:1:44|6.1e+04|5.0e-02|3.0e-03| chol 6  5 
+76|0.679|0.679|3.3e+08|5.0e+00|2.4e+09| 1.187707e+11| 0:1:45|5.1e+04|5.0e-02|3.0e-03| chol 5  7 
+77|0.789|0.789|1.1e+09|5.1e+00|1.8e+09| 1.199027e+11| 0:1:46|4.1e+04|5.0e-02|3.0e-03| chol 5  8 
+78|0.708|0.708|6.5e+08|5.1e+00|1.5e+09| 1.201092e+11| 0:1:48|3.2e+04|4.9e-02|3.0e-03| chol 5  6 
+79|0.598|0.598|3.4e+08|5.0e+00|1.3e+09| 1.199647e+11| 0:1:49|2.7e+04|4.9e-02|2.9e-03| chol 7  6 
+80|0.638|0.638|6.6e+08|5.0e+00|9.8e+08| 1.193824e+11| 0:1:50|2.2e+04|4.9e-02|2.9e-03| chol 7  8 
+81|0.302|0.302|1.1e+09|5.0e+00|9.5e+08| 1.193945e+11| 0:1:52|2.0e+04|4.9e-02|2.9e-03| chol 6 11 
+82|0.653|0.653|1.0e+09|5.0e+00|8.0e+08| 1.195168e+11| 0:1:53|1.6e+04|4.9e-02|2.9e-03| chol 5  6 
+83|0.616|0.616|3.5e+08|5.0e+00|6.4e+08| 1.193545e+11| 0:1:55|1.4e+04|4.9e-02|2.9e-03| chol 7  6 
+84|0.802|0.802|6.9e+08|5.0e+00|5.1e+08| 1.192535e+11| 0:1:56|1.1e+04|4.9e-02|2.9e-03| chol 6  5 
+85|0.610|0.610|7.4e+08|5.0e+00|4.0e+08| 1.192733e+11| 0:1:57|8.9e+03|4.9e-02|2.9e-03| chol 7  6 
+86|0.731|0.731|1.5e+09|5.0e+00|3.3e+08| 1.191738e+11| 0:1:59|6.9e+03|4.9e-02|2.9e-03| chol 7  5 
+87|0.664|0.664|8.5e+08|5.0e+00|2.5e+08| 1.192881e+11| 0:2:00|5.7e+03|4.9e-02|2.9e-03| chol 6  6 
+88|0.833|0.833|4.8e+08|5.0e+00|2.0e+08| 1.192754e+11| 0:2:01|4.2e+03|4.9e-02|2.9e-03| chol 7  7 
+89|0.455|0.455|2.9e+08|5.0e+00|1.7e+08| 1.192433e+11| 0:2:03|3.6e+03|4.9e-02|2.9e-03| chol 6  7 
+90|0.647|0.647|9.4e+08|5.0e+00|1.4e+08| 1.191978e+11| 0:2:04|3.0e+03|4.9e-02|2.9e-03| chol 6 10 
+91|0.717|0.717|2.3e+09|5.0e+00|1.2e+08| 1.191539e+11| 0:2:05|2.3e+03|4.9e-02|2.9e-03| chol 9 10 
+92|0.709|0.709|9.5e+08|5.0e+00|9.1e+07| 1.191728e+11| 0:2:07|1.9e+03|4.9e-02|2.9e-03| chol^ 6 10 
+93|0.873|0.873|5.3e+08|5.0e+00|6.4e+07| 1.191607e+11| 0:2:08|1.4e+03|4.9e-02|2.9e-03| chol14 13 
+94|0.587|0.587|9.4e+08|5.0e+00|5.3e+07| 1.191461e+11| 0:2:10|1.2e+03|4.9e-02|2.9e-03| chol 6  7 
+95|0.610|0.610|4.5e+08|5.0e+00|4.9e+07| 1.191424e+11| 0:2:11|9.5e+02|4.9e-02|2.9e-03| chol13 16 
+96|0.710|0.710|1.1e+09|5.0e+00|3.8e+07| 1.191277e+11| 0:2:13|8.0e+02|4.9e-02|2.9e-03| chol12  9 
+97|0.848|0.848|2.5e+08|5.0e+00|2.7e+07| 1.191281e+11| 0:2:14|6.1e+02|4.9e-02|2.9e-03| chol^10 15 
+98|0.751|0.751|2.0e+08|5.0e+00|2.1e+07| 1.191237e+11| 0:2:15|4.5e+02|4.9e-02|2.9e-03| chol20 20 
+99|0.753|0.753|1.7e+09|5.0e+00|1.6e+07| 1.191170e+11| 0:2:17|3.5e+02|4.9e-02|2.9e-03| chol
+  HSDlinsysolve: Schur complement matrix not positive definite
+  switch to LU factor lu ^13 10 
+100|0.706|0.706|1.2e+09|5.0e+00|1.2e+07| 1.191106e+11| 0:2:19|2.7e+02|4.9e-02|2.9e-03|
+  Stop: infeas has deteriorated too much, 1.2e+09
+-------------------------------------------------------------------
+ number of iterations   = 100
+ primal objective value =  1.30343364e+11
+ dual   objective value =  0.00000000e+00
+ gap := trace(XZ)       = 3.91e+11
+ relative gap           = 6.00e+00
+ actual relative gap    = 1.00e+00
+ rel. primal infeas     = 1.98e+06
+ rel. dual   infeas     = 8.44e+01
+ norm(X), norm(y), norm(Z) = 4.9e+03, 0.0e+00, 1.3e+08
+ norm(A), norm(b), norm(C) = 1.1e+08, 7.4e+01, 4.2e+07
+ Total CPU time (secs)  = 138.67  
+ CPU time per iteration = 1.39  
+ termination code       = -7
+ DIMACS errors: 2.0e+06  0.0e+00  8.4e+01  0.0e+00  1.0e+00  3.0e+00
+-------------------------------------------------------------------
+
+ans = 
+
+  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
+
+    yalmipversion: '20181012'
+       yalmiptime: 1.4555
+       solvertime: 140.0312
+             info: 'Numerical problems (SDPT3-4)'
+          problem: 4
+
+trsv_lnrzn_sym
+Introducing Virtual Constraints 
+Introducing Transversal Coordinates 
+Computing Mapping From Generalized Cootdinates to Transversal Coordinates 
+
+Testing Coordinate Transformation
+Coordinate transformation is CORRECT 
+
+Computing Dyanmics in Transversal Coordinates 
+Computing Feedforward Torques 
+Computing Internal Dynamics 
+
+Testing Compuation of alpha-beta-gamma 
+ABG is Computed Correctly 
+
+Getting g_y 
+Getting g_yd 
+Getting g_v 
+Getting g_I 
+Getting matrices A and B in symbolic form 
+Computing normal vector to switching surface 
+Computing normal vector to moving Poincare section 
+Computing jacobian of coordinate transformation 
+
+{Operation terminated by user during <a href="matlab:matlab.internal.language.introspective.errorDocCallback('sym/privUnaryOp', '/usr/local/MATLAB/R2018a/toolbox/symbolic/symbolic/@sym/sym.m', 997)" style="font-weight:bold">sym/privUnaryOp</a> (<a href="matlab: opentoline('/usr/local/MATLAB/R2018a/toolbox/symbolic/symbolic/@sym/sym.m',997,0)">line
+997</a>)
+
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('sym/inv', '/usr/local/MATLAB/R2018a/toolbox/symbolic/symbolic/@sym/inv.m', 22)" style="font-weight:bold">sym/inv</a> (<a href="matlab: opentoline('/usr/local/MATLAB/R2018a/toolbox/symbolic/symbolic/@sym/inv.m',22,0)">line 22</a>)
+X = privUnaryOp(A, 'symobj::inv');
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('Dlta_q_d_ss', '/home/shamil/Desktop/work/Projects/dynamics/five_link_planar_biped/dynamics/impact/Dlta_q_d_ss.m', 6)" style="font-weight:bold">Dlta_q_d_ss</a> (<a href="matlab: opentoline('/home/shamil/Desktop/work/Projects/dynamics/five_link_planar_biped/dynamics/impact/Dlta_q_d_ss.m',6,0)">line 6</a>)
+    P_q_d = [P_q() zeros(5,2)]*(eye(7) -
+    inv_D*J'*inv(J*inv_D*J')*J)*[eye(5); zeros(2,5)];
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('trsv_lnrzn_sym', '/home/shamil/Desktop/work/Projects/dynamics/five_link_planar_biped/trsv_lnrzn_sym.m', 189)" style="font-weight:bold">trsv_lnrzn_sym</a> (<a href="matlab: opentoline('/home/shamil/Desktop/work/Projects/dynamics/five_link_planar_biped/trsv_lnrzn_sym.m',189,0)">line 189</a>)
+Delta_qd = Dlta_q_d_ss(q);
+} 
+clear all
+trsv_lnrzn_sym
+Introducing Virtual Constraints 
+Introducing Transversal Coordinates 
+Computing Mapping From Generalized Cootdinates to Transversal Coordinates 
+
+Testing Coordinate Transformation
+Coordinate transformation is CORRECT 
+
+Computing Dyanmics in Transversal Coordinates 
+Computing Feedforward Torques 
+Computing Internal Dynamics 
+
+Testing Compuation of alpha-beta-gamma 
+ABG is Computed Correctly 
+
+Getting g_y 
+Getting g_yd 
+Getting g_v 
+Getting g_I 
+Getting matrices A and B in symbolic form 
+Computing normal vector to switchi

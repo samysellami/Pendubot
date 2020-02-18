@@ -1,4 +1,4 @@
-clc; clear all; close all;
+%clc; clear all; close all;
 
 addpath(genpath('/home/sami/Documents/MasterThesis/Bot pendulum//BotPendulum_Energy based control/pdbt_files/utils'))
 addpath(genpath('/home/sami/Documents/MasterThesis/Bot pendulum//BotPendulum_Energy based control/pdbt_files/planar2DOF'))
@@ -33,7 +33,7 @@ for i = 1:2
    plnr.r_com(:,i) = sym(com_pos);
    plnr.I(:,:,i) = sym(link_inertia);
 end
-% 
+%{ 
 % syms m1 m2 l1 l2 lc1 lc2 I1 I2 real
 % 
 % plnr.m(1) = m1; 
@@ -42,12 +42,12 @@ end
 % plnr.I(:,:,2) = [0 0 0 ; 0 0 0; 0 0 I2];
 % plnr.r_com(:,1) = [lc1; 0; 0];
 % plnr.r_com(:,2) = [lc2; 0; 0];
-syms theta1 theta2 theta3 theta4 theta5 g
-plnr.theta(1) = theta1;
-plnr.theta(2) = theta2;
-plnr.theta(3) = theta3;
-plnr.theta(4) = theta4;
-plnr.theta(5) = theta5;
+% syms theta1 theta2 theta3 theta4 theta5
+% plnr.theta(1) = theta1;
+% plnr.theta(2) = theta2;
+% plnr.theta(3) = theta3;
+% plnr.theta(4) = theta4;
+% plnr.theta(5) = theta5;
 
 
 % l1 =  str2num(plnr.robot.link{1,2}.visual.geometry.cylinder.Attributes.length);
@@ -65,12 +65,6 @@ plnr.theta(5) = theta5;
 % plnr.theta(4) = 0.215; 
 % plnr.theta(5) = 0.073;
 
-% parammeters of the article THE SWING U P CONTROL FOR THE PENDUBOT
-% plnr.theta(1) = 0.0799;
-% plnr.theta(2) = 0.0244;
-% plnr.theta(3) = 0.0205;
-% plnr.theta(4) = 0.42126; 
-% plnr.theta(5) = 0.10630;
 
 % parammeters of the article Hybrid Control for the Pendubot N°1
 % plnr.theta(1) = 0.0308;
@@ -85,9 +79,15 @@ plnr.theta(5) = theta5;
 % plnr.theta(3) = 0.0098;
 % plnr.theta(4) = 0.1673; 
 % plnr.theta(5) = 0.0643;
+%}
 
-
-% return
+% parammeters of the article THE SWING U P CONTROL FOR THE PENDUBOT
+plnr.theta(1) = 0.0799;
+plnr.theta(2) = 0.0244;
+plnr.theta(3) = 0.0205;
+plnr.theta(4) = 0.42126; 
+plnr.theta(5) = 0.10630;
+return
 % ------------------------------------------------------------------------
 % Symbolic generilized coordiates, their first and second deriatives
 % ------------------------------------------------------------------------
@@ -95,7 +95,10 @@ q_sym = sym('q%d',[2,1],'real');
 qd_sym = sym('qd%d',[2,1],'real');
 q2d_sym = sym('q2d%d',[2,1],'real');
 syms u;
-
+g  = 9.81;
+phi0 = -pi/2; 
+thta0 = 0;
+k  = 0.5;
 %------------------------------------------------------------------------
 % Dynamics of the robot in classical form for control
 %------------------------------------------------------------------------
@@ -106,17 +109,17 @@ Jw_0k = sym(zeros(3,2,2));
 K = sym(0); P = sym(0);
 
 for i = 1:2
-%       Transformation from parent link frame p to current joint frame
+        % Transformation from parent link frame p to current joint frame
         R_pj = sym(RPY(str2num(plnr.robot.joint{i}.origin.Attributes.rpy)));
         p_pj = sym(str2num(plnr.robot.joint{i}.origin.Attributes.xyz))';
         R_pj(abs(R_pj)<1e-5) = sym(0);
         T_pj = [R_pj, p_pj; sym(zeros(1,3)), sym(1)];
-%       Tranformation from joint frame of the joint that rotates body k to
-%       link frame. The transformation is pure rotation
+        % Tranformation from joint frame of the joint that rotates body k to
+        % link frame. The transformation is pure rotation
         R_jk = Rot(q_sym(i),plnr.k(:,i));
         p_jk = sym(zeros(3,1));
         T_jk = [R_jk, p_jk; sym(zeros(1,3)),sym(1)];
-%       Transformation from parent link frame p to current link frame k
+        % Transformation from parent link frame p to current link frame k
         T_pk(:,:,i) = T_pj*T_jk;
         T_0k(:,:,i+1) = T_0k(:,:,i)*T_pk(:,:,i);
         z_0k(:,i) = T_0k(1:3,1:3,i+1)*plnr.k(:,i);
@@ -169,24 +172,23 @@ g_thta = [plnr.theta(4) * g * cos(q_sym(1)) + plnr.theta(5) * g * cos(q_sym(1) +
 
 n_thta =  C_thta * qd_sym + g_thta; 
 
-% f = [qd_sym; D_thta\([u; 0] - n_thta)];
-% A = jacobian(f,[q_sym; qd_sym]);
-% B = jacobian(f,u);
+f = [qd_sym; D_thta\([u; 0] - n_thta)];
+A = jacobian(f,[q_sym; qd_sym]);
+B = jacobian(f,u);
 
-% matlabFunction(D_thta,'File','autogen/M_mtrx_fcn','Vars',{q_sym});
-% matlabFunction(n_thta,'File','autogen/n_vctr_fcn','Vars',{q_sym,qd_sym});
-% matlabFunction(C_thta,'File','autogen/C_mtrx_fcn','Vars',{q_sym,qd_sym});
-% matlabFunction(g_thta,'File','autogen/g_vctr_fcn','Vars',{q_sym});
-% 
-% matlabFunction(A,'File','autogen/A_mtrx_fcn','Vars',{q_sym,qd_sym, u});
-% matlabFunction(B,'File','autogen/B_vctr_fcn','Vars',{q_sym,qd_sym});
-% matlabFunction(Jv_0k(:,:,2),'File','autogen/Jacob_fcn','Vars',{q_sym});
+matlabFunction(D_thta,'File','autogen/M_mtrx_fcn','Vars',{q_sym});
+matlabFunction(n_thta,'File','autogen/n_vctr_fcn','Vars',{q_sym,qd_sym});
+matlabFunction(C_thta,'File','autogen/C_mtrx_fcn','Vars',{q_sym,qd_sym});
+matlabFunction(g_thta,'File','autogen/g_vctr_fcn','Vars',{q_sym});
+
+matlabFunction(A,'File','autogen/A_mtrx_fcn','Vars',{q_sym,qd_sym, u});
+matlabFunction(B,'File','autogen/B_vctr_fcn','Vars',{q_sym,qd_sym});
+matlabFunction(Jv_0k(:,:,2),'File','autogen/Jacob_fcn','Vars',{q_sym});
 
 
 % -----------------------------------------------------------------------%
 % Transverse linearization 
 % -----------------------------------------------------------------------%
-
 
 % Feedforward Input
 syms U real
@@ -197,13 +199,10 @@ syms y_2d real
 % (Partial feedback linearization) feedback variable
 syms v real
 syms s s_d s_2d     real
-syms phi0 thta0 k   real
+% syms phi0 thta0 k   real
 
 % Virtual holonomic constraints
 Phi = [phi0 + k * (s - thta0), s]';
-D_thta = [plnr.theta(1) + plnr.theta(2) + 2 * plnr.theta(3) * cos(q_sym(2)), ...
-          plnr.theta(2) + plnr.theta(3) * cos(q_sym(2)); ...
-          plnr.theta(2) + plnr.theta(3) * cos(q_sym(2)), plnr.theta(2)];
 Phi_prm = diff(Phi, s);
 Phi_2prm = diff(Phi, s, 2);
 
@@ -221,9 +220,16 @@ alfa = B_anh * M_phi * Phi_prm;
 bta = B_anh * ( M_phi * Phi_2prm + diff(C_phi,s_d) * Phi_prm );
 gma = B_anh * G_phi;
 
+matlabFunction(alfa,'File','autogen/alpha_fcn','Vars',{s});
+matlabFunction(bta,'File','autogen/beta_fcn','Vars',{s});
+matlabFunction(gma,'File','autogen/gama_fcn','Vars',{s});
 
+matlabFunction(Phi(1),'File','autogen/Phi_fcn','Vars',{s});
+matlabFunction(Phi_prm(1),'File','autogen/Phi_prm_fcn','Vars',{s});
 
-% Change of coordinates to tran sverse
+% return
+%
+% Change of coordinates to transverse
 h = 0;
 q_new = Phi + [y; h];
 
@@ -243,11 +249,12 @@ N = [0 1]*simplify(inv(Lb)*inv(M_sy)*B);
 R = [0 1]*simplify(inv(Lb)*(-inv(M_sy)*(C_sy*Lb*[s_d;y_d]+G_sy) - P));
 
 u = pinv(B)*(M_sy*(P+Lb*[s_2d;y_2d])+C_sy*Lb*[s_d;y_d]+G_sy);
-
+    
 %sustitute y_2d = 0 and s_2d from ABG
-U = pinv(B)*(M_sy*(P+Lb*[simplify((-bta*s_d^2 -gma)/alfa),0]')+C_sy*Lb*[s_d;y_d]+G_sy);
-
-%matlabFunction(U','File','U_ff','Vars',{s,s_d,y,y_d});
+%U = pinv(B)*(M_sy*(P+Lb*[simplify((-bta*s_d^2 -gma)/alfa),0]')+C_sy*Lb*[s_d;y_d]+G_sy);
+U = -inv(N) * R;
+matlabFunction(N,'File','autogen/N_fcn','Vars',{s,s_d});
+matlabFunction(U','File','autogen/U_ff','Vars',{s,s_d,y,y_d});
 
 F = R + N*U;
 
@@ -261,26 +268,32 @@ alfa2 = simplify(jacobian(s_abg,s_2d));
 beta2  = simplify(jacobian(subs(s_abg,s_d^2,tt),tt));
 gma2 = simplify(s_abg - alfa2*s_2d - beta2*s_d^2);
 
-%%
+%
 % To get alpha beta gamma explicitly on the left-hand side
 % we add to both parts of the equation reduced dynamics
 G = simplify((-s_dyn + (alfa*s_2d + bta*s_d^2 + gma)));
 G_0 = simplify(subs(G, [y,y_d,y_2d], zeros(1,3)));
 
-G = subs(G, y_2d, F+N*v);
+G = subs(G, y_2d,v);
 
 temp = simplify(subs(G, [y_d; v], zeros(2,1)));
-g_y = simplify( subs(jacobian(temp,y), y, 0));
+g_y = simplify( jacobian(temp,y)); clear temp;
+
 temp = simplify(subs(G, [y; v], zeros(2,1)));
-g_yd = simplify( subs(jacobian(temp,y_d), y_d, 0));
+g_yd = simplify( jacobian(temp,y_d)); clear temp;
+        
 temp = simplify(subs(G, [y; y_d], zeros(2,1)));
-g_v = simplify( subs(jacobian(temp,v),v, 0));
+g_v = simplify( jacobian(temp,v)); clear temp;
+
 temp = simplify(subs(G, [y; y_d; v], zeros(3,1)));
 g_I = simplify((s_d*simplify(jacobian(temp,s_d)) - ...
                 s_2d*simplify(jacobian(temp,s)))/(2*(s_d^2 + s_2d^2)));
+%
+
+g_y = subs(g_y, y, 0);
+g_yd = subs(g_yd, y_d, 0);
+g_v = subs(g_v,v, 0);
             
-            
-%%
 a = simplify(2*s_d/(alfa));
 a_11 = simplify(a*(g_I - simplify(bta)));
 a_12 = simplify(a*g_y);
@@ -294,15 +307,15 @@ temp = simplify(subs(F, [y_d; v], zeros(2,1)));
 A22 = subs( jacobian(temp,y), y, 0 );
 temp = simplify(subs(F, [y; v], zeros(2,1)));
 A23 = subs( jacobian(temp,y_d), y_d, 0 );
-B2  = simplify(subs(N, [y; y_d], zeros(2,1)));
-
+% B2  = simplify(subs(N, [y; y_d], zeros(2,1)));
+B2 = 1;    
 A = [a_11 a_12 a_13;0 0 1; A21 A22 A23];
 B = [b1;0;B2];
 
 A = simplify(subs(A,s_2d,(-bta*s_d^2-gma)/alfa));
 
-matlabFunction(A,'File','A_mtrx','Vars',{s,s_d});
-matlabFunction(B,'File','B_mtrx','Vars',{s,s_d});
+matlabFunction(A,'File','autogen/A_mtrx','Vars',{s,s_d});
+matlabFunction(B,'File','autogen/B_mtrx','Vars',{s,s_d});
 
 
 

@@ -22,7 +22,7 @@ Kp = 5.5;  % Lyapunov constant 3
 
 eta * Ke * plnr.theta(4)^2 * g^2;
 g = 9.81;
-q_tot = [];
+theta_tot = [];
 qd_tot = [];
 u_tot = [];
 L = [];
@@ -60,23 +60,23 @@ else
         q = x(end,1:2)';
         q_d = x(end,3:4)';
         
-        q_tot = [q_tot q];
+        theta_tot = [theta_tot q];
         qd_tot = [qd_tot q_d];
         u_tot = [u_tot u];
         L = [L Lyap(q, q_d, plnr, Ke, Kd, Kp, E_top)];
         Energ = [Energ  Energie(q, q_d, plnr)];
 
     end
-    pendubot_visualize(q_tot(1:2,1:100:end),plnr)
+    pendubot_visualize(theta_tot(1:2,1:100:end),plnr)
 
     figure
-    plot(q_tot(1, :)-pi/2, 'DisplayName', 'q1');
+    plot(theta_tot(1, :)-pi/2, 'DisplayName', 'q1');
     hold on 
-    plot(q_tot(2, :), 'DisplayName', 'q2');
+    plot(theta_tot(2, :), 'DisplayName', 'q2');
     legend
 
     figure
-    plot(q_tot(2, :), qd_tot(2, :), 'DisplayName', 'Phase portrait q2');
+    plot(theta_tot(2, :), qd_tot(2, :), 'DisplayName', 'Phase portrait q2');
     legend
 
     figure
@@ -107,7 +107,7 @@ Kp = 45;  % constant 2
 Kd = 5.8;  % constant 3
 
 g = 9.81;
-q_tot = []; 
+theta_tot = []; 
 qd_tot = [];
 u_tot = [];
 q = [-pi/2 ; 0];
@@ -140,18 +140,18 @@ for i= 1:n
         q = x(end,1:2)';
         q_d = x(end,3:4)';  
 
-        q_tot = [q_tot q];
+        theta_tot = [theta_tot q];
         qd_tot = [qd_tot q_d];
         u_tot = [u_tot u];
     end
 end
 
-pendubot_visualize(q_tot(1:2,1:100:end),plnr)
+pendubot_visualize(theta_tot(1:2,1:100:end),plnr)
 
 figure
-plot(q_tot(1, :)-pi/2, 'DisplayName', 'q1');
+plot(theta_tot(1, :)-pi/2, 'DisplayName', 'q1');
 hold on 
-plot(q_tot(2, :), 'DisplayName', 'q2');
+plot(theta_tot(2, :), 'DisplayName', 'q2');
 legend
 
 
@@ -183,7 +183,7 @@ q_s = [-pi/2; pi];  % stabilization point
 up = 0;
 ode_optns_up = odeset('RelTol',1e-10,'AbsTol',1e-10, 'Event', @(t,x)div_event_up(t,x));
 ode_optns_down = odeset('RelTol',1e-10,'AbsTol',1e-10, 'Event', @(t,x)div_event_down(t,x));
-q_tot = []; 
+theta_tot = []; 
 
 % Weight matrices for states and inputs
 % Q = [50,0,0,0;...
@@ -227,14 +227,14 @@ for i= 1:n
     if isempty(te)
         q = x(end,1:2)';
         q_d = x(end,3:4)';
-        q_tot = [q_tot q];
+        theta_tot = [theta_tot q];
     else
         disp('system diverging !!!')
         break
     end    
 end
 if isempty(te)
-    pendubot_visualize(q_tot(1:2,1:1000:end),plnr)
+    pendubot_visualize(theta_tot(1:2,1:1000:end),plnr)
 end
 
 
@@ -249,9 +249,52 @@ end
 
 
 
+clear; clc;
+run('pndbt_dnmcs.m')
 
+% ------------------------------------------------------------------------
+% System Initialization
+% ------------------------------------------------------------------------
+n = 50000; % number of iterations 
+T = 5; % Final time of the simulation
+delta_t = T/n; % iterations step
+g = 9.81; % gravity
 
+ode_optns = odeset('RelTol',1e-10,'AbsTol',1e-10);
 
+theta_tot = []; 
+theta_d_tot = []; 
+
+% ------------------------------------------------------------------------
+% alpha bera gamma equation dynamics   
+% ------------------------------------------------------------------------
+phi0 = -pi/2; 
+thta0 = 0;
+k  = 0.5;
+theta = 0;
+theta_d = -10;
+
+for i= 1:n
+
+    % applying the control input to the dynamics
+    odefun = @(t,x)ode_alfa_bta_gma(t,x,k,phi0,thta0);
+    [t,x] = ode45(odefun, [0,delta_t], [theta;theta_d], ode_optns);
+    
+    theta = x(end,1);
+    theta_d = x(end,2);
+    theta_tot = [theta_tot theta];
+    theta_d_tot = [theta_d_tot theta_d];
+
+end
+q_tot = zeros(2, length(theta_tot));
+q_tot(2,:) = theta_tot;
+q_tot(1,:) = phi0 + k*(theta_tot - thta0);
+
+figure
+plot(theta_d_tot, theta_tot, 'DisplayName', 'Phase portrait');
+legend
+
+%pendubot_visualize(q_tot(1:2,1:1000:end),plnr)
 
 
 
