@@ -1,4 +1,19 @@
+% -----------------------------------------------------------------------%
 % Linearization of the dynamics along norminal trajectory
+% -----------------------------------------------------------------------%
+% Phi = f(s)   postion of the first link 
+% Theta = s   position of the second link 
+
+clc; clear all;  close all;
+
+% Parameters of the nominal trajectory
+phi0 = pi/2; 
+thta0 = 0;
+k  = -0.8;
+
+% Initial conditions of the nominal trajectory
+theta =  1;
+theta_d = 0.0;
 
 run('nominal_trajectory.m');
 
@@ -10,7 +25,7 @@ if redesign_controller
 
 else
     
-    load('K_mtrx2.mat');
+    load('K_mtrx.mat');
     K_gusev = K_mtrx;
 
 end
@@ -62,13 +77,13 @@ else
 end
 
 
-%% INITIAL CONDITION AND PARAMETERS OF SIMULATION
+% INITIAL CONDITION AND PARAMETERS OF SIMULATION
 optns_id = odeset('RelTol',1e-12,'AbsTol',1e-12,'NormControl','on');
 % Function that finds zero crossing
 zci = @(v) find(v(:).*circshift(v(:), [-1 0]) <= 0);
 
 n_T = length(s_str);
-n_iter = 800;
+n_iter = 1000;
 add_distr = 0;
 
 if add_distr
@@ -78,15 +93,20 @@ else
 end
 
 %Initial condition
-% x0 = [Phi_fcn(x_iterp(1,1)) , x_iterp(1,1) ,...
-        %Phi_prm_fcn(x_iterp(1,1)) * x_iterp(1,2), x_iterp(1,2)]';
+thta_0 = 0;
+thta_d_0 = 0;
 
-x0 = [Phi_fcn(x_iterp(locs(1),1)) , x_iterp(locs(1),1) ,...
-        Phi_prm_fcn(x_iterp(locs(1),1)) * x_iterp(locs(1),2), x_iterp(locs(1),2)]';
+x0 = [Phi_fcn(thta_0) , thta_0 ,...
+        Phi_prm_fcn(thta_0) * thta_d_0, thta_d_0]';
+
+% x0 = [Phi_fcn(x_iterp(locs(1),1)) , x_iterp(locs(1),1) ,...
+%         Phi_prm_fcn(x_iterp(locs(1),1)) * x_iterp(locs(1),2), x_iterp(locs(1),2)]';
 
 x0_dstbd = x0 + dlta_x0;
 
-% CONTROLLING LINEARIZED SYSTEM
+
+%{
+%% CONTROLLING LINEARIZED SYSTEM
 % Generator of motion and its deriative
 s_0 = x0_dstbd(2);
 s_d_0 = x0_dstbd(4);
@@ -155,7 +175,7 @@ for i = 1:n_iter
     dlta_q = q_cur - q_str;
     dlta_q_nrm = vecnorm(dlta_q,2,2);
     [~,idx2] = min(dlta_q_nrm);
-    disp(idx)
+
     % Compute Transverse coordinates
     I_cur = Intg(s_cur,s_d_cur, s_str(1),s_d_str(1));
     y_cur = x_inv_dnmcs_dstbd(i,1) - Phi_fcn(s_cur);
@@ -216,7 +236,7 @@ figure
 plot(t_iterp(1:n_iter),u)
 
 
-%pendubot_visualize(x_inv_dnmcs_dstbd(1:10:end,1:2)',plnr)
+pendubot_visualize(x_inv_dnmcs_dstbd(1:10:end,1:2)',plnr)
 
 
 %% FUNCTIONS

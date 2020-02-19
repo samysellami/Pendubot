@@ -1,15 +1,14 @@
-clc; clear all;  close all;
+%clc; clear all;  close all;
 
-% parameters of alpha bera gamma equation
-phi0 = pi/2; 
-thta0 = 0;
-k  = 0;
-g = 9.81; % gravity
+% parameters of alpha beta gamma equation
+% phi0 = -pi/2; 
+% thta0 = 0;
+% k  = 0.5;
 
 run('pndbt_dnmcs.m')
 
-theta =  1;
-theta_d = -5;
+% theta =  1;
+% theta_d = 0.0;
 
 % ABG IN STATE SPACE FORM
 dxdt = @(t,x)[x(2); (-gama_fcn(x(1)) - ...
