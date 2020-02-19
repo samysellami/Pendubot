@@ -1,8 +1,7 @@
 % ------------------------------------------------------------------------
-% Pseudospectral optimal control of the pendubot
+% Energy based control of the pendubot
 % ------------------------------------------------------------------------
-% The first task is to perform swing up of the robot using Pseudospectral
-% techniques. In the swing up initial condition is x0 = [0,0,0,0]' and 
+% swing up initial condition is x0 = [-pi/2,0,0,0]' and 
 % final condition is xT = [pi/2,0,0,0]';
 % ------------------------------------------------------------------------
 clc; clear;
@@ -11,7 +10,7 @@ run('pndbt_dnmcs.m')
 % ------------------------------------------------------------------------
 % System Initialization
 % ------------------------------------------------------------------------
-%5 zeros
+
 n = 50000; % number of iterations 
 T = 5; % Final time of the simulation
 delta_t = T/n; % iterations step
@@ -68,7 +67,8 @@ else
 
     end
     pendubot_visualize(theta_tot(1:2,1:100:end),plnr)
-
+    
+    % ploting 
     figure
     plot(theta_tot(1, :)-pi/2, 'DisplayName', 'q1');
     hold on 
@@ -246,9 +246,6 @@ end
 
 %% Transverse linearization of the pendubot around nominal trajectories
 
-
-
-
 clear; clc;
 run('pndbt_dnmcs.m')
 
@@ -295,50 +292,6 @@ plot(theta_d_tot, theta_tot, 'DisplayName', 'Phase portrait');
 legend
 
 %pendubot_visualize(q_tot(1:2,1:1000:end),plnr)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-%%
-
-n= 52; 
-average = 1/n; 
-for i = 1:n-1
-    term  = 1/(n-i);
-    for j = 1:i
-        term =   ( 1 - 1/(n-(j-1)) ) * term ;
-    end
-    average = average + term * (i+1);
-end
-
-
-n= 52; 
-prob = 1/n; 
-for i = 1:n/2 - 1
-    term  = 1/(n-i);
-    for j = 1:i
-        term =   ( 1 - 1/(n-(j-1)) ) * term ;
-    end
-    prob = prob + term;
-end
-
-
 
 
 

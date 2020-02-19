@@ -1,5 +1,6 @@
 %clc; clear all; close all;
 
+% Path to the urdf file 
 addpath(genpath('/home/sami/Documents/MasterThesis/Bot pendulum//BotPendulum_Energy based control/pdbt_files/utils'))
 addpath(genpath('/home/sami/Documents/MasterThesis/Bot pendulum//BotPendulum_Energy based control/pdbt_files/planar2DOF'))
 
@@ -49,22 +50,12 @@ end
 % plnr.theta(4) = theta4;
 % plnr.theta(5) = theta5;
 
-
-% l1 =  str2num(plnr.robot.link{1,2}.visual.geometry.cylinder.Attributes.length);
-% plnr.theta(1) = vpa( plnr.m(1) * norm(plnr.r_com(:,1))^2 + plnr.m(2) * l1^2 + plnr.I(3,3,1)  );
-% plnr.theta(2) = vpa( plnr.m(2) * norm(plnr.r_com(:,2))^2 + plnr.I(3,3,2) ) ;
-% plnr.theta(3) = vpa( plnr.m(2) * l1 * norm(plnr.r_com(:,2)) );
-% plnr.theta(4) = vpa( plnr.m(1) * norm(plnr.r_com(:,1)) + plnr.m(2) * l1 ); 
-% plnr.theta(5) = vpa( plnr.m(2) * norm(plnr.r_com(:,2)) );
-%plnr.theta = [ 0.0025, 0.0011, 0.0062, 0.0466, 0.0301];
-
 % % parammeters of the book non linear control of underactuated mechanical systems  
 % plnr.theta(1) = 0.034;
 % plnr.theta(2) = 0.0125;
 % plnr.theta(3) = 0.01;
 % plnr.theta(4) = 0.215; 
 % plnr.theta(5) = 0.073;
-
 
 % parammeters of the article Hybrid Control for the Pendubot N°1
 % plnr.theta(1) = 0.0308;
@@ -79,7 +70,6 @@ end
 % plnr.theta(3) = 0.0098;
 % plnr.theta(4) = 0.1673; 
 % plnr.theta(5) = 0.0643;
-%}
 
 % parammeters of the article THE SWING U P CONTROL FOR THE PENDUBOT
 plnr.theta(1) = 0.0799;
@@ -87,7 +77,15 @@ plnr.theta(2) = 0.0244;
 plnr.theta(3) = 0.0205;
 plnr.theta(4) = 0.42126; 
 plnr.theta(5) = 0.10630;
-return
+%}
+
+l1 =  str2num(plnr.robot.link{1,2}.visual.geometry.cylinder.Attributes.length);
+plnr.theta(1) = vpa( plnr.m(1) * norm(plnr.r_com(:,1))^2 + plnr.m(2) * l1^2 + plnr.I(3,3,1)  );
+plnr.theta(2) = vpa( plnr.m(2) * norm(plnr.r_com(:,2))^2 + plnr.I(3,3,2) ) ;
+plnr.theta(3) = vpa( plnr.m(2) * l1 * norm(plnr.r_com(:,2)) );
+plnr.theta(4) = vpa( plnr.m(1) * norm(plnr.r_com(:,1)) + plnr.m(2) * l1 ); 
+plnr.theta(5) = vpa( plnr.m(2) * norm(plnr.r_com(:,2)) );
+
 % ------------------------------------------------------------------------
 % Symbolic generilized coordiates, their first and second deriatives
 % ------------------------------------------------------------------------
@@ -96,9 +94,6 @@ qd_sym = sym('qd%d',[2,1],'real');
 q2d_sym = sym('q2d%d',[2,1],'real');
 syms u;
 g  = 9.81;
-phi0 = -pi/2; 
-thta0 = 0;
-k  = 0.5;
 %------------------------------------------------------------------------
 % Dynamics of the robot in classical form for control
 %------------------------------------------------------------------------
@@ -157,7 +152,6 @@ n_sym = simplify(dnmcs - M_sym*q2d_sym);
 %                                      d/dt x(t) = f(x, u)
 %                                      A  = d/dx f(x,u)    B = d/du f(x, u)
     
-% 
 
 D_thta = [plnr.theta(1) + plnr.theta(2) + 2 * plnr.theta(3) * cos(q_sym(2)), ...
           plnr.theta(2) + plnr.theta(3) * cos(q_sym(2)); ...
@@ -227,8 +221,6 @@ matlabFunction(gma,'File','autogen/gama_fcn','Vars',{s});
 matlabFunction(Phi(1),'File','autogen/Phi_fcn','Vars',{s});
 matlabFunction(Phi_prm(1),'File','autogen/Phi_prm_fcn','Vars',{s});
 
-% return
-%
 % Change of coordinates to transverse
 h = 0;
 q_new = Phi + [y; h];
@@ -242,8 +234,6 @@ M_sy = subs(D_thta,q_sym,q_new);
 C_sy = subs(C_thta, [q_sym,qd_sym], [q_new,Lb*[s_d; y_d]]);
 G_sy = subs(g_thta,q_sym,q_new);
 
-
-%
 % y dynamics y_2d = N*u + R
 N = [0 1]*simplify(inv(Lb)*inv(M_sy)*B);
 R = [0 1]*simplify(inv(Lb)*(-inv(M_sy)*(C_sy*Lb*[s_d;y_d]+G_sy) - P));
@@ -268,7 +258,6 @@ alfa2 = simplify(jacobian(s_abg,s_2d));
 beta2  = simplify(jacobian(subs(s_abg,s_d^2,tt),tt));
 gma2 = simplify(s_abg - alfa2*s_2d - beta2*s_d^2);
 
-%
 % To get alpha beta gamma explicitly on the left-hand side
 % we add to both parts of the equation reduced dynamics
 G = simplify((-s_dyn + (alfa*s_2d + bta*s_d^2 + gma)));
@@ -288,7 +277,7 @@ g_v = simplify( jacobian(temp,v)); clear temp;
 temp = simplify(subs(G, [y; y_d; v], zeros(3,1)));
 g_I = simplify((s_d*simplify(jacobian(temp,s_d)) - ...
                 s_2d*simplify(jacobian(temp,s)))/(2*(s_d^2 + s_2d^2)));
-%
+
 
 g_y = subs(g_y, y, 0);
 g_yd = subs(g_yd, y_d, 0);

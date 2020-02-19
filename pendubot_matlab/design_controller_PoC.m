@@ -1,4 +1,4 @@
-
+% Script for designing the controller 
 T = 2.01;
 N = size(A,3);
 dt = T/(N-1); % to consider zero 

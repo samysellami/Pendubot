@@ -1,5 +1,4 @@
-% Script runs tests on validation of validation of torques and
-% linearization of dynamics along norminal trajectory
+% Linearization of the dynamics along norminal trajectory
 
 run('nominal_trajectory.m');
 
@@ -79,8 +78,12 @@ else
 end
 
 %Initial condition
-x0 = [Phi_fcn(x_iterp(1,1)) , x_iterp(1,1) ,...
-        Phi_prm_fcn(x_iterp(1,1)) * x_iterp(1,2), x_iterp(1,2)]';
+% x0 = [Phi_fcn(x_iterp(1,1)) , x_iterp(1,1) ,...
+        %Phi_prm_fcn(x_iterp(1,1)) * x_iterp(1,2), x_iterp(1,2)]';
+
+x0 = [Phi_fcn(x_iterp(locs(1),1)) , x_iterp(locs(1),1) ,...
+        Phi_prm_fcn(x_iterp(locs(1),1)) * x_iterp(locs(1),2), x_iterp(locs(1),2)]';
+
 x0_dstbd = x0 + dlta_x0;
 
 % CONTROLLING LINEARIZED SYSTEM
@@ -112,12 +115,15 @@ end
 figure
 subplot(3,1,1)
     plot(t_iterp(1:n_iter),x_trsv(1:n_iter,1))
+    ylabel('$I$','interpreter','latex')
     grid minor
 subplot(3,1,2)
     plot(t_iterp(1:n_iter),x_trsv(1:n_iter,2))
+    ylabel('$y$','interpreter','latex')
     grid minor
 subplot(3,1,3)
     plot(t_iterp(1:n_iter),x_trsv(1:n_iter,3))
+    ylabel('$\dot{y}$','interpreter','latex')
     grid minor
 %}
 
@@ -149,7 +155,7 @@ for i = 1:n_iter
     dlta_q = q_cur - q_str;
     dlta_q_nrm = vecnorm(dlta_q,2,2);
     [~,idx2] = min(dlta_q_nrm);
-    
+    disp(idx)
     % Compute Transverse coordinates
     I_cur = Intg(s_cur,s_d_cur, s_str(1),s_d_str(1));
     y_cur = x_inv_dnmcs_dstbd(i,1) - Phi_fcn(s_cur);
@@ -173,7 +179,6 @@ for i = 1:n_iter
 end
 
 
-% %{
 figure
 subplot(3,1,1)
     plot(t_iterp(1:n_iter),I(1:n_iter))
@@ -192,22 +197,24 @@ subplot(3,1,3)
     grid minor
 
 figure
-scatter(x_inv_dnmcs_dstbd(1,1), x_inv_dnmcs_dstbd(1,3))
+scatter(x_inv_dnmcs_dstbd(1,1), x_inv_dnmcs_dstbd(1,3),'DisplayName', 'staring point')
 hold on
-plot(Phi_str,Phi_d_str,'k','LineWidth',2)
-plot(x_inv_dnmcs_dstbd(:,1),x_inv_dnmcs_dstbd(:,3))
-scatter(x_inv_dnmcs_dstbd(end,1), x_inv_dnmcs_dstbd(end,3))
+plot(Phi_str,Phi_d_str,'k','LineWidth',2,'DisplayName', 'Phase portrait Phi')
+plot(x_inv_dnmcs_dstbd(:,1),x_inv_dnmcs_dstbd(:,3),'DisplayName', 'Phase portrait Phi dnmcs')
+scatter(x_inv_dnmcs_dstbd(end,1), x_inv_dnmcs_dstbd(end,3), 'DisplayName','ending point')
+legend
 
 figure
-scatter(x_inv_dnmcs_dstbd(1,2), x_inv_dnmcs_dstbd(1,4))
+scatter(x_inv_dnmcs_dstbd(1,2), x_inv_dnmcs_dstbd(1,4), 'DisplayName','starting point')
 hold on
-plot(s_str,s_d_str,'k','LineWidth',2)
-plot(x_inv_dnmcs_dstbd(:,2),x_inv_dnmcs_dstbd(:,4))
-scatter(x_inv_dnmcs_dstbd(end,2), x_inv_dnmcs_dstbd(end,4))
-    
+plot(s_str,s_d_str,'k','LineWidth',2,'DisplayName', 'Phase portrait Theta')
+plot(x_inv_dnmcs_dstbd(:,2),x_inv_dnmcs_dstbd(:,4),'DisplayName', 'Phase portrait Theta dnms')
+scatter(x_inv_dnmcs_dstbd(end,2), x_inv_dnmcs_dstbd(end,4), 'DisplayName','ending point')
+legend
+
 figure
 plot(t_iterp(1:n_iter),u)
-%}
+
 
 %pendubot_visualize(x_inv_dnmcs_dstbd(1:10:end,1:2)',plnr)
 

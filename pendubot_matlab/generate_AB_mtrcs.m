@@ -1,8 +1,6 @@
-% %{
+% %{ generation of the linear matrices along the nominal trajectory
 %run('nominal_trajectory.m');
 % %{
-% Trying to fit eps2 with fourier series
-% f = fit(eps_iterp(:,1),eps_iterp(:,2),'fourier4');
 
 s = x_iterp(:,1);
 s_d = x_iterp(:,2);
