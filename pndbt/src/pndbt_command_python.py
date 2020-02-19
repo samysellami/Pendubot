@@ -77,13 +77,13 @@ class pndbt():
 
     def callback(self,joint_states):
       q = np.array(joint_states.position)
-      qf = np.array([0, math.pi])
+      qf = np.array([-math.pi/2, math.pi])
       q_d = np.array(joint_states.velocity)
       x  = np.hstack(((q-qf,q_d)))
       u = np.dot(-self.K, x.transpose())
       torque_pub.publish(u[0,0])
-      # print(q-qf)
       print(u[0,0])
+      # print(q-qf)
 
 
 
@@ -94,9 +94,9 @@ if __name__ == '__main__':
     #q  = np.array([-math.pi/2, math.pi/2])	
     #q_d  = np.array([1, 1])
     Q = np.zeros((4, 4))
-    Q[0,0] = 0.0001
-    Q[1,1] = 0.0001
-    R = 0.00001
+    Q[0,0] = 1
+    Q[1,1] = 1
+    R = 1
     pendubot  = pndbt(Q, R)    
     print(pendubot.K)
     

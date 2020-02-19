@@ -1,68 +1,79 @@
-#include <SPI.h>
+#include "encoder.hpp"
 
-const int slavePin1 = 10;
-const int slavePin2 = 9;
+Encoder encoder1;
+Encoder encoder2;
 
-uint8_t data1[5];
-uint8_t data2[5];
+long result1 = 0;
+long result2 = 0;
 
-uint32_t result1 = 0;
-uint32_t result2 = 0;
-
-int error_bit1 = 0;
-int error_bit2 = 0;
-
-unsigned long time1 = 0;
-unsigned long time2 = 0;
+unsigned long current_time = 0;
+unsigned long old_time = 0;
 
 SPISettings settings(3000000, MSBFIRST, SPI_MODE0);
 
-void setup() {
+void setup()
+{
   Serial.begin(115200);
   SPI.begin();
   SPI.beginTransaction(settings);
-  pinMode(slavePin1, OUTPUT);
-  pinMode(slavePin2, OUTPUT);
-  delay(10);
-}
+  encoder1.init(10,-2.6758);
+  encoder2.init(9,1.61844);
+  delay(100);
 
-uint32_t convert(uint8_t* arr){
-  uint32_t res = 0;
-  res = arr[0];
-  res = res << 8;
-  res = res | arr[1];
-  res = res << 4;
-  res = res | (arr[2] >> 4);
-  return res;
-}
-
-uint32_t readAngle(uint8_t* data, int slavePin, int& error_bit){
-  digitalWrite (slavePin, LOW);
-  for(int i = 0; i < 5; i++){
-    data[i] = SPI.transfer(0);
+  for(int i = 0; i < 10; i++)
+  {
+    result1 = encoder1.readValue();
+    result2 = encoder2.readValue();
   }
-  digitalWrite (slavePin, HIGH);
-  error_bit = (data[2] & 0b00000100) >> 2;
-  return convert(data);
-
 }
 
-void loop() {
+unsigned int hz_count = 0;
+unsigned int hz = 0;
 
-  result1 = readAngle(data1, slavePin1, error_bit1);
-  time1 = micros();
-  result2 = readAngle(data2, slavePin2, error_bit2);
-  time2 = micros();
-  Serial.print(result1);
-  Serial.print(" ");
-  Serial.print(error_bit1);
-  Serial.print(" ");
-  Serial.print(time1);
-  Serial.print(" ");
-  Serial.print(result2);
-  Serial.print(" ");
-  Serial.print(error_bit2);
-  Serial.print(" ");
-  Serial.print(time2);
-  Serial.println();
+unsigned long send_time = 0;
+unsigned long send_time2 = 0;
+
+void loop()
+{
+  current_time = micros();
+  //hz_count++;
+  
+  //float dtime = (float)(current_time - old_time) * 0.000001;//(1.0f / 1000000.0f);
+/*
+  if (send_time2 == 0)
+    send_time2 = current_time;
+  if (current_time - send_time2 >= 1000000)
+  {
+    send_time2 = 0;
+    hz = hz_count;
+    hz_count = 0;
+  }
+   */
+
+  result1 = encoder1.read();
+  result2 = encoder2.read();
+  
+
+  if (send_time == 0)
+    send_time = current_time;
+  if (current_time - send_time >= 2000)
+  {
+    send_time = 0;
+
+    Serial.print(encoder1.GetAngleRad(),3);
+    Serial.print(" ");
+    Serial.print(encoder1.GetVel(),3);
+    Serial.print(" ");
+    Serial.print(encoder2.GetAngleRad(),3);
+    Serial.print(" ");
+    Serial.print(encoder2.GetVel(),3);
+    //Serial.print(" ");
+    
+    //Serial.print(int(1 / dtime));
+    //Serial.print(" ");
+    //Serial.print(hz);
+    Serial.println();
+  }
+
+  //old_time = current_time;
 }

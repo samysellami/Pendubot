@@ -14,6 +14,7 @@ add_message_files(
   MotorsVel.msg
   GoalState.msg
   EncRawData.msg
+  EncRawData2.msg
 )
 
 generate_messages(

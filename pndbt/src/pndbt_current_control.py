@@ -12,7 +12,7 @@ import time
 
 def callback_command(msg):
     print(msg.data)
-    my_drive.axis0.controller.current_setpoint = msg.data
+    my_drive.axis0.controller.current_setpoint = -msg.data/0.123  # coefficient torque / current
 
 
 def listener():
@@ -45,7 +45,7 @@ if __name__ == '__main__':
     pub_current = rospy.Publisher('current', Float64, queue_size=1)
     pub_position = rospy.Publisher('position', Float64, queue_size=1)
     pub_velocity = rospy.Publisher('velocity', Float64, queue_size=1)
-    rospy.Subscriber("command", Float64, callback_command)
+    rospy.Subscriber("/pndbt/shoulder_torque_controller/command", Float64, callback_command)
 
     my_drive = odrive.find_any()
     print("ODrive found.")

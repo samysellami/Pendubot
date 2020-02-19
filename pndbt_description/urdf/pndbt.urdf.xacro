@@ -34,22 +34,6 @@
 		</gazebo>
 
 
-		<gazebo reference="foot_1">
-		  <material>Gazebo/DarkGrey</material>
-		</gazebo>
-
-		<gazebo reference="foot_2">
-		  <material>Gazebo/DarkGrey</material>
-		</gazebo>
-
-		<gazebo reference="foot_3">
-		  <material>Gazebo/DarkGrey</material>
-		</gazebo>
-
-		<gazebo reference="foot_4">
-		  <material>Gazebo/DarkGrey</material>
-		</gazebo>
-
 		<gazebo reference="stand">
 		  <material>Gazebo/Black</material>
 		</gazebo>
@@ -174,7 +158,7 @@
 		 	<parent link="rotor"/>
 		 	<child link="link1"/>
 		 	<axis xyz="1 0 0"/>
-			<origin rpy="0 0 0" xyz="${rotor_length/2+link1_height/2} 0 0"/>
+			<origin rpy="1.5707 0 0" xyz="${rotor_length/2+link1_height/2} 0 0"/>
 			<!--<limit effort="1000.0" lower="-3.1416" upper="3.1416" velocity="0.5"/>!-->
 			<dynamics damping="0.0"/>
 	 	</joint>
