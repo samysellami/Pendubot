@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>	
+	<robot name="pndbt" xmlns:xacro="http://ros.org/wiki/xacro">
+	<xacro:include filename="$(find pndbt_description)/urdf/pndbt.urdf.xacro"/>
+
+        <transmission name="shoulder_transmission">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="j1_shoulder">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="shoulder_motor">
+                <hardwareInterface>EffortJointInterface</hardwareInterface>
+                <mechanicalReduction>1</mechanicalReduction>
+            </actuator>
+        </transmission>
+
+        <transmission name="elbow_transmission">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="j2_elbow">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="elbow_motor">
+                <hardwareInterface>EffortJointInterface</hardwareInterface>
+                <mechanicalReduction>1</mechanicalReduction>
+            </actuator>
+        </transmission>
+
+    <gazebo>
+        <plugin filename="libgazebo_ros_control.so" name="ros_control">
+            <robotNamespace>/pndbt</robotNamespace>
+        </plugin>
+    </gazebo>
+		
+</robot>

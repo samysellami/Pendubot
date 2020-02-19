@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<launch>
+
+<!-- start gazebo server with empty world -->
+	<include file="$(find gazebo_ros)/launch/empty_world.launch">
+	<arg name="paused" value="true"/>
+	</include>
+
+<!-- load robot urdf as parameter -->
+	<param name="robot_description"
+	   command="$(find xacro)/xacro --inorder $(find pndbt_description)/urdf/pndbt.control.urdf.xacro"/>
+
+<!-- add robot from parameter to gazebo world  -->
+    <node name="spawn_robot" pkg="gazebo_ros" type="spawn_model"
+          args=" -urdf -model pndbt -param robot_description -J j1_shoulder -1.5707 -J j2_elbow 2.95" respawn="false" output="screen"  />
+
+<!-- load initial state of robot conrtollers as params  -->
+    <rosparam command="load" file="$(find pndbt_gazebo)/config/pndbt_torque_control.yaml"/>
+
+<!-- add controllers from params to gazebo world by names in args -->
+    <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+          output="screen" ns="/pndbt"
+          args="shoulder_torque_controller joint_state_controller"/>
+
+    <!-- calculate, publish and remap joint_states -->
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
+          respawn="false" output="screen">
+        <remap from="/joint_states" to="/pndbt/joint_states"/>
+    </node>
+					
+</launch>

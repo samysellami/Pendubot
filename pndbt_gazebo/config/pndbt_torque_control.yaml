@@ -1,0 +1,11 @@
+pndbt:
+  # Publish all joint states -----------------------------------
+  joint_state_controller:
+    type: joint_state_controller/JointStateController
+    publish_rate: 250
+
+  # Effort Controllers --------------------------------------- 
+
+  shoulder_torque_controller:
+    type: effort_controllers/JointEffortController
+    joint: j1_shoulder

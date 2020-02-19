@@ -1,0 +1,7 @@
+<launch>
+    <node name="raw_encoders_data" pkg="pndbt_hw_encoders" type="encoder_data_from_arduino2.py" output="screen" clear_params="true">
+        <param name="port_adress" value="/dev/ttyUSB0" />
+    </node>
+    <node name="encoder_to_joint_state" pkg="pndbt_hw_encoders" type="encoder_to_joint_state2.py" output="screen" clear_params="true">
+    </node>
+</launch>
