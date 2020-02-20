@@ -7,17 +7,17 @@
 clc; clear all;  close all;
 
 % Parameters of the nominal trajectory
-phi0 = pi/2; 
+phi0 = -pi/2; 
 thta0 = 0;
-k  = -0.8;
+k  = 0.5;
 
 % Initial conditions of the nominal trajectory
-theta =  1;
+theta =  0.5;
 theta_d = 0.0;
 
 run('nominal_trajectory.m');
-
-redesign_controller = 1;
+% return
+redesign_controller = 0;
 if redesign_controller
     
     run('generate_AB_mtrcs.m');
@@ -31,13 +31,13 @@ else
 end
 
 % COMPUTE u FROM FORWARD DYNAMICS
-u = zeros(length(x_iterp),1);
+u = zeros(length(x),1);
 B = [1;0];
 
-for i = 1:length(x_iterp)
-   qq = [ phi0 + k*(x_iterp(i,1) - thta0); x_iterp(i,1)];
+for i = 1:length(x)
+   qq = [ phi0 + k*(x(i,1) - thta0); x(i,1)];
    
-   qq_d = [k* x_iterp(i,2); x_iterp(i,2)];
+   qq_d = [k* x(i,2); x(i,2)];
    
    qq_2d = [k * x_2d(i); x_2d(i)];
    
@@ -50,10 +50,10 @@ for i = 1:length(x_iterp)
 end
 
 % Find one period of s
-[~,locs] = findpeaks(x_iterp(:,1));
-T = t_iterp(locs(2)) - t_iterp(locs(1));
-s_str = x_iterp(locs(1):locs(2),1);
-s_d_str = x_iterp(locs(1):locs(2),2);
+[~,locs] = findpeaks(x(:,1));
+T = t(locs(2)) - t(locs(1));
+s_str = x(locs(1):locs(2),1);
+s_d_str = x(locs(1):locs(2),2);
 s_2d_str = x_2d(locs(1):locs(2));
 
 Phi_str = phi0 + k * (s_str - thta0);
@@ -62,10 +62,11 @@ Phi_d_str = k * (s_d_str);
 q_str = [ Phi_str s_str Phi_d_str s_d_str];
 
 % COMPUTE NOMINAL TORQUES FROM U_ff
-s = x_iterp(:,1);
-s_d = x_iterp(:,2);
+s = x(:,1);
+s_d = x(:,2);
 
-u_str = U_ff(s,s_d,0,0);
+% u_str = U_ff(s,s_d,0,0);
+u_str = U_full(s,s_d,0,0,0);
 
 % COMPARE TORQUES
 if norm(u - u_str)<1e-6
@@ -75,7 +76,6 @@ else
     disp('TORQUES ARE NOT CONSISTENT!!! ')
     return
 end
-
 
 % INITIAL CONDITION AND PARAMETERS OF SIMULATION
 optns_id = odeset('RelTol',1e-12,'AbsTol',1e-12,'NormControl','on');
@@ -99,8 +99,8 @@ thta_d_0 = 0;
 x0 = [Phi_fcn(thta_0) , thta_0 ,...
         Phi_prm_fcn(thta_0) * thta_d_0, thta_d_0]';
 
-% x0 = [Phi_fcn(x_iterp(locs(1),1)) , x_iterp(locs(1),1) ,...
-%         Phi_prm_fcn(x_iterp(locs(1),1)) * x_iterp(locs(1),2), x_iterp(locs(1),2)]';
+% x0 = [Phi_fcn(x(locs(1),1)) , x(locs(1),1) ,...
+%         Phi_prm_fcn(x(locs(1),1)) * x(locs(1),2), x(locs(1),2)]';
 
 x0_dstbd = x0 + dlta_x0;
 
@@ -119,7 +119,7 @@ x_trsv = zeros(n_iter+1,3);
 x_trsv(1,:) = [I_0,y_0,y_d_0];
 
 for i = 1:n_iter
-    t_span = [t_iterp(i), t_iterp(i+1)];
+    t_span = [t(i), t(i+1)];
     
     j = 1+mod(i-1,n_T);
     % Time varying matrices A and B for nominal trajectory 
@@ -134,15 +134,15 @@ end
 
 figure
 subplot(3,1,1)
-    plot(t_iterp(1:n_iter),x_trsv(1:n_iter,1))
+    plot(t(1:n_iter),x_trsv(1:n_iter,1))
     ylabel('$I$','interpreter','latex')
     grid minor
 subplot(3,1,2)
-    plot(t_iterp(1:n_iter),x_trsv(1:n_iter,2))
+    plot(t(1:n_iter),x_trsv(1:n_iter,2))
     ylabel('$y$','interpreter','latex')
     grid minor
 subplot(3,1,3)
-    plot(t_iterp(1:n_iter),x_trsv(1:n_iter,3))
+    plot(t(1:n_iter),x_trsv(1:n_iter,3))
     ylabel('$\dot{y}$','interpreter','latex')
     grid minor
 %}
@@ -160,7 +160,7 @@ u = zeros(n_iter,1);
 x_inv_dnmcs_dstbd(1,:) = x0_dstbd;
 
 for i = 1:n_iter
-    t_span = [t_iterp(i), t_iterp(i+1)];
+    t_span = [t(i), t(i+1)];
     
     % Generator of motion and its deriative
     s_cur = x_inv_dnmcs_dstbd(i,2);
@@ -186,9 +186,11 @@ for i = 1:n_iter
     y_d(i) = y_d_cur;
     I(i) = I_cur;    
     % Input that consistes of feedfowfard term and feedback terms
-    u_ffrd = U_ff(s_cur,s_d_cur,y_cur,y_d_cur)'; 
+%     u_ffrd = U_ff(s_cur,s_d_cur,y_cur,y_d_cur)'; 
     u_fbck = K_mtrx(:,:,idx) * x_trsv_cur;
-    u_cur = u_ffrd + inv(N_fcn(s_cur,s_d_cur)) * u_fbck;
+%     u_cur = u_ffrd + inv(N_fcn(s_cur,s_d_cur)) * u_fbck;
+    u_cur = U_full(s_cur,s_d_cur,y_cur,y_d_cur,u_fbck);
+    
     u(i) = u_cur;
     
     % Integration of dynamics from t_{i} to t_{i+1} with u = u_{i}
@@ -201,17 +203,17 @@ end
 
 figure
 subplot(3,1,1)
-    plot(t_iterp(1:n_iter),I(1:n_iter))
+    plot(t(1:n_iter),I(1:n_iter))
     ylabel('$I$','interpreter','latex')
     grid on
     grid minor
 subplot(3,1,2)
-    plot(t_iterp(1:n_iter),y(1:n_iter))
+    plot(t(1:n_iter),y(1:n_iter))
     ylabel('$y$','interpreter','latex')
     grid on
     grid minor
 subplot(3,1,3)
-    plot(t_iterp(1:n_iter),y_d(1:n_iter))
+    plot(t(1:n_iter),y_d(1:n_iter))
     ylabel('$\dot{y}$','interpreter','latex')
     grid on
     grid minor
@@ -233,10 +235,10 @@ scatter(x_inv_dnmcs_dstbd(end,2), x_inv_dnmcs_dstbd(end,4), 'DisplayName','endin
 legend
 
 figure
-plot(t_iterp(1:n_iter),u)
+plot(t(1:n_iter),u)
 
 
-pendubot_visualize(x_inv_dnmcs_dstbd(1:10:end,1:2)',plnr)
+% pendubot_visualize(x_inv_dnmcs_dstbd(1:10:end,1:2)',plnr)
 
 
 %% FUNCTIONS

@@ -1,13 +1,14 @@
 %clc; clear all; close all;
 
 % Path to the urdf file 
-addpath(genpath('/home/sami/Documents/MasterThesis/Bot pendulum//BotPendulum_Energy based control/pdbt_files/utils'))
-addpath(genpath('/home/sami/Documents/MasterThesis/Bot pendulum//BotPendulum_Energy based control/pdbt_files/planar2DOF'))
+% addpath(genpath('/home/sami/Documents/MasterThesis/Bot pendulum//BotPendulum_Energy based control/pdbt_files/utils'))
+% addpath(genpath('/home/sami/Documents/MasterThesis/Bot pendulum//BotPendulum_Energy based control/pdbt_files/planar2DOF'))
 
 %-------------------------------------------------------------------------
 % Loading file from urdf
 % ------------------------------------------------------------------------
 plnr = xml2struct('planar_manip.urdf');
+
 % ------------------------------------------------------------------------
 % Extracting parameters of the robot
 % ------------------------------------------------------------------------
@@ -85,6 +86,7 @@ plnr.theta(2) = vpa( plnr.m(2) * norm(plnr.r_com(:,2))^2 + plnr.I(3,3,2) ) ;
 plnr.theta(3) = vpa( plnr.m(2) * l1 * norm(plnr.r_com(:,2)) );
 plnr.theta(4) = vpa( plnr.m(1) * norm(plnr.r_com(:,1)) + plnr.m(2) * l1 ); 
 plnr.theta(5) = vpa( plnr.m(2) * norm(plnr.r_com(:,2)) );
+
 
 % ------------------------------------------------------------------------
 % Symbolic generilized coordiates, their first and second deriatives
@@ -243,8 +245,10 @@ u = pinv(B)*(M_sy*(P+Lb*[s_2d;y_2d])+C_sy*Lb*[s_d;y_d]+G_sy);
 %sustitute y_2d = 0 and s_2d from ABG
 %U = pinv(B)*(M_sy*(P+Lb*[simplify((-bta*s_d^2 -gma)/alfa),0]')+C_sy*Lb*[s_d;y_d]+G_sy);
 U = -inv(N) * R;
+U_f = inv(N)*(v-R);
 matlabFunction(N,'File','autogen/N_fcn','Vars',{s,s_d});
 matlabFunction(U','File','autogen/U_ff','Vars',{s,s_d,y,y_d});
+matlabFunction(U_f','File','autogen/U_full','Vars',{s,s_d,y,y_d,v});
 
 F = R + N*U;
 

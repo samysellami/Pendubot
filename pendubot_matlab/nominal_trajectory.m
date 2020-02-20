@@ -16,28 +16,24 @@ dxdt = @(t,x)[x(2); (-gama_fcn(x(1)) - ...
 
 % SOLVING  ABG FOR s
 
-tspan= [0, 20];
+tspan= 0:1e-2:15;
 optns = odeset('RelTol',1e-9,'AbsTol',1e-9,'NormControl','on');
 x0 = [theta; theta_d];
 
 [t,x] = ode45( @(t,x)dxdt(t,x),tspan,x0,optns);
 
-% Interpolating results
-t_iterp = (t(1):1e-2:t(end))';
-x_iterp(:,1) = interp1(t,x(:,1),t_iterp);
-x_iterp(:,2) = interp1(t,x(:,2),t_iterp);
-x_2d = zeros(length(x_iterp(:,1)),1);
+x_2d = zeros(length(x(:,1)),1);
 
-for i=1:length(x_iterp(:,1))
-    x_2d(i) = (-gama_fcn(x_iterp(i,1)) - beta_fcn(x_iterp(i,1))...
-        * x_iterp(i,2)^2)/alpha_fcn(x_iterp(i,1));
+for i=1:length(x(:,1))
+    x_2d(i) = (-gama_fcn(x(i,1)) - beta_fcn(x(i,1))...
+        * x(i,2)^2)/alpha_fcn(x(i,1));
 end
 
 % ploting phase portrait
 figure
-plot(x_iterp(:,1),x_iterp(:,2))
-xlabel('$x$','Interpreter', 'latex')
-ylabel('$\dot{x}$','Interpreter', 'latex')
+plot(x(:,1),x(:,2))
+xlabel('$\theta$','Interpreter', 'latex')
+ylabel('$\dot{\theta}$','Interpreter', 'latex')
 grid on
 
 %{
@@ -60,10 +56,10 @@ ylabel('$\ddot{x}$','Interpreter', 'latex')
 grid on
 %}
 
-q_tot = zeros(2, length(x_iterp));
-q_tot(2,:) = x_iterp(:,1);
-q_tot(1,:) = phi0 + k*(x_iterp(:,1) - thta0);
+q_tot = zeros(2, length(x));
+q_tot(2,:) = x(:,1);
+q_tot(1,:) = phi0 + k*(x(:,1) - thta0);
 
 % visualise the pendubot trajectory
-%pendubot_visualize(q_tot(1:2,1:10:end),plnr)
+% pendubot_visualize(q_tot(1:2,1:10:end),plnr)
 

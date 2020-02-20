@@ -2,11 +2,11 @@
 %run('nominal_trajectory.m');
 % %{
 
-s = x_iterp(:,1);
-s_d = x_iterp(:,2);
+s = x(:,1);
+s_d = x(:,2);
 
 [~,locs] = findpeaks(s);
-T_x = t_iterp(locs(2)) - t_iterp(locs(1)); 
+T_x = t(locs(2)) - t(locs(1)); 
 T_ind = locs(2) - locs(1) + 1;
 
 A = zeros(3,3,T_ind);
