@@ -25,9 +25,7 @@ def listener():
 
     rate = rospy.Rate(500)  # 500hz
     while not rospy.is_shutdown():
-        now_ = int(round(time.time() * 1000))
-        time_ = now_ - start_time
-
+        
         pub_current.publish(my_drive.axis0.motor.current_control.Iq_measured)
         pub_position.publish(my_drive.axis0.encoder.pos_abs_rad)
         pub_velocity.publish(my_drive.axis0.encoder.vel_abs_filter)

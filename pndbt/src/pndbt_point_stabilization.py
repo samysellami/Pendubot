@@ -17,6 +17,14 @@ import math
 # from control.matlab import *
 from scipy.linalg import*
 
+def torque_limit(torque, max_value):
+  if torque > max_value:
+    torque = max_value
+  if torque < -max_value:
+    torque = -max_value
+  return torque
+
+
 class pndbt():
     """docstring for ClassName"""
     def __init__(self, Q, R):
@@ -32,6 +40,9 @@ class pndbt():
       S =np.matrix(solve_continuous_are(self.A_lin(), self.B_lin(), Q, R))
       K = np.matrix((self.B_lin().T*S)/R)
       self.K = K
+
+      self.torque_pub = rospy.Publisher('/pndbt/shoulder_torque_controller/command', Float64, queue_size=10)
+      self.joint_states_sub = rospy.Subscriber('/pndbt/joint_states', JointState, self.callback)
          
         
     def D_mtrx(self, q):
@@ -77,40 +88,45 @@ class pndbt():
 
     def callback(self,joint_states):
       q = np.array(joint_states.position)
-      qf = np.array([-math.pi/2, math.pi])
       q_d = np.array(joint_states.velocity)
-      x  = np.hstack(((q-qf,q_d)))
-      u = np.dot(-self.K, x.transpose())
-      torque_pub.publish(u[0,0])
-      print(u[0,0])
-      # print(q-qf)
+      limit_1 = 0
+      limit_2 = -math.pi
+      if (q[0] > limit_1):
+        self.torque_pub.publish(0)
+        rospy.sleep(0.5)
+        rospy.signal_shutdown('Limits exceeded!')
+      elif (q[0] < limit_2):
+        self.torque_pub.publish(0)
+        rospy.sleep(0.5)
+        rospy.signal_shutdown('Limits exceeded!')
+      else: 
+        qf = np.array([-math.pi/2, math.pi])        
+        x  = np.hstack(((q-qf,q_d)))
+        u = np.dot(-self.K, x.transpose())
+        u_in = torque_limit(u[0,0],8*0.123)
+        self.torque_pub.publish(u_in)
+        print(u_in)
+        # print(q-qf)
 
+def control():
 
+  rospy.init_node('python_command', anonymous=True)
+
+  Q = np.zeros((4, 4))
+  Q[0,0] = 1
+  Q[1,1] = 1
+  R = 1
+  pendubot  = pndbt(Q, R)    
+  print(pendubot.K)
+
+  while not rospy.is_shutdown():
+    rospy.spin()
 
 if __name__ == '__main__':
-
-    rospy.init_node('python_command', anonymous=True)
-
-    #q  = np.array([-math.pi/2, math.pi/2])	
-    #q_d  = np.array([1, 1])
-    Q = np.zeros((4, 4))
-    Q[0,0] = 1
-    Q[1,1] = 1
-    R = 1
-    pendubot  = pndbt(Q, R)    
-    print(pendubot.K)
-    
-    
-    time_exec = 20
-    rate = rospy.Rate(500)  # 500hz 
-
-    # start_time = time.time()
-    # time_loop = start_time
-    # start_time = time.time()
-
-    torque_pub = rospy.Publisher('/pndbt/shoulder_torque_controller/command', Float64, queue_size=10)
-    joint_states_sub = rospy.Subscriber('/pndbt/joint_states', JointState, pendubot.callback)
-    rospy.spin()
+  try:
+    control()
+  except rospy.ROSInterruptException:
+    pass
    
 
 
