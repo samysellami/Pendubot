@@ -1,4 +1,4 @@
-%clc; clear all; close all;
+% clc; clear all; close all;
 
 % Path to the urdf file 
 % addpath(genpath('/home/sami/Documents/MasterThesis/Bot pendulum//BotPendulum_Energy based control/pdbt_files/utils'))
@@ -196,6 +196,9 @@ syms y_2d real
 syms v real
 syms s s_d s_2d     real
 % syms phi0 thta0 k   real
+% phi0 = -pi/2; 
+% thta0 = 0;
+% k  = 0.5;
 
 % Virtual holonomic constraints
 Phi = [phi0 + k * (s - thta0), s]';
