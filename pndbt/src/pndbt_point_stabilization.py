@@ -20,6 +20,7 @@ from numpy import linalg as LA
 # import control
 # from control.matlab import *
 # from scipy.linalg import*
+import timeit
 
 def torque_limit(torque, max_value):
   if torque > max_value:
@@ -168,7 +169,7 @@ class pndbt():
       if s == s0:
         return 0
       fun = lambda s: (self.beta(s) / self.alpha(s))
-      int1 = self.simpsons( fun,s0,s,1000 )
+      int1 = self.simpsons( fun,s0,s,100 )
       psi = math.exp(-2*int1)
       return psi  
 
@@ -184,11 +185,14 @@ class pndbt():
           return
 
       f = lambda s: (self.int_fi(s_0, s))
-      int1 = self.simpsons(f,s_0,s,1000)
+      int1 = self.simpsons( f,s_0,s,100 )
       I = s_d**2 - self.int_psi(s_0,s) * (s_d0**2 - int1)
       return I
 
     def orbital_stabilization(self, q, q_d):
+
+      start = timeit.default_timer()
+      
       theta = q[1]
       theta_d = q_d[1]
       phi = q[0]
@@ -196,8 +200,12 @@ class pndbt():
 
       y = self.y_trnsv(phi, theta)
       y_d = self.y_d_trnsv(phi_d, theta_d)
+
       I = self.int(theta, theta_d, self.s_str[0], self.s_d_str[0])
+      stop = timeit.default_timer()
+
       x_trsv = np.array([I, y , y_d])
+
       delta  = np.subtract( np.array([theta, theta_d]).reshape(2,1) , np.array([self.s_str, self.s_d_str]))
       delta_norm = LA.norm(delta, axis = 0)  
       idx = np.argmin(delta_norm)
@@ -205,7 +213,10 @@ class pndbt():
       u_fbck = (self.K_mtrx[:,:,idx][0]).dot(x_trsv) 
       u = self.U_full(theta, theta_d, y, y_d, u_fbck)
       print(u)
-      self.torque_pub.publish(u)
+
+      print('Time: ', stop - start)  
+
+      #self.torque_pub.publish(u)
 
 
     def linear_stabilization(self, q, q_d):
@@ -242,7 +253,7 @@ class pndbt():
 
 def control():
 
-  rospy.init_node('python_command', anonymous=True)
+  # rospy.init_node('python_command', anonymous=True)
 
   Q = np.zeros((4, 4))
   Q[0,0] = 1
@@ -260,13 +271,12 @@ def control():
   q_str = q_str['q_str']
   
   pendubot  = pndbt(Q, R, k, phi0, thta0, K_mtrx, q_str)
-"""  q = np.array([-math.pi/2, 1.5])
+  q = np.array([-math.pi/2, 1.5])
   q_d =  np.array([0, 0.5])
   pendubot.orbital_stabilization(q, q_d)
-"""
 
-  while not rospy.is_shutdown():   
-    rospy.spin()
+  #while not rospy.is_shutdown():   
+   # rospy.spin()
 
 if __name__ == '__main__':
   try:
