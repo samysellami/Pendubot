@@ -8,19 +8,11 @@ import numpy as np
 import math
 import scipy.io
 import os
+from os.path import dirname, join as pjoin
 from numpy import linalg as LA
-
-# import time
-#import rosbag
-# import glob
-# import signal
-# import os
-# import psutil
-# import message_filters
-# import control
-# from control.matlab import *
-# from scipy.linalg import*
 import timeit
+from pndbt_integral.srv import *
+# import control
 
 def torque_limit(torque, max_value):
   if torque > max_value:
@@ -169,7 +161,7 @@ class pndbt():
       if s == s0:
         return 0
       fun = lambda s: (self.beta(s) / self.alpha(s))
-      int1 = self.simpsons( fun,s0,s,100 )
+      int1 = self.simpsons( fun,s0,s,1000 )
       psi = math.exp(-2*int1)
       return psi  
 
@@ -185,7 +177,7 @@ class pndbt():
           return
 
       f = lambda s: (self.int_fi(s_0, s))
-      int1 = self.simpsons( f,s_0,s,100 )
+      int1 = self.simpsons( f,s_0,s,1000 )
       I = s_d**2 - self.int_psi(s_0,s) * (s_d0**2 - int1)
       return I
 
@@ -200,23 +192,24 @@ class pndbt():
 
       y = self.y_trnsv(phi, theta)
       y_d = self.y_d_trnsv(phi_d, theta_d)
-
-      I = self.int(theta, theta_d, self.s_str[0], self.s_d_str[0])
-      stop = timeit.default_timer()
-
+      # I = self.int(theta, theta_d, self.s_str[0], self.s_d_str[0])
+     
+      rospy.wait_for_service('Intg')
+      Integral = rospy.ServiceProxy('Intg', Intg)
+      intg = Integral(theta, theta_d, self.s_str[0], self.s_d_str[0])
+      I = intg.I
+      print(I)
       x_trsv = np.array([I, y , y_d])
-
       delta  = np.subtract( np.array([theta, theta_d]).reshape(2,1) , np.array([self.s_str, self.s_d_str]))
       delta_norm = LA.norm(delta, axis = 0)  
       idx = np.argmin(delta_norm)
 
       u_fbck = (self.K_mtrx[:,:,idx][0]).dot(x_trsv) 
       u = self.U_full(theta, theta_d, y, y_d, u_fbck)
-      print(u)
+      self.torque_pub.publish(u)
 
-      print('Time: ', stop - start)  
-
-      #self.torque_pub.publish(u)
+      stop = timeit.default_timer()
+      #print('Time: ', stop - start)  
 
 
     def linear_stabilization(self, q, q_d):
@@ -243,7 +236,7 @@ class pndbt():
       q = np.array(joint_states.position)
       q_d = np.array(joint_states.velocity)
 
-      if abs(q[1]-math.pi) > math.pi/20: 
+      if abs(q[1]-math.pi) > math.pi/20 and abs(q[0] + math.pi/2) > math.pi/20: 
         self.orbital_stabilization(q, q_d)
 
       else:  
@@ -253,36 +246,38 @@ class pndbt():
 
 def control():
 
-  # rospy.init_node('python_command', anonymous=True)
+    rospy.init_node('python_command', anonymous=True)
 
-  Q = np.zeros((4, 4))
-  Q[0,0] = 1
-  Q[1,1] = 1
-  R = 1
+    Q = np.zeros((4, 4))
+    Q[0,0] = 1
+    Q[1,1] = 1
+    R = 1
 
-  k = 0.5
-  phi0 = -math.pi/2
-  thta0 = 0
+    k = 0.5
+    phi0 = -math.pi/2
+    thta0 = 0
 
-  K_mtrx = scipy.io.loadmat('K_mtrx.mat')
-  K_mtrx = K_mtrx['K_mtrx']
+    data_dir = pjoin(dirname(__file__))
+    mat_fname = pjoin(data_dir, 'K_mtrx.mat')
+    K_mtrx = scipy.io.loadmat(mat_fname)
+    K_mtrx = K_mtrx['K_mtrx']
+   
+    mat_fname = pjoin(data_dir, 'q_str.mat')
+    q_str = scipy.io.loadmat(mat_fname)
+    q_str = q_str['q_str']
+    
+    pendubot  = pndbt(Q, R, k, phi0, thta0, K_mtrx, q_str)
 
-  q_str = scipy.io.loadmat('q_str.mat')
-  q_str = q_str['q_str']
-  
-  pendubot  = pndbt(Q, R, k, phi0, thta0, K_mtrx, q_str)
-  q = np.array([-math.pi/2, 1.5])
-  q_d =  np.array([0, 0.5])
-  pendubot.orbital_stabilization(q, q_d)
+    while not rospy.is_shutdown():   
+      rospy.spin()
 
-  #while not rospy.is_shutdown():   
-   # rospy.spin()
 
 if __name__ == '__main__':
-  try:
-    control()
-  except rospy.ROSInterruptException:
-    pass
+    try:
+
+      control()
+    except rospy.ROSInterruptException:
+      pass
    
 
 

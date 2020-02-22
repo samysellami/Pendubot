@@ -1,0 +1,9 @@
+<launch>
+   
+	<group ns="pndbt">
+
+	    <node pkg="pndbt_integral" type="Intg_server" name="Intg_server" output="screen" />  
+	    <node pkg="pndbt" type="pndbt_point_stabilization.py" name="pndbt_point_stabilization" output="screen" />  
+
+	</group>
+</launch>

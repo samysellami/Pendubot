@@ -7,6 +7,8 @@ using namespace std;
 #include "pndbt_integral/IntgRequest.h"
 #include "pndbt_integral/IntgResponse.h"
 
+int iter_simp = 100;
+
 float f_psi(float x)
 {
 	return  (0.00154375*sin(x)) / (0.0030875*cos(x) + 0.00651975); 	// beta/alpha
@@ -38,9 +40,12 @@ float int_psi(float s0, float s)
 	float int1, psi;
 	if (s == s0)
 		return 1;
-	int1 = simpsons_psi( s0,s,100 );
-	psi = exp(-2*int1);
-	return psi;  
+	else
+	{
+		int1 = simpsons_psi( s0,s,iter_simp );
+		psi = exp(-2*int1);
+		return psi;
+	}  
 }
 
 
@@ -50,6 +55,7 @@ float f_fi(float s)
 	out = (0.242307*cos((3*s)/2 - M_PI/2)) / (0.0030875*cos(s) + 0.00651975);  // gamma/alpha  
 	return  out; 	
 }
+
 float int_fi(float s0, float s)
 {
 	float fi;
@@ -66,10 +72,7 @@ float f_int(float x, float s_0)
 }
 
 
-
-
-
-float simpson_int( float a, float b, int n, float s_0)
+float simpsons_int( float a, float b, int n)
 {
 	float h, x[n+1], sum = 0;
 	int j;
@@ -84,26 +87,25 @@ float simpson_int( float a, float b, int n, float s_0)
 	
 	for(j=1; j<=n/2; j++)
 	{
-		sum += f_int(x[2*j - 2], s_0) + 4*f_int(x[2*j - 1], s_0) + f_int(x[2*j], s_0);
+		sum += f_int(x[2*j - 2], a) + 4*f_int(x[2*j - 1], a) + f_int(x[2*j], a);
 	}
 	
 	return sum * h/3;
 }
 
 
-
-
-bool Intg(pndbt_integral::IntgRequest::IntgRequest &req, pndbt_integral::IntgResponse::IntgResponse &res)
+bool Integ(pndbt_integral::IntgRequest &req, pndbt_integral::IntgResponse &res)
 {
 	float int1, I;
 	if (req.s == req.s_0)
-    	I = req.s_d^2 - req.s_d0^2;
-    	res.I
-    	return true; 
-
-	int1 = simpsons_int( req.s_0,req.s,1000 );
-	I = req.s_d**2 - int_psi(req.s_0, req.s) * (req.s_d0**2 - int1);
-  	res.I
+	{	
+    	I = pow(req.s_d, 2) - pow(req.s_d0, 2);
+    	res.I = I;
+	} else {
+		int1 = simpsons_int( req.s_0,req.s,iter_simp );
+		I = pow(req.s_d,2) - int_psi(req.s_0, req.s) * (pow(req.s_d0,2) - int1);
+	  	res.I = I;
+    }
     return true;
 }
 
@@ -112,7 +114,10 @@ int main(int argc, char** argv)
     ros::init(argc, argv, "Intg_server");
     ros::NodeHandle n;
 
-    ros::ServiceServer service = n.advertiseService("Intg", intg);
+    ros::ServiceServer service = n.advertiseService("Intg", Integ);
+    ROS_INFO("Ready to compute the integral.");
     ros::spin();
     return 0;
 }
+
+
