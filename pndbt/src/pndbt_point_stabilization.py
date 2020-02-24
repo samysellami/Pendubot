@@ -12,7 +12,10 @@ from os.path import dirname, join as pjoin
 from numpy import linalg as LA
 import timeit
 from pndbt_integral.srv import *
-# import control
+import control
+from control.matlab import *
+from scipy.linalg import*
+
 
 def torque_limit(torque, max_value):
   if torque > max_value:
@@ -44,7 +47,9 @@ class pndbt():
       self.s_d_str =  q_str[:,3]
       self.torque_pub = rospy.Publisher('/pndbt/shoulder_torque_controller/command', Float64, queue_size=10)
       self.joint_states_sub = rospy.Subscriber('/pndbt/joint_states', JointState, self.callback)
-         
+      self.joint_states = 0
+      self.q = np.array([ 0 , 0])
+      self.q_d = np.array([ 0 , 0])
         
     def D_mtrx(self, q):
       D = np.zeros((2,2))
@@ -181,14 +186,14 @@ class pndbt():
       I = s_d**2 - self.int_psi(s_0,s) * (s_d0**2 - int1)
       return I
 
-    def orbital_stabilization(self, q, q_d):
+    def orbital_stabilization(self):
 
       start = timeit.default_timer()
-      
-      theta = q[1]
-      theta_d = q_d[1]
-      phi = q[0]
-      phi_d = q_d[0]
+            
+      theta = self.q[1]
+      theta_d = self.q_d[1]
+      phi = self.q[0]
+      phi_d = self.q_d[0]
 
       y = self.y_trnsv(phi, theta)
       y_d = self.y_d_trnsv(phi_d, theta_d)
@@ -198,21 +203,22 @@ class pndbt():
       Integral = rospy.ServiceProxy('Intg', Intg)
       intg = Integral(theta, theta_d, self.s_str[0], self.s_d_str[0])
       I = intg.I
-      print(I)
       x_trsv = np.array([I, y , y_d])
       delta  = np.subtract( np.array([theta, theta_d]).reshape(2,1) , np.array([self.s_str, self.s_d_str]))
       delta_norm = LA.norm(delta, axis = 0)  
       idx = np.argmin(delta_norm)
+      stop = timeit.default_timer()
 
       u_fbck = (self.K_mtrx[:,:,idx][0]).dot(x_trsv) 
       u = self.U_full(theta, theta_d, y, y_d, u_fbck)
       self.torque_pub.publish(u)
+      
+      print("the control input is equal to " +str(u))
+      # print('Time: ', stop - start)  
 
-      stop = timeit.default_timer()
-      #print('Time: ', stop - start)  
 
+    def linear_stabilization(self):
 
-    def linear_stabilization(self, q, q_d):
       limit_1 = 0
       limit_2 = -math.pi
       if (q[0] > limit_1):
@@ -233,20 +239,19 @@ class pndbt():
   
 
     def callback(self,joint_states):
-      q = np.array(joint_states.position)
-      q_d = np.array(joint_states.velocity)
-
-      if abs(q[1]-math.pi) > math.pi/20 and abs(q[0] + math.pi/2) > math.pi/20: 
-        self.orbital_stabilization(q, q_d)
-
-      else:  
-        self.linear_stabilization(q, q_d)  
+      self.q = np.array(joint_states.position)
+      self.q_d = np.array(joint_states.velocity)
+      # if abs(q[1]-math.pi) > math.pi/20 and abs(q[0] + math.pi/2) > math.pi/20: 
+      # self.orbital_stabilization(q, q_d)
+      # else:  
+      # self.linear_stabilization(q, q_d)  
 
 
 
 def control():
 
     rospy.init_node('python_command', anonymous=True)
+    rate = rospy.Rate(50) # 10hz
 
     Q = np.zeros((4, 4))
     Q[0,0] = 1
@@ -268,8 +273,15 @@ def control():
     
     pendubot  = pndbt(Q, R, k, phi0, thta0, K_mtrx, q_str)
 
-    while not rospy.is_shutdown():   
-      rospy.spin()
+    """q = np.array([-5,  3.5])
+                q_d  = np.array([-5.5,  4.3])
+                pendubot.orbital_stabilization(q, q_d)"""
+
+    while not rospy.is_shutdown():
+      pendubot.orbital_stabilization()
+
+      rate.sleep()
+      #rospy.spin()
 
 
 if __name__ == '__main__':

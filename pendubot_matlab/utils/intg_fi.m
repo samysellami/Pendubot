@@ -1,9 +1,7 @@
-function f = intg_fi(s0,s_fi)
+function f = intg_fi(s0,s)
 % 
 
-g = gama_fcn(s_fi);
-a = alpha_fcn(s_fi);
-f = intg_psi(s_fi,s0) * 2 *( g / a);
+f = intg_psi(s,s0) * 2 .*( gama_fcn(s) ./ alpha_fcn(s));
 
 end
 

@@ -105,7 +105,6 @@ x0 = [Phi_fcn(thta_0) , thta_0 ,...
 
 x0_dstbd = x0 + dlta_x0;
 
-
 %{
 %% CONTROLLING LINEARIZED SYSTEM
 % Generator of motion and its deriative
@@ -150,6 +149,8 @@ subplot(3,1,3)
 
 %% CONTROLLING FULL NONLINEAR SYSTEM
 % Allocate variables
+x0_dstbd = [-5 3.5 -5.5 4.3];  
+n_iter = 1;
 
 x_inv_dnmcs_dstbd = zeros(n_iter+1,4);
 y = zeros(n_iter,1);
@@ -190,7 +191,7 @@ for i = 1:n_iter
 %     u_ffrd = U_ff(s_cur,s_d_cur,y_cur,y_d_cur)'; 
     u_fbck = K_mtrx(:,:,idx) * x_trsv_cur;
 %     u_cur = u_ffrd + inv(N_fcn(s_cur,s_d_cur)) * u_fbck;
-    u_cur = U_full(s_cur,s_d_cur,y_cur,y_d_cur,u_fbck);
+    u_cur = U_full(s_cur,s_d_cur,y_cur,y_d_cur,u_fbck)
     
     u(i) = u_cur;
     
@@ -201,7 +202,7 @@ for i = 1:n_iter
     x_inv_dnmcs_dstbd(i+1,:) = x_cur(end,:);
 end
 
-
+%%
 figure
 subplot(3,1,1)
     plot(t(1:n_iter),I(1:n_iter))
