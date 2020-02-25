@@ -12,12 +12,12 @@ thta0 = 0;
 k  = 0.5;
 
 % Initial conditions of the nominal trajectory
-theta =  0.5;
-theta_d = 0.0;
+theta =  2;
+theta_d = 0.1;
 
 run('nominal_trajectory.m');
 % return
-redesign_controller = 0;
+redesign_controller = 1;
 if redesign_controller
     
     run('generate_AB_mtrcs.m');
@@ -97,11 +97,11 @@ end
 thta_0 = 0;
 thta_d_0 = 0;
 
-x0 = [Phi_fcn(thta_0) , thta_0 ,...
-        Phi_prm_fcn(thta_0) * thta_d_0, thta_d_0]';
+% x0 = [Phi_fcn(thta_0) , thta_0 ,...
+%         Phi_prm_fcn(thta_0) * thta_d_0, thta_d_0]';
 
-% x0 = [Phi_fcn(x(locs(1),1)) , x(locs(1),1) ,...
-%         Phi_prm_fcn(x(locs(1),1)) * x(locs(1),2), x(locs(1),2)]';
+x0 = [Phi_fcn(x(locs(1),1)) , x(locs(1),1) ,...
+        Phi_prm_fcn(x(locs(1),1)) * x(locs(1),2), x(locs(1),2)]';
 
 x0_dstbd = x0 + dlta_x0;
 
@@ -149,8 +149,8 @@ subplot(3,1,3)
 
 %% CONTROLLING FULL NONLINEAR SYSTEM
 % Allocate variables
-x0_dstbd = [-5 3.5 -5.5 4.3];  
-n_iter = 1;
+%x0_dstbd = [-5 3.5 -5.5 4.3];  
+%n_iter = 1;
 
 x_inv_dnmcs_dstbd = zeros(n_iter+1,4);
 y = zeros(n_iter,1);
@@ -191,7 +191,7 @@ for i = 1:n_iter
 %     u_ffrd = U_ff(s_cur,s_d_cur,y_cur,y_d_cur)'; 
     u_fbck = K_mtrx(:,:,idx) * x_trsv_cur;
 %     u_cur = u_ffrd + inv(N_fcn(s_cur,s_d_cur)) * u_fbck;
-    u_cur = U_full(s_cur,s_d_cur,y_cur,y_d_cur,u_fbck)
+    u_cur = U_full(s_cur,s_d_cur,y_cur,y_d_cur,u_fbck);
     
     u(i) = u_cur;
     
@@ -202,7 +202,7 @@ for i = 1:n_iter
     x_inv_dnmcs_dstbd(i+1,:) = x_cur(end,:);
 end
 
-%%
+
 figure
 subplot(3,1,1)
     plot(t(1:n_iter),I(1:n_iter))

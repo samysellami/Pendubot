@@ -9,9 +9,10 @@ using namespace std;
 
 int iter_simp = 100;
 
-float f_psi(float x)
+float f_psi(float s)
 {
-	return  (0.00154375*sin(x)) / (0.0030875*cos(x) + 0.00651975); 	// beta/alpha
+	return (0.00154375*sin(s)) / (0.0030875*cos(s) + 0.00651975);
+	//return  (0.00154375*sin(x)) / (0.0030875*cos(x) + 0.00651975); 	// beta/alpha
 }
 
 float simpsons_psi( float a, float b, int n)
@@ -52,7 +53,8 @@ float int_psi(float s0, float s)
 float f_fi(float s)
 {
 	float out;
-	out = (0.242307*cos((3*s)/2 - M_PI/2)) / (0.0030875*cos(s) + 0.00651975);  // gamma/alpha  
+	out =  (0.242307*cos((3*s)/2 - M_PI/2))/(0.0030875*cos(s) + 0.00651975);
+	// out = (0.242307*cos((3*s)/2 - M_PI/2)) / (0.0030875*cos(s) + 0.00651975);  // gamma/alpha  
 	return  out; 	
 }
 

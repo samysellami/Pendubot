@@ -73,7 +73,6 @@ class pndbt():
       g[1] =  self.p5 * self.g * math.cos(q[0] + q[1])
       return g 
 
-
     def A_lin(self):
       A = np.zeros((4,4)) 
       A[0,2] = 1
@@ -81,7 +80,7 @@ class pndbt():
       A[2,0] = -(self.g * self.p2 * self.p4 - self.g * self.p3 * self.p5) / (- self.p3 ** 2 + self.p1 * self.p2)
       A[2,1] = (self.g * self.p3 * self.p5) / (-  self.p3**2 + self.p1 * self.p2)
       A[3,0] =  (self.g * self.p1 * self.p5 + self.g * self.p2 * self.p4 - self.g * self.p3 * self.p4  \
-  - self.g * self.p3* self.p5) / (- self.p3 **2 + self.p1 * self.p2)
+      - self.g * self.p3* self.p5) / (- self.p3 **2 + self.p1 * self.p2)
       A[3,1] = (self.g * self.p1 * self.p5 - self.g * self.p3 * self.p5) / (- self.p3 ** 2 + self.p1 * self.p2)
       return A 
 
@@ -111,7 +110,6 @@ class pndbt():
     def U_full(self,s, s_d, y, y_d, v):
       U_f = self.Uff(s, s_d, y, y_d) + self.inv_N(s) * v
       return U_f
-
 
     def y_trnsv(self, phi, s):
       y = phi - (self.phi0 + self.k * (s - self.thta0))
@@ -161,7 +159,6 @@ class pndbt():
         res = res * (h / 3) 
         return res 
 
-
     def int_psi(self, s0, s):
       if s == s0:
         return 0
@@ -175,7 +172,6 @@ class pndbt():
       fi = self.int_psi(s,s0) * 2 * func(s);
       return fi
     
-
     def int(self, s,s_d,s_0,s_d0):
       if s == s_0:
           I = s_d**2 - s_d0**2;
@@ -221,31 +217,24 @@ class pndbt():
 
       limit_1 = 0
       limit_2 = -math.pi
-      if (q[0] > limit_1):
+
+      if (self.q[0] > limit_1) or (self.q[0] < limit_2):
         self.torque_pub.publish(0)
         rospy.sleep(0.5)
         rospy.signal_shutdown('Limits exceeded!')
-      elif (q[0] < limit_2):
-        self.torque_pub.publish(0)
-        rospy.sleep(0.5)
-        rospy.signal_shutdown('Limits exceeded!')
+            
       else: 
         qf = np.array([-math.pi/2, math.pi])        
-        x  = np.hstack(((q-qf,q_d)))
+        x  = np.hstack(((self.q-qf,self.q_d)))
         u = np.dot(-self.K, x.transpose())
         u_in = torque_limit(u[0,0],8*0.123)
         self.torque_pub.publish(u_in)
-        print(u_in)
+        print("the control input is equal to " +str(u_in))
   
 
     def callback(self,joint_states):
       self.q = np.array(joint_states.position)
       self.q_d = np.array(joint_states.velocity)
-      # if abs(q[1]-math.pi) > math.pi/20 and abs(q[0] + math.pi/2) > math.pi/20: 
-      # self.orbital_stabilization(q, q_d)
-      # else:  
-      # self.linear_stabilization(q, q_d)  
-
 
 
 def control():
@@ -278,6 +267,12 @@ def control():
                 pendubot.orbital_stabilization(q, q_d)"""
 
     while not rospy.is_shutdown():
+
+      """if abs(pendubot.q[1]-math.pi) > math.pi/20 and abs(pendubot.q[0] + math.pi/2) > math.pi/20: 
+                            self.orbital_stabilization(q, q_d)
+                          else:  
+                            self.linear_stabilization(q, q_d)"""  
+
       pendubot.orbital_stabilization()
 
       rate.sleep()
