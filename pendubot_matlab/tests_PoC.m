@@ -15,7 +15,7 @@ k  = 0.5;
 theta =  2;
 theta_d = 0.1;
 
-run('nominal_trajectory.m');
+run('nominal_definitionstrajectory.m');
 % return
 redesign_controller = 1;
 if redesign_controller

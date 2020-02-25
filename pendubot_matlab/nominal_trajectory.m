@@ -1,14 +1,14 @@
-% clc; clear all;  close all;
+clc; clear all;  close all;
 
 % parameters of alpha beta gamma equation
-% phi0 = -pi/2; 
-% thta0 = 0;
-% k  = 0.5;
+phi0 = -pi/2; 
+thta0 = 0.0;
+k  = 0.5;
 
 run('pndbt_dnmcs.m')
 
-% theta =  2;
-% theta_d = 0.0;
+theta =  0.5;
+theta_d = 0.0;
 
 % ABG IN STATE SPACE FORM
 dxdt = @(t,x)[x(2); (-gama_fcn(x(1)) - ...
@@ -21,6 +21,8 @@ optns = odeset('RelTol',1e-9,'AbsTol',1e-9,'NormControl','on');
 x0 = [theta; theta_d];
 
 [t,x] = ode45( @(t,x)dxdt(t,x),tspan,x0,optns);
+% x_ = mod(x,2*pi);
+
 
 x_2d = zeros(length(x(:,1)),1);
 
@@ -63,5 +65,5 @@ q_tot(2,:) = x(:,1);
 q_tot(1,:) = phi0 + k*(x(:,1) - thta0);
 
 % visualise the pendubot trajectory
-% pendubot_visualize(q_tot(1:2,1:10:end),plnr)
+pendubot_visualize(q_tot(1:2,1:10:end),plnr)
 
