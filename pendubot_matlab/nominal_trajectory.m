@@ -1,14 +1,30 @@
 clc; clear all;  close all;
 
 % parameters of alpha beta gamma equation
+
+% third trajectory with thta0 =8
+% phi0 = -pi/2; 
+% thta0 = 0.0;
+% k  = 0.0;
+% theta =  0;
+% theta_d = 15;
+
+% second trajectory with thta0= 3.0612
 phi0 = -pi/2; 
 thta0 = 0.0;
 k  = 0.5;
+theta =  0;
+theta_d = 8;
+
+% first trajectory
+% phi0 = -pi/2; 
+% thta0 = 0.0;
+% k  = 0.5;
+% theta =  0.5;
+% theta_d = 0;
 
 run('pndbt_dnmcs.m')
 
-theta =  0.5;
-theta_d = 0.0;
 
 % ABG IN STATE SPACE FORM
 dxdt = @(t,x)[x(2); (-gama_fcn(x(1)) - ...
@@ -21,7 +37,7 @@ optns = odeset('RelTol',1e-9,'AbsTol',1e-9,'NormControl','on');
 x0 = [theta; theta_d];
 
 [t,x] = ode45( @(t,x)dxdt(t,x),tspan,x0,optns);
-% x_ = mod(x,2*pi);
+%x(:, 1) = mod(x(:, 1),2*pi);
 
 
 x_2d = zeros(length(x(:,1)),1);
@@ -59,11 +75,10 @@ ylabel('$\ddot{x}$','Interpreter', 'latex')
 grid on
 %}
 
-q_tot = zeros(2, length(x));% pendubot_visualize(q_tot(1:2,1:10:end),plnr)
+q_tot = zeros(2, length(x));
 
 q_tot(2,:) = x(:,1);
 q_tot(1,:) = phi0 + k*(x(:,1) - thta0);
 
 % visualise the pendubot trajectory
-pendubot_visualize(q_tot(1:2,1:10:end),plnr)
-
+% pendubot_visualize(q_tot(1:2,1:10:end),plnr)

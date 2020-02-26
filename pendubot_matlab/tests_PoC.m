@@ -7,15 +7,15 @@
 clc; clear all;  close all;
 
 % Parameters of the nominal trajectory
-phi0 = -pi/2; 
-thta0 = 0;
-k  = 0.5;
+% phi0 = -pi/2; 
+% thta0 = 0;
+% k  = 0.5;
 
 % Initial conditions of the nominal trajectory
-theta =  2;
-theta_d = 0.1;
+% theta =  2;
+% theta_d = 0.1;
 
-run('nominal_definitionstrajectory.m');
+run('nominal_trajectory.m');
 % return
 redesign_controller = 1;
 if redesign_controller
@@ -49,8 +49,9 @@ for i = 1:length(x)
 
 end
 
-% Find one period of s
-[~,locs] = findpeaks(x(:,1));
+% Find one period of s 
+% [~,locs] = findpeaks(mod(x(:, 1),2*pi));
+[~,locs] = findpeaks(x(:, 1));
 T = t(locs(2)) - t(locs(1));
 s_str = x(locs(1):locs(2),1);
 s_d_str = x(locs(1):locs(2),2);
@@ -58,6 +59,7 @@ s_2d_str = x_2d(locs(1):locs(2));
 
 Phi_str = phi0 + k * (s_str - thta0);
 Phi_d_str = k * (s_d_str);
+% Phi_str = mod(Phi_str,2*pi);
 
 q_str = [ Phi_str s_str Phi_d_str s_d_str];
 
@@ -78,7 +80,7 @@ else
     return
 end
 
-% INITIAL CONDITION AND PARAMETERS OF SIMULATION
+%% INITIAL CONDITION AND PARAMETERS OF SIMULATION
 optns_id = odeset('RelTol',1e-12,'AbsTol',1e-12,'NormControl','on');
 % Function that finds zero crossing
 zci = @(v) find(v(:).*circshift(v(:), [-1 0]) <= 0);
@@ -93,15 +95,18 @@ else
     dlta_x0 = zeros(4,1);
 end
 
-%Initial condition
-thta_0 = 0;
+% Initial condition of theta
+thta_0 = 0.3;    
 thta_d_0 = 0;
 
-% x0 = [Phi_fcn(thta_0) , thta_0 ,...
-%         Phi_prm_fcn(thta_0) * thta_d_0, thta_d_0]';
+x0 = [Phi_fcn(thta_0) , thta_0 ,...
+        Phi_prm_fcn(thta_0) * thta_d_0, thta_d_0]';
 
-x0 = [Phi_fcn(x(locs(1),1)) , x(locs(1),1) ,...
-        Phi_prm_fcn(x(locs(1),1)) * x(locs(1),2), x(locs(1),2)]';
+% x0 = [Phi_fcn(x(locs(1),1)) , x(locs(1),1) ,...
+%         Phi_prm_fcn(x(locs(1),1)) * x(locs(1),2), x(locs(1),2)]';
+
+% x0 = [Phi_fcn(x(1,1)) , x(1,1) ,...
+%     Phi_prm_fcn(x(1,1)) * x(1,2), x(1,2)]';
 
 x0_dstbd = x0 + dlta_x0;
 
@@ -147,9 +152,9 @@ subplot(3,1,3)
     grid minor
 %}
 
-%% CONTROLLING FULL NONLINEAR SYSTEM
+% CONTROLLING FULL NONLINEAR SYSTEM
 % Allocate variables
-%x0_dstbd = [-5 3.5 -5.5 4.3];  
+x0_dstbd = [-1.57 0 3 0];  
 %n_iter = 1;
 
 x_inv_dnmcs_dstbd = zeros(n_iter+1,4);
@@ -240,7 +245,7 @@ figure
 plot(t(1:n_iter),u)
 
 
-% pendubot_visualize(x_inv_dnmcs_dstbd(1:10:end,1:2)',plnr)
+pendubot_visualize(x_inv_dnmcs_dstbd(1:10:end,1:2)',plnr)
 
 
 %% FUNCTIONS
