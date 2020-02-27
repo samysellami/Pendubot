@@ -2,21 +2,21 @@ clc; clear all;  close all;
 
 % parameters of alpha beta gamma equation
 
-% third trajectory with thta0 = 0 thta_d0 =8 
-% phi0 = -pi/2; 
-% thta0 = 0.0;
-% k  = 0.0;
-% theta =  0;
-% theta_d = 15;
+% fourth trajectory with initial conditions thta0 = 0 thta_d0 =8 
+phi0 = -pi/2; 
+thta0 = 0.0;
+k  = 0.0;
+theta =  0;
+theta_d = 15;
 
-% second trajectory with thta0= 1.2 thta_d0 = 0
+% third trajectory with initial conditions thta0= 1.2 thta_d0 = 0
 % phi0 = -pi/2; 
 % thta0 = 0.0;
 % k  = 0.5;
 % theta =  0;
 % theta_d = 8;
 
-% second mid  trajectory with thta0 =0.6 thta_d0= 0
+% second trajectory with initial conditions thta0 =0.8 thta_d0= 0
 % phi0 = -pi/2; 
 % thta0 = 0.0;
 % k  = 0.5;
@@ -24,12 +24,12 @@ clc; clear all;  close all;
 % theta_d = 0;
 
 
-% first trajectory
-phi0 = -pi/2; 
-thta0 = 0.0;
-k  = 0.5;
-theta =  0.5;
-theta_d = 0;
+% first trajectory form rest
+% phi0 = -pi/2; 
+% thta0 = 0.0;
+% k  = 0.5;
+% theta =  0.8;
+% theta_d = 0;
 
 run('pndbt_dnmcs.m')
 

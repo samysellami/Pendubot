@@ -50,8 +50,8 @@ for i = 1:length(x)
 end
 
 % Find one period of s 
-% [~,locs] = findpeaks(mod(x(:, 1),2*pi));
-[~,locs] = findpeaks(x(:, 1));
+[~,locs] = findpeaks(mod(x(:, 1),2*pi));
+% [~,locs] = findpeaks(x(:, 1));
 T = t(locs(2)) - t(locs(1));
 s_str = x(locs(1):locs(2),1);
 s_d_str = x(locs(1):locs(2),2);
@@ -97,20 +97,20 @@ else
 end
 
 % Initial condition of the nominal trajectory
-thta_0 = 0.0;    
-thta_d_0 = 6.0;
+thta_0 = 0.8;    
+thta_d_0 = 0.0;
 
-% x0 = [Phi_fcn(thta_0) , thta_0 ,...
-%         Phi_prm_fcn(thta_0) * thta_d_0, thta_d_0]';
+x0 = [Phi_fcn(thta_0) , thta_0 ,...
+        Phi_prm_fcn(thta_0) * thta_d_0, thta_d_0]';
 
-x0 = [Phi_fcn(x(locs(1),1)) , x(locs(1),1) ,...
-        Phi_prm_fcn(x(locs(1),1)) * x(locs(1),2), x(locs(1),2)]';
+% x0 = [Phi_fcn(x(locs(1),1)) , x(locs(1),1) ,...
+%         Phi_prm_fcn(x(locs(1),1)) * x(locs(1),2), x(locs(1),2)]';
 
 % x0 = [Phi_fcn(x(1,1)) , x(1,1) ,...
 %     Phi_prm_fcn(x(1,1)) * x(1,2), x(1,2)]';
 
 x0_dstbd = x0 + dlta_x0;
-% x0_dstbd = [-1.5708 0 0.0 0];  
+x0_dstbd = [-1.5708 0 4.0 8.0];  
 
 %{
 %% CONTROLLING LINEARIZED SYSTEM
