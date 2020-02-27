@@ -80,6 +80,7 @@ else
     return
 end
 
+
 %% INITIAL CONDITION AND PARAMETERS OF SIMULATION
 optns_id = odeset('RelTol',1e-12,'AbsTol',1e-12,'NormControl','on');
 % Function that finds zero crossing
@@ -95,20 +96,21 @@ else
     dlta_x0 = zeros(4,1);
 end
 
-% Initial condition of theta
-thta_0 = 0.3;    
-thta_d_0 = 0;
+% Initial condition of the nominal trajectory
+thta_0 = 0.0;    
+thta_d_0 = 6.0;
 
-x0 = [Phi_fcn(thta_0) , thta_0 ,...
-        Phi_prm_fcn(thta_0) * thta_d_0, thta_d_0]';
+% x0 = [Phi_fcn(thta_0) , thta_0 ,...
+%         Phi_prm_fcn(thta_0) * thta_d_0, thta_d_0]';
 
-% x0 = [Phi_fcn(x(locs(1),1)) , x(locs(1),1) ,...
-%         Phi_prm_fcn(x(locs(1),1)) * x(locs(1),2), x(locs(1),2)]';
+x0 = [Phi_fcn(x(locs(1),1)) , x(locs(1),1) ,...
+        Phi_prm_fcn(x(locs(1),1)) * x(locs(1),2), x(locs(1),2)]';
 
 % x0 = [Phi_fcn(x(1,1)) , x(1,1) ,...
 %     Phi_prm_fcn(x(1,1)) * x(1,2), x(1,2)]';
 
 x0_dstbd = x0 + dlta_x0;
+% x0_dstbd = [-1.5708 0 0.0 0];  
 
 %{
 %% CONTROLLING LINEARIZED SYSTEM
@@ -154,8 +156,6 @@ subplot(3,1,3)
 
 % CONTROLLING FULL NONLINEAR SYSTEM
 % Allocate variables
-x0_dstbd = [-1.57 0 3 0];  
-%n_iter = 1;
 
 x_inv_dnmcs_dstbd = zeros(n_iter+1,4);
 y = zeros(n_iter,1);
@@ -243,7 +243,7 @@ legend
 
 figure
 plot(t(1:n_iter),u)
-
+%}
 
 pendubot_visualize(x_inv_dnmcs_dstbd(1:10:end,1:2)',plnr)
 

@@ -35,7 +35,8 @@ for i = 1:2
    plnr.r_com(:,i) = sym(com_pos);
    plnr.I(:,:,i) = sym(link_inertia);
 end
-%{ 
+
+%{
 % syms m1 m2 l1 l2 lc1 lc2 I1 I2 real
 % 
 % plnr.m(1) = m1; 
@@ -73,11 +74,11 @@ end
 % plnr.theta(5) = 0.0643;
 
 % parammeters of the article THE SWING U P CONTROL FOR THE PENDUBOT
-plnr.theta(1) = 0.0799;
-plnr.theta(2) = 0.0244;
-plnr.theta(3) = 0.0205;
-plnr.theta(4) = 0.42126; 
-plnr.theta(5) = 0.10630;
+% plnr.theta(1) = 0.0799;
+% plnr.theta(2) = 0.0244;
+% plnr.theta(3) = 0.0205;
+% plnr.theta(4) = 0.42126; 
+% plnr.theta(5) = 0.10630;
 %}
 
 l1 =  str2num(plnr.robot.link{1,2}.visual.geometry.cylinder.Attributes.length);
@@ -171,7 +172,7 @@ n_thta =  C_thta * qd_sym + g_thta;
 f = [qd_sym; D_thta\([u; 0] - n_thta)];
 A = jacobian(f,[q_sym; qd_sym]);
 B = jacobian(f,u);
-
+%
 matlabFunction(D_thta,'File','autogen/M_mtrx_fcn','Vars',{q_sym});
 matlabFunction(n_thta,'File','autogen/n_vctr_fcn','Vars',{q_sym,qd_sym});
 matlabFunction(C_thta,'File','autogen/C_mtrx_fcn','Vars',{q_sym,qd_sym});
