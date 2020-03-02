@@ -89,7 +89,7 @@ else
 end
 
 % Initial condition of the nominal trajectory
-thta_0 = 0.30;    
+thta_0 = 0.01;    
 thta_d_0 = 0.0;
 
 x0 = [Phi_fcn(thta_0) , thta_0 ,...
