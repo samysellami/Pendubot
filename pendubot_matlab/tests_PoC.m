@@ -5,16 +5,7 @@
 % Theta = s   position of the second link 
 
 clc; clear all;  close all;
-
-% Parameters of the nominal trajectory
-% phi0 = -pi/2; 
-% thta0 = 0;
-% k  = 0.5;
-
-% Initial conditions of the nominal trajectory
-% theta =  2;
-% theta_d = 0.1;
-
+8
 run('nominal_trajectory.m');
 % return
 redesign_controller = 1;
@@ -25,7 +16,7 @@ if redesign_controller
 
 else
     
-    load('K_mtrx.mat');
+    load('mat_files/K_mtrx.mat');
     K_gusev = K_mtrx;
 
 end
@@ -50,8 +41,8 @@ for i = 1:length(x)
 end
 
 % Find one period of s 
-[~,locs] = findpeaks(mod(x(:, 1),2*pi));
-% [~,locs] = findpeaks(x(:, 1));
+% [~,locs] = findpeaks(mod(x(:, 1),2*pi));
+[~,locs] = findpeaks(x(:, 1));
 T = t(locs(2)) - t(locs(1));
 s_str = x(locs(1):locs(2),1);
 s_d_str = x(locs(1):locs(2),2);
@@ -62,8 +53,8 @@ Phi_d_str = k * (s_d_str);
 % Phi_str = mod(Phi_str,2*pi);
 
 q_str = [ Phi_str s_str Phi_d_str s_d_str];
+save('q_str1.mat','q_str')
 
-save('q_str.mat','q_str')
 % COMPUTE NOMINAL TORQUES FROM U_ff
 s = x(:,1);
 s_d = x(:,2);
@@ -87,7 +78,7 @@ optns_id = odeset('RelTol',1e-12,'AbsTol',1e-12,'NormControl','on');
 zci = @(v) find(v(:).*circshift(v(:), [-1 0]) <= 0);
 
 n_T = length(s_str);
-n_iter = 1000;
+n_iter = 600;
 add_distr = 0;
 
 if add_distr
@@ -110,7 +101,7 @@ x0 = [Phi_fcn(thta_0) , thta_0 ,...
 %     Phi_prm_fcn(x(1,1)) * x(1,2), x(1,2)]';
 
 x0_dstbd = x0 + dlta_x0;
-x0_dstbd = [-1.5708 0 4.0 8.0];  
+x0_dstbd = [-1.5708 0 0.0 0.0];  
 
 %{
 %% CONTROLLING LINEARIZED SYSTEM

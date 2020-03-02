@@ -18,16 +18,26 @@ from scipy.linalg import*
 
 
 def torque_limit(torque, max_value):
-  if torque > max_value:
-    torque = max_value
-  if torque < -max_value:
-    torque = -max_value
-  return torque
+    if torque > max_value:
+      torque = max_value
+    if torque < -max_value:
+      torque = -max_value
+    return torque
 
+def load_mat(mat_name, K):
+    data_dir = pjoin(dirname(__file__))
+    mat_fname = pjoin(data_dir, 'mat_files/'+str(mat_name))
+    mat = scipy.io.loadmat(mat_fname)
+    
+    if K:
+      mat = mat['K_mtrx']
+    else:
+      mat = mat['q_str']
+    return mat
 
 class pndbt():
     """docstring for ClassName"""
-    def __init__(self, Q, R, k, phi0, thta0, K_mtrx, q_str):
+    def __init__(self, Q, R, k, phi0, thta0,  K_mtrces, q_strs):
       params = {'m1': 1.085, 'm2': 0.26, 'l1': 0.25, 'l2': 0.25, 'I1': 0.008, 'I2': 0.002, 'l_com1': 0.043, 'l_com2': 0.095} 
       self.p1 = params['m1'] * (params['l_com1'])**2 +  params['m2'] * (params['l1'])**2 +  params['I1']
       self.p2 = params['m2'] * (params['l_com2']**2) +  params['I2']
@@ -42,13 +52,19 @@ class pndbt():
       self.k = k
       self.phi0 = phi0
       self.thta0 = thta0
-      self.K_mtrx = K_mtrx
-      self.s_str =  q_str[:,1]
-      self.s_d_str =  q_str[:,3]
+      
+      self.K_mtrces = K_mtrces
+      self.q_strs = q_strs
+
+      self.K_mtrx = K_mtrces[0]
+      self.s_str =  q_strs[0][:,1]
+      self.s_d_str =  q_strs[0][:,3]
+
       self.torque_pub = rospy.Publisher('/pndbt/shoulder_torque_controller/command', Float64, queue_size=10)
       self.joint_states_sub = rospy.Subscriber('/pndbt/joint_states', JointState, self.callback)
       self.joint_states = 0
-      self.q = np.array([ 0 , 0])
+      
+      self.q = np.array([ -math.pi/2 , 0])
       self.q_d = np.array([ 0 , 0])
         
     def D_mtrx(self, q):
@@ -131,7 +147,6 @@ class pndbt():
       g = (self.g * self.p5 * math.cos(self.phi0 + s + self.k*(s - self.thta0)))
       return g 
   
-    # Function for approximate integral 
     def simpsons( self, func, ll, ul, n ):     
         # Calculating the value of h 
         h = ( ul - ll )
@@ -206,11 +221,11 @@ class pndbt():
       stop = timeit.default_timer()
 
       u_fbck = (self.K_mtrx[:,:,idx][0]).dot(x_trsv) 
-      u = self.U_full(theta, theta_d, y, y_d, u_fbck)
-      self.torque_pub.publish(u)
+      u_in = self.U_full(theta, theta_d, y, y_d, u_fbck)
+      self.torque_pub.publish(u_in)
       
-      print("the control input is equal to " +str(u))
-      # print('Time: ', stop - start)  
+      print("the control input is equal to " +str(u_in))
+      #print('Time: ', stop - start)  
 
 
     def linear_stabilization(self):
@@ -240,39 +255,38 @@ class pndbt():
 def control():
 
     rospy.init_node('python_command', anonymous=True)
-    rate = rospy.Rate(50) # 10hz
+    rate = rospy.Rate(50) # 50hz
 
     Q = np.zeros((4, 4))
     Q[0,0] = 1
     Q[1,1] = 1
     R = 1
-
     k = 0.5
     phi0 = -math.pi/2
     thta0 = 0
 
-    data_dir = pjoin(dirname(__file__))
-    mat_fname = pjoin(data_dir, 'K_mtrx.mat')
-    K_mtrx = scipy.io.loadmat(mat_fname)
-    K_mtrx = K_mtrx['K_mtrx']
-   
-    mat_fname = pjoin(data_dir, 'q_str.mat')
-    q_str = scipy.io.loadmat(mat_fname)
-    q_str = q_str['q_str']
-    
-    pendubot  = pndbt(Q, R, k, phi0, thta0, K_mtrx, q_str)
+    K_mtrx = load_mat('K_mtrx.mat', 1)
+    q_str = load_mat('q_str.mat', 0)
 
-    """q = np.array([-5,  3.5])
-                q_d  = np.array([-5.5,  4.3])
-                pendubot.orbital_stabilization(q, q_d)"""
+    K_mtrx1 = load_mat('K_mtrx1.mat', 1)
+    q_str1 = load_mat('q_str1.mat', 0)
+
+    K_mtrx2 = load_mat('K_mtrx2.mat', 1)
+    q_str2 = load_mat('q_str2.mat', 0)
+      
+
+    K_mtrces = [K_mtrx1, K_mtrx2]
+    q_strs = [q_str1, q_str2]
+    
+  
+    pendubot  = pndbt(Q, R, k, phi0, thta0, K_mtrces, q_strs)
 
     while not rospy.is_shutdown():
-
-      """if abs(pendubot.q[1]-math.pi) > math.pi/20 and abs(pendubot.q[0] + math.pi/2) > math.pi/20: 
-                            self.orbital_stabilization(q, q_d)
-                          else:  
-                            self.linear_stabilization(q, q_d)"""  
-
+      """if (abs(pendubot.q[1]-math.pi) < math.pi/20) and (abs(pendubot.q[0] + math.pi/2) < math.pi/20): 
+                              print("linear stabilization!!!")
+                              pendubot.linear_stabilization()  
+                          else:"""  
+      #print("orbital stabilization!!!!")
       pendubot.orbital_stabilization()
 
       rate.sleep()
