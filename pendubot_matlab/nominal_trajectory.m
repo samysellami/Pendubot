@@ -2,27 +2,15 @@ clc; clear all;  close all;
 
 % parameters of alpha beta gamma equation
 
-% % third trajectory with initial conditions thta0 = 0 thta_d0 =8 
-% phi = -pi/2  phi_d =  0.0
 
-% phi0 = -pi/2; 
-% thta0 = 0.0;
-% k  = 0.0;
-% theta =  0;
-% theta_d = 15;
-
-% second trajectory with initial conditions thta0= 1.2 thta_d0 = 0 
-% phi= -0.9708 phi_d = 0.0
-
+% second trajectory with initial conditions thta0 = 0 thta_d0 = 7.16 
 phi0 = -pi/2; 
 thta0 = 0.0;
-k  = 0.5;
+k  = 0.0;
 theta =  0;
-theta_d = 8;
+theta_d = 15;
 
-% first trajectory with initial conditions thta0 =1.2 thta_d0= 0 phi =
-% -pi/2 phi_d = 0
-
+% first trajectory with initial conditions thta0 =1.2 thta_d0= 0
 % phi0 = -pi/2; 
 % thta0 = 0.0;
 % k  = 0.5;
@@ -43,7 +31,7 @@ optns = odeset('RelTol',1e-9,'AbsTol',1e-9,'NormControl','on');
 x0 = [theta; theta_d];
 
 [t,x] = ode45( @(t,x)dxdt(t,x),tspan,x0,optns);
-%x(:, 1) = mod(x(:, 1),2*pi);
+x(:, 1) = wrapToPi2(x(:, 1));
 
 
 x_2d = zeros(length(x(:,1)),1);

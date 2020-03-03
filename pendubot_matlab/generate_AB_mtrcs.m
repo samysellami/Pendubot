@@ -5,7 +5,6 @@
 s = x(:,1);
 s_d = x(:,2);
 
-% [~,locs] = findpeaks(mod(s,2*pi));
 [~,locs] = findpeaks(s);
 T_x = t(locs(2)) - t(locs(1)); 
 T_ind = locs(2) - locs(1) + 1;

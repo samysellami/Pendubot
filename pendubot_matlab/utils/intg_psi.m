@@ -8,7 +8,7 @@ if s0 == s
 end
 
 f1=@(s) ( beta_fcn(s) ./ alpha_fcn(s));
-int1 = simpsons(f1,s0,s,1000);
+int1 = simpsons(f1,s0,s,100);
 psi = exp(-2*int1);
 
 end

@@ -5,7 +5,6 @@
 % Theta = s   position of the second link 
 
 clc; clear all;  close all;
-
 run('nominal_trajectory.m');
 % return
 redesign_controller = 1;
@@ -41,7 +40,6 @@ for i = 1:length(x)
 end
 
 % Find one period of s 
-% [~,locs] = findpeaks(mod(x(:, 1),2*pi));
 [~,locs] = findpeaks(x(:, 1));
 T = t(locs(2)) - t(locs(1));
 s_str = x(locs(1):locs(2),1);
@@ -50,7 +48,7 @@ s_2d_str = x_2d(locs(1):locs(2));
 
 Phi_str = phi0 + k * (s_str - thta0);
 Phi_d_str = k * (s_d_str);
-% Phi_str = mod(Phi_str,2*pi);
+Phi_str = wrapToPi2(Phi_str);
 
 q_str = [ Phi_str s_str Phi_d_str s_d_str];
 save('mat_files/q_str3.mat','q_str')
@@ -79,7 +77,7 @@ optns_id = odeset('RelTol',1e-12,'AbsTol',1e-12,'NormControl','on');
 zci = @(v) find(v(:).*circshift(v(:), [-1 0]) <= 0);
 
 n_T = length(s_str);
-n_iter = 700;
+n_iter = 750;
 add_distr = 0;
 
 if add_distr
@@ -89,7 +87,7 @@ else
 end
 
 % Initial condition of the nominal trajectory
-thta_0 = 1.20;    
+thta_0 = 0.1;
 thta_d_0 = 0.0;
 
 x0 = [Phi_fcn(thta_0) , thta_0 ,...
@@ -102,8 +100,7 @@ x0 = [Phi_fcn(x(locs(1),1)) , x(locs(1),1) ,...
 %     Phi_prm_fcn(x(1,1)) * x(1,2), x(1,2)]';
 
 x0_dstbd = x0 + dlta_x0;
-% x0_dstbd = [-pi/2 0 0.5 8.0];  
-
+x0_dstbd = [-pi/2 0 3.6 7.2];  
 
 %{
 %% CONTROLLING LINEARIZED SYSTEM
@@ -145,6 +142,7 @@ subplot(3,1,3)
     plot(t(1:n_iter),x_trsv(1:n_iter,3))
     ylabel('$\dot{y}$','interpreter','latex')
     grid minor
+    return
 %}
 
 % CONTROLLING FULL NONLINEAR SYSTEM
@@ -156,6 +154,8 @@ y_d = zeros(n_iter,1);
 I = zeros(n_iter,1);
 
 u = zeros(n_iter,1);
+ufb = zeros(n_iter,1);
+uff = zeros(n_iter,1);
 % Set initial condition
 x_inv_dnmcs_dstbd(1,:) = x0_dstbd;
 
@@ -186,16 +186,22 @@ for i = 1:n_iter
     y_d(i) = y_d_cur;
     I(i) = I_cur;    
     % Input that consistes of feedfowfard term and feedback terms
-%     u_ffrd = U_ff(s_cur,s_d_cur,y_cur,y_d_cur)'; 
+    u_ffrd = U_ff(s_cur,s_d_cur,y_cur,y_d_cur)'; 
     u_fbck = K_mtrx(:,:,idx) * x_trsv_cur;
-%     u_cur = u_ffrd + inv(N_fcn(s_cur,s_d_cur)) * u_fbck;
-    u_cur = U_full(s_cur,s_d_cur,y_cur,y_d_cur,u_fbck);
+    u_cur = u_ffrd + inv(N_fcn(s_cur,s_d_cur)) * u_fbck;
+%     u_cur = U_full(s_cur,s_d_cur,y_cur,y_d_cur,u_fbck);
     
     u(i) = u_cur;
+    ufb(i) = u_cur - u_ffrd;
+    uff(i) = u_ffrd;
+    
     
     % Integration of dynamics from t_{i} to t_{i+1} with u = u_{i}
     [~,x_cur] = ode45( @(t,x) pndbt_dnmcs(t,x,u_cur),...
                         t_span,x_inv_dnmcs_dstbd(i,:)',optns_id);
+    x_cur(:, 1) = wrapToPi2(x_cur(:, 1));
+    x_cur(:, 2) = wrapToPi2(x_cur(:, 2));
+                    
    
     x_inv_dnmcs_dstbd(i+1,:) = x_cur(end,:);
 end
@@ -236,9 +242,13 @@ legend
 
 figure
 plot(t(1:n_iter),u)
+hold on
+plot(t(1:n_iter),ufb)
+plot(t(1:n_iter),uff)
+legend('U','Ufb','Uff')
 %}
 
-pendubot_visualize(x_inv_dnmcs_dstbd(1:10:end,1:2)',plnr)
+% pendubot_visualize(x_inv_dnmcs_dstbd(1:10:end,1:2)',plnr)
 
 
 %% FUNCTIONS

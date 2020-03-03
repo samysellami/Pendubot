@@ -11,14 +11,14 @@ if s == s_0
     return
 end
 
-n=1000;
+n=100;
 h=(s-s_0)/n; xi=s_0:h:s;
 f = zeros(n+1,1);
 for i=1:n+1
     f(i) = intg_fi(s_0,xi(i));
 end
 % f = @(s) intg_f(s,s_0);
-int1 = simpsons(f,s_0,s,1000);
+int1 = simpsons(f,s_0,s,100);
 
 
 % See 24-25 in "Constructive tool..." 2005
