@@ -160,7 +160,7 @@
 		 	<axis xyz="1 0 0"/>
 			<origin rpy="1.5707 0 0" xyz="${rotor_length/2+link1_height/2} 0 0"/>
 			<!--<limit effort="1000.0" lower="-3.1416" upper="3.1416" velocity="0.5"/>!-->
-			<dynamics damping="0.001"/>
+			<dynamics damping="0.000"/>
 	 	</joint>
 
 	 	<link name="link2">
@@ -189,7 +189,7 @@
 		 	<parent link="link1"/>
 		 	<child link="link2"/>
 			<origin xyz="${links_offset} 0 -${link1_length}"/>
-			<dynamics damping="0.001"/>
+			<dynamics damping="0.000"/>
 	 	</joint>
 	
 </robot>

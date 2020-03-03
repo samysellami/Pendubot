@@ -51,7 +51,7 @@ Phi_d_str = k * (s_d_str);
 Phi_str = wrapToPi2(Phi_str);
 
 q_str = [ Phi_str s_str Phi_d_str s_d_str];
-save('mat_files/q_str3.mat','q_str')
+save('mat_files/q_str2.mat','q_str')
 
 % COMPUTE NOMINAL TORQUES FROM U_ff
 s = x(:,1);

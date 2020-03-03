@@ -2,6 +2,9 @@ float64 s
 float64 s_d
 float64 s_0
 float64 s_d0
+float64 k
+float64 phi0
+float64 theta0
 ---
 float64 I
 

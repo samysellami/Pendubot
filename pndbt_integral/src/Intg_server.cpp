@@ -7,105 +7,133 @@ using namespace std;
 #include "pndbt_integral/IntgRequest.h"
 #include "pndbt_integral/IntgResponse.h"
 
-int iter_simp = 100;
 
-float f_psi(float s)
-{
-	return (0.00154375*sin(s)) / (0.0030875*cos(s) + 0.00651975);
-	//return  (0.00154375*sin(x)) / (0.0030875*cos(x) + 0.00651975); 	// beta/alpha
-}
+int iter_simp = 100; 
 
-float simpsons_psi( float a, float b, int n)
-{
-	float h, x[n+1], sum = 0;
-	int j;
-	h = (b-a)/n;
-	
-	x[0] = a;
-	
-	for(j=1; j<=n; j++)
+class integral_class 
+{ 
+    // Access specifier 
+    public: 
+  
+    // Data Members 
+  	float k;
+  	float phi0;
+  	float theta0; 
+
+    integral_class(float k_, float phi0_, float theta0_) 
+    { 
+        k = k_; 
+	  	phi0 = phi0_;
+	  	theta0 = theta0_; 
+    } 
+
+    // Member Functions() 
+	float f_psi(float s)	
 	{
-		x[j] = a + h*j;
+		return ( 0.006175*pow(k,2)*sin(s) ) / ( k*(0.006175*cos(s) + 0.0043465) + 0.0043465 );
+		//return (0.00154375*sin(s)) / (0.0030875*cos(s) + 0.00651975);
+		//return  (0.00154375*sin(x)) / (0.0030875*cos(x) + 0.00651975); 	// beta/alpha
 	}
-	
-	for(j=1; j<=n/2; j++)
+
+	float simpsons_psi( float a, float b, int n)
 	{
-		sum += f_psi(x[2*j - 2]) + 4*f_psi(x[2*j - 1]) + f_psi(x[2*j]);
+		float h, x[n+1], sum = 0;
+		int j;
+		h = (b-a)/n;
+		
+		x[0] = a;
+		
+		for(j=1; j<=n; j++)
+		{
+			x[j] = a + h*j;
+		}
+		
+		for(j=1; j<=n/2; j++)
+		{
+			sum += f_psi(x[2*j - 2]) + 4*f_psi(x[2*j - 1]) + f_psi(x[2*j]);
+		}
+		
+		return sum*h/3;
 	}
-	
-	return sum*h/3;
-}
 
-float int_psi(float s0, float s)
-{
-	float int1, psi;
-	if (s == s0)
-		return 1;
-	else
+	float int_psi(float s0, float s)
 	{
-		int1 = simpsons_psi( s0,s,iter_simp );
-		psi = exp(-2*int1);
-		return psi;
-	}  
-}
-
-
-float f_fi(float s)
-{
-	float out;
-	out =  (0.242307*cos((3*s)/2 - M_PI/2))/(0.0030875*cos(s) + 0.00651975);
-	// out = (0.242307*cos((3*s)/2 - M_PI/2)) / (0.0030875*cos(s) + 0.00651975);  // gamma/alpha  
-	return  out; 	
-}
-
-float int_fi(float s0, float s)
-{
-	float fi;
-    fi = int_psi(s,s0) * 2 * f_fi(s);
-    return fi;
-}   
-
-
-float f_int(float x, float s_0)
-{
-	float out;
-	out = int_fi(s_0, x);
-	return 	out; //Define the function f(x)
-}
-
-
-float simpsons_int( float a, float b, int n)
-{
-	float h, x[n+1], sum = 0;
-	int j;
-	h = (b-a)/n;
-	
-	x[0] = a;
-	
-	for(j=1; j<=n; j++)
-	{
-		x[j] = a + h*j;
+		float int1, psi;
+		if (s == s0)
+			return 1;
+		else
+		{
+			int1 = simpsons_psi( s0,s,iter_simp );
+			psi = exp(-2*int1);
+			return psi;
+		}  
 	}
-	
-	for(j=1; j<=n/2; j++)
+
+
+	float f_fi(float s)
 	{
-		sum += f_int(x[2*j - 2], a) + 4*f_int(x[2*j - 1], a) + f_int(x[2*j], a);
+		float out;
+		out = ( 0.242307*cos(phi0 + s + k*(s - theta0)) ) / (k*(0.006175*cos(s) + 0.0043465) + 0.0043465);
+		// out =  (0.242307*cos((3*s)/2 - M_PI/2))/(0.0030875*cos(s) + 0.00651975);
+		// out = (0.242307*cos((3*s)/2 - M_PI/2)) / (0.0030875*cos(s) + 0.00651975);  // gamma/alpha  
+		return  out; 	
 	}
-	
-	return sum * h/3;
-}
+
+	float int_fi(float s0, float s)
+	{
+		float fi;
+	    fi = int_psi(s,s0) * 2 * f_fi(s);
+	    return fi;
+	}   
+
+
+	float f_int(float x, float s_0)
+	{
+		float out;
+		out = int_fi(s_0, x);
+		return 	out; //Define the function f(x)
+	}
+
+
+	float simpsons_int( float a, float b, int n)
+	{
+		float h, x[n+1], sum = 0;
+		int j;
+		h = (b-a)/n;
+		
+		x[0] = a;
+		
+		for(j=1; j<=n; j++)
+		{
+			x[j] = a + h*j;
+		}
+		
+		for(j=1; j<=n/2; j++)
+		{
+			sum += f_int(x[2*j - 2], a) + 4*f_int(x[2*j - 1], a) + f_int(x[2*j], a);
+		}
+		
+		return sum * h/3;
+	}
+
+};
+
 
 
 bool Integ(pndbt_integral::IntgRequest &req, pndbt_integral::IntgResponse &res)
 {
 	float int1, I;
+	integral_class integ_obj(req.k, req.phi0, req.theta0);
+
 	if (req.s == req.s_0)
 	{	
     	I = pow(req.s_d, 2) - pow(req.s_d0, 2);
     	res.I = I;
-	} else {
-		int1 = simpsons_int( req.s_0,req.s,iter_simp );
-		I = pow(req.s_d,2) - int_psi(req.s_0, req.s) * (pow(req.s_d0,2) - int1);
+
+	} else {	
+		
+		int1 = integ_obj.simpsons_int( req.s_0,req.s,iter_simp );
+		I = pow(req.s_d,2) - integ_obj.int_psi(req.s_0, req.s) * (pow(req.s_d0,2) - int1);
 	  	res.I = I;
     }
     return true;

@@ -46,9 +46,9 @@ class pndbt():
       self.p4 = params['m1'] * params['l_com1'] +  params['m2'] * params['l1']
       self.p5 = params['m2'] * params['l_com2']
       self.g = 9.81
-      self.thresh = 0.2
-      self.thresh_d = 1.5
-      self.traj = np.zeros(2)
+      self.thresh = 0.01
+      self.thresh_d = 0.1
+      self.traj = 0
       # K, S, E = control.lqr(self.A_lin(), self.B_lin(), Q, R)
       # S =np.matrix(solve_continuous_are(self.A_lin(), self.B_lin(), Q, R))
       # K = np.matrix((self.B_lin().T*S)/R)
@@ -202,7 +202,7 @@ class pndbt():
       I = s_d**2 - self.int_psi(s_0,s) * (s_d0**2 - int1)
       return I
 
-    def orbital_stabilization(self):
+    def orbital_stabilization(self, switch):
 
       start = timeit.default_timer()
             
@@ -211,20 +211,14 @@ class pndbt():
       phi = self.q[0]
       phi_d = self.q_d[0]
 
-      if abs(theta - 1.2) < self.thresh and abs(theta_d - 0.0)< self.thresh_d and abs(phi + 0.9708)< self.thresh and self.traj[0] !=1:
-        
-        print('swiching to the 2nd trajectory !!!')
+      
+      if abs(theta- 0.0) < self.thresh and theta_d < self.thresh_d and self.traj !=1 and switch:
+        print('swiching to the 2rd trajectory !!!')
         self.K_mtrx = self.K_mtrces[1]
         self.s_str =  self.q_strs[1][:,1]
         self.s_d_str =  self.q_strs[1][:,3]
-        self.traj[0] = 1
-      
-      elif abs(theta- 0.0) < self.thresh and abs(theta_d - 8.0)< self.thresh_d and self.traj[1] !=1:
-        print('swiching to the 3rd trajectory !!!')
-        self.K_mtrx = self.K_mtrces[2]
-        self.s_str =  self.q_strs[2][:,1]
-        self.s_d_str =  self.q_strs[2][:,3]
-        self.traj[1] = 1
+        self.traj = 1
+        self.k = 0
 
       y = self.y_trnsv(phi, theta)
       y_d = self.y_d_trnsv(phi_d, theta_d)
@@ -232,21 +226,21 @@ class pndbt():
      
       rospy.wait_for_service('Intg')
       Integral = rospy.ServiceProxy('Intg', Intg)
-      intg = Integral(theta, theta_d, self.s_str[0], self.s_d_str[0])
+      intg = Integral(theta, theta_d, self.s_str[0], self.s_d_str[0], self.k, self.phi0, self.thta0)
       I = intg.I
       x_trsv = np.array([I, y , y_d])
 
       delta  = np.subtract( np.array([theta, theta_d]).reshape(2,1) , np.array([self.s_str, self.s_d_str]))
       delta_norm = LA.norm(delta, axis = 0)  
       idx = np.argmin(delta_norm)
-      stop = timeit.default_timer()
 
       u_fbck = (self.K_mtrx[:,:,idx][0]).dot(x_trsv) 
       u_in = self.U_full(theta, theta_d, y, y_d, u_fbck)
       self.torque_pub.publish(u_in)
+      stop = timeit.default_timer()
       
       #print("the control input is equal to " +str(u_in))
-      #print('Time: ', stop - start)  
+      print('Time: ', stop - start)  
 
 
     def linear_stabilization(self):
@@ -276,7 +270,7 @@ class pndbt():
 def control():
 
     rospy.init_node('python_command', anonymous=True)
-    rate = rospy.Rate(100) # 50hz
+    rate = rospy.Rate(50) # 50hz
 
     Q = np.zeros((4, 4))
     Q[0,0] = 1  
@@ -292,13 +286,12 @@ def control():
     K_mtrx2 = load_mat('K_mtrx2.mat', 1)
     q_str2 = load_mat('q_str2.mat', 0)
 
-    K_mtrx3 = load_mat('K_mtrx3.mat', 1)
-    q_str3 = load_mat('q_str3.mat', 0)
-
-    K_mtrces = [K_mtrx1, K_mtrx2, K_mtrx3]
-    q_strs = [q_str1, q_str2, q_str3]
+    K_mtrces = [K_mtrx1, K_mtrx2]
+    q_strs = [q_str1, q_str2]
 
     pendubot  = pndbt(Q, R, k, phi0, thta0, K_mtrces, q_strs)
+    switch = 0
+    start = timeit.default_timer()
 
     while not rospy.is_shutdown():
     #if (abs(pendubot.q[1]-math.pi) < math.pi/20) and (abs(pendubot.q[0] + math.pi/2) < math.pi/20): 
@@ -306,7 +299,11 @@ def control():
         #pendubot.linear_stabilization()  
     #else:  
         #print("orbital stabilization!!!!")
-        pendubot.orbital_stabilization()
+        stop = timeit.default_timer()
+        if stop - start> 20:
+          switch = 1
+
+        pendubot.orbital_stabilization(switch)
         rate.sleep()
         #rospy.spin()
 
