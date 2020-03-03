@@ -15,7 +15,7 @@ if redesign_controller
     run('design_controller_PoC.m');
 
 else
-    
+        
     load('mat_files/K_mtrx.mat');
     K_gusev = K_mtrx;
 
@@ -53,7 +53,7 @@ Phi_d_str = k * (s_d_str);
 % Phi_str = mod(Phi_str,2*pi);
 
 q_str = [ Phi_str s_str Phi_d_str s_d_str];
-save('q_str1.mat','q_str')
+save('mat_files/q_str3.mat','q_str')
 
 % COMPUTE NOMINAL TORQUES FROM U_ff
 s = x(:,1);
@@ -79,7 +79,7 @@ optns_id = odeset('RelTol',1e-12,'AbsTol',1e-12,'NormControl','on');
 zci = @(v) find(v(:).*circshift(v(:), [-1 0]) <= 0);
 
 n_T = length(s_str);
-n_iter = 1000;
+n_iter = 700;
 add_distr = 0;
 
 if add_distr
@@ -89,20 +89,21 @@ else
 end
 
 % Initial condition of the nominal trajectory
-thta_0 = 0.30;    
+thta_0 = 1.20;    
 thta_d_0 = 0.0;
 
 x0 = [Phi_fcn(thta_0) , thta_0 ,...
         Phi_prm_fcn(thta_0) * thta_d_0, thta_d_0]';
 
-% x0 = [Phi_fcn(x(locs(1),1)) , x(locs(1),1) ,...
-%         Phi_prm_fcn(x(locs(1),1)) * x(locs(1),2), x(locs(1),2)]';
+x0 = [Phi_fcn(x(locs(1),1)) , x(locs(1),1) ,...
+        Phi_prm_fcn(x(locs(1),1)) * x(locs(1),2), x(locs(1),2)]';
 
 % x0 = [Phi_fcn(x(1,1)) , x(1,1) ,...
 %     Phi_prm_fcn(x(1,1)) * x(1,2), x(1,2)]';
 
 x0_dstbd = x0 + dlta_x0;
-% x0_dstbd = [-1.5708 0 0.0 0.0];  
+% x0_dstbd = [-pi/2 0 0.5 8.0];  
+
 
 %{
 %% CONTROLLING LINEARIZED SYSTEM
@@ -224,7 +225,7 @@ plot(Phi_str,Phi_d_str,'k','LineWidth',2,'DisplayName', 'Phase portrait Phi')
 plot(x_inv_dnmcs_dstbd(:,1),x_inv_dnmcs_dstbd(:,3),'DisplayName', 'Phase portrait Phi dnmcs')
 scatter(x_inv_dnmcs_dstbd(end,1), x_inv_dnmcs_dstbd(end,3), 'DisplayName','ending point')
 legend
-
+    
 figure
 scatter(x_inv_dnmcs_dstbd(1,2), x_inv_dnmcs_dstbd(1,4), 'DisplayName','starting point')
 hold on

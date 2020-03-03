@@ -12,7 +12,7 @@
 
 <!-- add robot from parameter to gazebo world  -->
     <node name="spawn_robot" pkg="gazebo_ros" type="spawn_model"
-          args=" -urdf -model pndbt -param robot_description -J j1_shoulder -1.1708  -J j2_elbow 0.8000" respawn="false" output="screen"  />
+          args=" -urdf -model pndbt -param robot_description -J j1_shoulder -1.5707  -J j2_elbow 1.200" respawn="false" output="screen"  />
 
 <!-- load initial state of robot conrtollers as params  -->
     <rosparam command="load" file="$(find pndbt_gazebo)/config/pndbt_torque_control.yaml"/>

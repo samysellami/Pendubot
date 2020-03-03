@@ -38,6 +38,7 @@ def load_mat(mat_name, K):
 class pndbt():
     """docstring for ClassName"""
     def __init__(self, Q, R, k, phi0, thta0,  K_mtrces, q_strs):
+      print('initialization !!!')
       params = {'m1': 1.085, 'm2': 0.26, 'l1': 0.25, 'l2': 0.25, 'I1': 0.008, 'I2': 0.002, 'l_com1': 0.043, 'l_com2': 0.095} 
       self.p1 = params['m1'] * (params['l_com1'])**2 +  params['m2'] * (params['l1'])**2 +  params['I1']
       self.p2 = params['m2'] * (params['l_com2']**2) +  params['I2']
@@ -45,6 +46,9 @@ class pndbt():
       self.p4 = params['m1'] * params['l_com1'] +  params['m2'] * params['l1']
       self.p5 = params['m2'] * params['l_com2']
       self.g = 9.81
+      self.thresh = 0.2
+      self.thresh_d = 1.5
+      self.traj = np.zeros(2)
       # K, S, E = control.lqr(self.A_lin(), self.B_lin(), Q, R)
       # S =np.matrix(solve_continuous_are(self.A_lin(), self.B_lin(), Q, R))
       # K = np.matrix((self.B_lin().T*S)/R)
@@ -63,10 +67,11 @@ class pndbt():
       self.torque_pub = rospy.Publisher('/pndbt/shoulder_torque_controller/command', Float64, queue_size=10)
       self.joint_states_sub = rospy.Subscriber('/pndbt/joint_states', JointState, self.callback)
       self.joint_states = 0
-      
-      self.q = np.array([ -math.pi/2 , 0])
-      self.q_d = np.array([ 0 , 0])
-        
+       
+      self.q = np.array([ -math.pi/2, 1.2])
+      self.q_d = np.array([ 0.0, 0.0])
+      print('initialization completed !!!')
+
     def D_mtrx(self, q):
       D = np.zeros((2,2))
       D[0,0] =  self.p1 + self.p2 + 2 * self.p3 * math.cos(q[1])
@@ -206,6 +211,21 @@ class pndbt():
       phi = self.q[0]
       phi_d = self.q_d[0]
 
+      if abs(theta - 1.2) < self.thresh and abs(theta_d - 0.0)< self.thresh_d and abs(phi + 0.9708)< self.thresh and self.traj[0] !=1:
+        
+        print('swiching to the 2nd trajectory !!!')
+        self.K_mtrx = self.K_mtrces[1]
+        self.s_str =  self.q_strs[1][:,1]
+        self.s_d_str =  self.q_strs[1][:,3]
+        self.traj[0] = 1
+      
+      elif abs(theta- 0.0) < self.thresh and abs(theta_d - 8.0)< self.thresh_d and self.traj[1] !=1:
+        print('swiching to the 3rd trajectory !!!')
+        self.K_mtrx = self.K_mtrces[2]
+        self.s_str =  self.q_strs[2][:,1]
+        self.s_d_str =  self.q_strs[2][:,3]
+        self.traj[1] = 1
+
       y = self.y_trnsv(phi, theta)
       y_d = self.y_d_trnsv(phi_d, theta_d)
       # I = self.int(theta, theta_d, self.s_str[0], self.s_d_str[0])
@@ -215,6 +235,7 @@ class pndbt():
       intg = Integral(theta, theta_d, self.s_str[0], self.s_d_str[0])
       I = intg.I
       x_trsv = np.array([I, y , y_d])
+
       delta  = np.subtract( np.array([theta, theta_d]).reshape(2,1) , np.array([self.s_str, self.s_d_str]))
       delta_norm = LA.norm(delta, axis = 0)  
       idx = np.argmin(delta_norm)
@@ -224,7 +245,7 @@ class pndbt():
       u_in = self.U_full(theta, theta_d, y, y_d, u_fbck)
       self.torque_pub.publish(u_in)
       
-      print("the control input is equal to " +str(u_in))
+      #print("the control input is equal to " +str(u_in))
       #print('Time: ', stop - start)  
 
 
@@ -255,42 +276,39 @@ class pndbt():
 def control():
 
     rospy.init_node('python_command', anonymous=True)
-    rate = rospy.Rate(50) # 50hz
+    rate = rospy.Rate(100) # 50hz
 
     Q = np.zeros((4, 4))
-    Q[0,0] = 1
+    Q[0,0] = 1  
     Q[1,1] = 1
     R = 1
     k = 0.5
     phi0 = -math.pi/2
     thta0 = 0
 
-    K_mtrx = load_mat('K_mtrx.mat', 1)
-    q_str = load_mat('q_str.mat', 0)
-
     K_mtrx1 = load_mat('K_mtrx1.mat', 1)
     q_str1 = load_mat('q_str1.mat', 0)
 
     K_mtrx2 = load_mat('K_mtrx2.mat', 1)
     q_str2 = load_mat('q_str2.mat', 0)
-      
 
-    K_mtrces = [K_mtrx1, K_mtrx2]
-    q_strs = [q_str1, q_str2]
-    
-  
+    K_mtrx3 = load_mat('K_mtrx3.mat', 1)
+    q_str3 = load_mat('q_str3.mat', 0)
+
+    K_mtrces = [K_mtrx1, K_mtrx2, K_mtrx3]
+    q_strs = [q_str1, q_str2, q_str3]
+
     pendubot  = pndbt(Q, R, k, phi0, thta0, K_mtrces, q_strs)
 
     while not rospy.is_shutdown():
-      """if (abs(pendubot.q[1]-math.pi) < math.pi/20) and (abs(pendubot.q[0] + math.pi/2) < math.pi/20): 
-                              print("linear stabilization!!!")
-                              pendubot.linear_stabilization()  
-                          else:"""  
-      #print("orbital stabilization!!!!")
-      pendubot.orbital_stabilization()
-
-      rate.sleep()
-      #rospy.spin()
+    #if (abs(pendubot.q[1]-math.pi) < math.pi/20) and (abs(pendubot.q[0] + math.pi/2) < math.pi/20): 
+        #print("linear stabilization!!!")
+        #pendubot.linear_stabilization()  
+    #else:  
+        #print("orbital stabilization!!!!")
+        pendubot.orbital_stabilization()
+        rate.sleep()
+        #rospy.spin()
 
 
 if __name__ == '__main__':
