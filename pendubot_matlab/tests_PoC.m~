@@ -6,7 +6,7 @@
 
 clc; clear all;  close all;
 run('nominal_trajectory.m');
-
+% return
 redesign_controller = 1;
 if redesign_controller
     
@@ -51,9 +51,7 @@ Phi_d_str = k * (s_d_str);
 Phi_str = wrapToPi2(Phi_str);
 
 q_str = [ Phi_str s_str Phi_d_str s_d_str];
-
 save('mat_files/q_str2.mat','q_str')
-save('mat_files/K_mtrx2.mat','K_mtrx')
 
 % COMPUTE NOMINAL TORQUES FROM U_ff
 s = x(:,1);
@@ -102,7 +100,7 @@ x0 = [Phi_fcn(x(locs(1),1)) , x(locs(1),1) ,...
 %     Phi_prm_fcn(x(1,1)) * x(1,2), x(1,2)]';
 
 x0_dstbd = x0 + dlta_x0;
-x0_dstbd = [-pi/2 1.2 0.0 0.0];  
+x0_dstbd = [-pi/2 0 1.2 0.0];  
 
 %{
 %% CONTROLLING LINEARIZED SYSTEM

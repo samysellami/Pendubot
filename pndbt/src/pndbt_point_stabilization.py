@@ -38,7 +38,8 @@ def load_mat(mat_name, K):
 class pndbt():
     """docstring for ClassName"""
     def __init__(self, Q, R, k, phi0, thta0,  K_mtrces, q_strs):
-      print('initialization !!!')
+
+      rospy.loginfo("Initialization !!!")
       params = {'m1': 1.085, 'm2': 0.26, 'l1': 0.25, 'l2': 0.25, 'I1': 0.008, 'I2': 0.002, 'l_com1': 0.043, 'l_com2': 0.095} 
       self.p1 = params['m1'] * (params['l_com1'])**2 +  params['m2'] * (params['l1'])**2 +  params['I1']
       self.p2 = params['m2'] * (params['l_com2']**2) +  params['I2']
@@ -47,12 +48,15 @@ class pndbt():
       self.p5 = params['m2'] * params['l_com2']
       self.g = 9.81
       self.thresh = 0.01
-      self.thresh_d = 0.1
+      self.thresh_d_inf = 5
+      self.thresh_d_sup = 7
       self.traj = 0
+
       # K, S, E = control.lqr(self.A_lin(), self.B_lin(), Q, R)
       # S =np.matrix(solve_continuous_are(self.A_lin(), self.B_lin(), Q, R))
       # K = np.matrix((self.B_lin().T*S)/R)
       # self.K = K
+
       self.k = k
       self.phi0 = phi0
       self.thta0 = thta0
@@ -70,29 +74,7 @@ class pndbt():
        
       self.q = np.array([ -math.pi/2, 1.2])
       self.q_d = np.array([ 0.0, 0.0])
-      print('initialization completed !!!')
-
-    def D_mtrx(self, q):
-      D = np.zeros((2,2))
-      D[0,0] =  self.p1 + self.p2 + 2 * self.p3 * math.cos(q[1])
-      D[0,1] =  self.p2 + self.p3 * math.cos(q[1])
-      D[1,0] =  self.p2 + self.p3 * math.cos(q[1])
-      D[1,1] =  self.p2
-      return D 
-        
-    def C_mtrx(self, q, q_d):
-      C = np.zeros((2,2))
-      C[0,0] =  -self.p3 * math.sin(q[1]) * q_d[1]  
-      C[0,1] =  -self.p3 * math.sin(q[1]) * q_d[1] -self.p3 * math.sin(q[1]) * q_d[0]
-      C[1,0] =  self.p3 * math.sin(q[1]) * q_d[0]
-      C[1,1] =  0
-      return C 
-
-    def g_vctr(self, q):
-      g = np.zeros(2)
-      g[0] =  self.p4 * self.g * math.cos(q[0]) + self.p5 * self.g * math.cos(q[0] + q[1])   
-      g[1] =  self.p5 * self.g * math.cos(q[0] + q[1])
-      return g 
+      rospy.loginfo("Initialization completed !!!")
 
     def A_lin(self):
       A = np.zeros((4,4)) 
@@ -151,98 +133,11 @@ class pndbt():
     def gamma(self, s):
       g = (self.g * self.p5 * math.cos(self.phi0 + s + self.k*(s - self.thta0)))
       return g 
+
+    def callback(self,joint_states):
+      self.q = np.array(joint_states.position)
+      self.q_d = np.array(joint_states.velocity)
   
-    def simpsons( self, func, ll, ul, n ):     
-        # Calculating the value of h 
-        h = ( ul - ll )
-        h = h / n 
-        # List for storing value of x and f(x) 
-        x = []
-        fx = [] 
-        # Calcuting values of x and f(x) 
-        i = 0
-        while i<= n: 
-            x.append(ll + i * h) 
-            fx.append(func(x[i]))
-            i += 1 
-        # Calculating result 
-        res = 0
-        i = 0
-        while i<= n: 
-            if i == 0 or i == n: 
-                res+= fx[i] 
-            elif i % 2 != 0: 
-                res+= 4 * fx[i] 
-            else: 
-                res+= 2 * fx[i] 
-            i+= 1
-        res = res * (h / 3) 
-        return res 
-
-    def int_psi(self, s0, s):
-      if s == s0:
-        return 0
-      fun = lambda s: (self.beta(s) / self.alpha(s))
-      int1 = self.simpsons( fun,s0,s,1000 )
-      psi = math.exp(-2*int1)
-      return psi  
-
-    def int_fi(self, s0, s):
-      func = lambda x: (self.gamma(s) / self.alpha(s))
-      fi = self.int_psi(s,s0) * 2 * func(s);
-      return fi
-    
-    def int(self, s,s_d,s_0,s_d0):
-      if s == s_0:
-          I = s_d**2 - s_d0**2;
-          return
-
-      f = lambda s: (self.int_fi(s_0, s))
-      int1 = self.simpsons( f,s_0,s,1000 )
-      I = s_d**2 - self.int_psi(s_0,s) * (s_d0**2 - int1)
-      return I
-
-    def orbital_stabilization(self, switch):
-
-      start = timeit.default_timer()
-            
-      theta = self.q[1]
-      theta_d = self.q_d[1]
-      phi = self.q[0]
-      phi_d = self.q_d[0]
-
-      
-      if abs(theta- 0.0) < self.thresh and theta_d < self.thresh_d and self.traj !=1 and switch:
-        print('swiching to the 2rd trajectory !!!')
-        self.K_mtrx = self.K_mtrces[1]
-        self.s_str =  self.q_strs[1][:,1]
-        self.s_d_str =  self.q_strs[1][:,3]
-        self.traj = 1
-        self.k = 0
-
-      y = self.y_trnsv(phi, theta)
-      y_d = self.y_d_trnsv(phi_d, theta_d)
-      # I = self.int(theta, theta_d, self.s_str[0], self.s_d_str[0])
-     
-      rospy.wait_for_service('Intg')
-      Integral = rospy.ServiceProxy('Intg', Intg)
-      intg = Integral(theta, theta_d, self.s_str[0], self.s_d_str[0], self.k, self.phi0, self.thta0)
-      I = intg.I
-      x_trsv = np.array([I, y , y_d])
-
-      delta  = np.subtract( np.array([theta, theta_d]).reshape(2,1) , np.array([self.s_str, self.s_d_str]))
-      delta_norm = LA.norm(delta, axis = 0)  
-      idx = np.argmin(delta_norm)
-
-      u_fbck = (self.K_mtrx[:,:,idx][0]).dot(x_trsv) 
-      u_in = self.U_full(theta, theta_d, y, y_d, u_fbck)
-      self.torque_pub.publish(u_in)
-      stop = timeit.default_timer()
-      
-      #print("the control input is equal to " +str(u_in))
-      print('Time: ', stop - start)  
-
-
     def linear_stabilization(self):
 
       limit_1 = 0
@@ -260,17 +155,50 @@ class pndbt():
         u_in = torque_limit(u[0,0],8*0.123)
         self.torque_pub.publish(u_in)
         print("the control input is equal to " +str(u_in))
-  
 
-    def callback(self,joint_states):
-      self.q = np.array(joint_states.position)
-      self.q_d = np.array(joint_states.velocity)
+    def orbital_stabilization(self, switch):
 
+      start = timeit.default_timer()
+            
+      theta = self.q[1]
+      theta_d = self.q_d[1]
+      phi = self.q[0]
+      phi_d = self.q_d[0]
+
+      
+      if abs(theta- 0.0) < self.thresh and  self.thresh_d_inf < theta_d < self.thresh_d_sup and self.traj !=1 and switch:
+        print('swiching to the 2rd trajectory !!!')
+        self.K_mtrx = self.K_mtrces[1]
+        self.s_str =  self.q_strs[1][:,1]
+        self.s_d_str =  self.q_strs[1][:,3]
+        self.traj = 1
+        self.k = 0
+
+      y = self.y_trnsv(phi, theta)
+      y_d = self.y_d_trnsv(phi_d, theta_d)
+     
+      rospy.wait_for_service('Intg')
+      Integral = rospy.ServiceProxy('Intg', Intg)
+      intg = Integral(theta, theta_d, self.s_str[0], self.s_d_str[0], self.k, self.phi0, self.thta0)
+      I = intg.I
+      x_trsv = np.array([I, y , y_d])
+
+      delta  = np.subtract( np.array([theta, theta_d]).reshape(2,1) , np.array([self.s_str, self.s_d_str]))
+      delta_norm = LA.norm(delta, axis = 0)  
+      idx = np.argmin(delta_norm)
+
+      u_fbck = (self.K_mtrx[:,:,idx][0]).dot(x_trsv) 
+      u_in = self.U_full(theta, theta_d, y, y_d, u_fbck)
+      self.torque_pub.publish(u_in)
+      stop = timeit.default_timer()
+      
+      #print("the control input is equal to " +str(u_in))
+      #print('Time: ', stop - start)  
 
 def control():
 
     rospy.init_node('python_command', anonymous=True)
-    rate = rospy.Rate(50) # 50hz
+    rate = rospy.Rate(100) # 50hz
 
     Q = np.zeros((4, 4))
     Q[0,0] = 1  
@@ -279,6 +207,7 @@ def control():
     k = 0.5
     phi0 = -math.pi/2
     thta0 = 0
+    switch_time = 10
 
     K_mtrx1 = load_mat('K_mtrx1.mat', 1)
     q_str1 = load_mat('q_str1.mat', 0)
@@ -291,22 +220,26 @@ def control():
 
     pendubot  = pndbt(Q, R, k, phi0, thta0, K_mtrces, q_strs)
     switch = 0
-    start = timeit.default_timer()
-
+    start = rospy.get_rostime()
+    
     while not rospy.is_shutdown():
+
     #if (abs(pendubot.q[1]-math.pi) < math.pi/20) and (abs(pendubot.q[0] + math.pi/2) < math.pi/20): 
         #print("linear stabilization!!!")
         #pendubot.linear_stabilization()  
     #else:  
+
         #print("orbital stabilization!!!!")
-        stop = timeit.default_timer()
-        if stop - start> 20:
+        stop = rospy.get_rostime()
+          
+        if (stop - start) > rospy.Duration.from_sec(switch_time):
           switch = 1
+        else:
+          print('Time: ', (stop - start).to_sec())
 
         pendubot.orbital_stabilization(switch)
         rate.sleep()
         #rospy.spin()
-
 
 if __name__ == '__main__':
     try:
