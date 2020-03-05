@@ -11,7 +11,7 @@ theta_d = 15;
 % phi0 = -pi/2; 
 % thta0 = 0.0;
 % k  = 0.5;
-% theta =  1.2;
+% theta =  1.5;
 % theta_d = 0;
 
 run('pndbt_dnmcs.m')
@@ -23,7 +23,7 @@ dxdt = @(t,x)[x(2); (-gama_fcn(x(1)) - ...
 
 % SOLVING  ABG FOR s
 
-tspan= 0:2e-3:15;
+tspan= 0:1e-2:15;
 optns = odeset('RelTol',1e-9,'AbsTol',1e-9,'NormControl','on');
 x0 = [theta; theta_d];
 

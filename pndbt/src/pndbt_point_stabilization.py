@@ -51,7 +51,6 @@ class pndbt():
       self.g = 9.81
       self.thresh = 0.01
       self.thresh_d_inf = 6.5
-      self.thresh_d_sup = 6.5
       self.traj = 0
 
       # K, S, E = control.lqr(self.A_lin(), self.B_lin(), Q, R)
@@ -66,8 +65,8 @@ class pndbt():
       self.K_mtrces = K_mtrces
       self.q_strs = q_strs
       self.I_tables = I_tables
+      
       self.I_table = self.I_tables[0] 
-
       self.K_mtrx = K_mtrces[0]
       self.s_str =  q_strs[0][:,1]
       self.s_d_str =  q_strs[0][:,3]
@@ -75,13 +74,17 @@ class pndbt():
       self.torque_pub = rospy.Publisher('/pndbt/shoulder_torque_controller/command', Float64, queue_size=10)
       self.joint_states_sub = rospy.Subscriber('/pndbt/joint_states', JointState, self.callback)
       self.joint_states = 0
-       
+
+      self.theta_list = np.arange(-math.pi, math.pi, 2*math.pi/1000.0)
+      self.theta_d_list = np.arange(-30, 30, 60.0/1000.0)
+
       self.q = np.array([ -math.pi/2, 1.2])
       self.q_d = np.array([ 0.0, 0.0])
       self.x_trsv_ = np.zeros(3)
 
       rospy.loginfo("Initialization completed !!!")
 
+ 
     def A_lin(self):
       A = np.zeros((4,4)) 
       A[0,2] = 1
@@ -180,18 +183,15 @@ class pndbt():
       phi = self.q[0]
       phi_d = self.q_d[0]
 
-      theta_list = np.arange(-math.pi, math.pi, 0.0126)
-      theta_d_list = np.arange(-30, 30, 0.12)
-
       if abs(theta- 0.0) < self.thresh and abs(phi + math.pi/2) < self.thresh and theta_d > self.thresh_d_inf \
         and self.traj !=1 and switch:
 
-        print('swiching to the 2rd trajectory !!!')
+        rospy.loginfo("swiching to the 2rd trajectory !!!")
         print('theta velocity is equal to', theta_d)
+        self.I_table = self.I_tables[1] 
         self.K_mtrx = self.K_mtrces[1]
         self.s_str =  self.q_strs[1][:,1]
         self.s_d_str =  self.q_strs[1][:,3]
-        self.I_table = self.I_tables[1] 
         self.traj = 1
         self.k = 0
 
@@ -205,9 +205,9 @@ class pndbt():
       I = intg.I
     
       ### Integral computation using look-up table
-      # dlta_s  = abs( np.subtract( theta_list , theta ) )
+      # dlta_s  = abs( np.subtract( self.theta_list , theta ) )
       # idx_s = np.argmin(dlta_s)
-      # dlta_sd  = abs( np.subtract( theta_d_list , theta_d ) )
+      # dlta_sd  = abs( np.subtract( self.theta_d_list , theta_d ) )
       # idx_sd = np.argmin(dlta_sd)
       # I = self.I_table[idx_s, idx_sd]    
 
@@ -229,7 +229,7 @@ class pndbt():
 def control(): 
 
     rospy.init_node('python_command', anonymous=True)
-    rate = rospy.Rate(500) # 50hz
+    rate = rospy.Rate(100) # 50hz
 
     Q = np.zeros((4, 4))
     Q[0,0] = 1  
@@ -250,7 +250,6 @@ def control():
 
     I_table1 = load_mat('Integ1.mat', 2)
     I_table2 = load_mat('Integ2.mat', 2)
-
     I_tables = [I_table1, I_table2]
     
     pendubot  = pndbt(Q, R, k, phi0, thta0, K_mtrces, q_strs, I_tables) 
@@ -266,21 +265,18 @@ def control():
     #if (abs(pendubot.q[1]-math.pi) < math.pi/20) and (abs(pendubot.q[0] + math.pi/2) < math.pi/20): 
         #pendubot.linear_s  tabilization()  
     #else:  
-
         stop = rospy.get_rostime()
         print('Simulation time: ', (stop - start).to_sec())
   
         if (stop - start) > rospy.Duration.from_sec(5) and not(switch):
           switch = 1  
-          pendubot.plot_trans_coord(axs, 0)
-  
-        elif (stop - start) > rospy.Duration.from_sec(8):
+          pendubot.plot_trans_coord(axs, 0) 
+        elif (stop - start) > rospy.Duration.from_sec(12):
           pendubot.plot_trans_coord(axs, 1)
           break
-
         pendubot.orbital_stabilization(switch)
         rate.sleep()
-
+        
     plt.show()
 
 if __name__ == '__main__':

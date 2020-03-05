@@ -7,7 +7,7 @@
 clc; clear all;  close all;
 
 % define trajectory number
-num = 5;
+num = 2;
 
 run('nominal_trajectory.m');
 

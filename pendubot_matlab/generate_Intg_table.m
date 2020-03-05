@@ -16,11 +16,16 @@ s_list = -pi:(2*pi/n_dscrt):pi;
 s_d_list = -30:(60/n_dscrt):30;
 I_table = zeros(length(s_list), length(s_d_list));
 
-for i = 1:length(s_list) 
+WaitMessage = parfor_wait(length(s_list), 'Waitbar', true);
+parfor i = 1:length(s_list)
+   temp = zeros(1, length(s_d_list));
    for j = 1:length(s_d_list)
-        I_table(i,j) =  Intg(s_list(i),s_d_list(j), s_str(1),s_d_str(1));
+    temp(j) =  Intg(s_list(i),s_d_list(j), s_str(1),s_d_str(1));
    end
+   I_table(i,:) = temp;
+   WaitMessage.Send;
 end
+WaitMessage.Destroy
 
 path = pwd;
 save('mat_files/Integ1.mat','I_table')
@@ -43,11 +48,16 @@ s_list = -pi:(2*pi/n_dscrt):pi;
 s_d_list = -30:(60/n_dscrt):30;
 I_table = zeros(length(s_list), length(s_d_list));
 
-for i = 1:length(s_list) 
+WaitMessage = parfor_wait(length(s_list), 'Waitbar', true);
+parfor i = 1:length(s_list)
+   temp = zeros(1, length(s_d_list));
    for j = 1:length(s_d_list)
-        I_table(i,j) =  Intg(s_list(i),s_d_list(j), s_str(1),s_d_str(1));
+    temp(j) =  Intg(s_list(i),s_d_list(j), s_str(1),s_d_str(1));
    end
+   I_table(i,:) = temp;
+   WaitMessage.Send;
 end
+WaitMessage.Destroy
 
 path = pwd;
 save('mat_files/Integ2.mat','I_table')
