@@ -76,8 +76,8 @@ class pndbt():
       self.joint_states_sub = rospy.Subscriber('/pndbt/joint_states', JointState, self.callback)
       self.joint_states = 0
        
-      self.q = np.array([ -math.pi/2, math.pi])
-      self.q_d = np.array([ 0.0, 10.0])
+      self.q = np.array([ -math.pi/2, 1.2])
+      self.q_d = np.array([ 0.0, 0.0])
       self.x_trsv_ = np.zeros(3)
 
       rospy.loginfo("Initialization completed !!!")
@@ -271,7 +271,7 @@ def control():
         print('Simulation time: ', (stop - start).to_sec())
   
         if (stop - start) > rospy.Duration.from_sec(5) and not(switch):
-          switch = 1
+          switch = 1  
           pendubot.plot_trans_coord(axs, 0)
   
         elif (stop - start) > rospy.Duration.from_sec(8):

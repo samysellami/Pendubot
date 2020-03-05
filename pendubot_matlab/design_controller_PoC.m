@@ -16,4 +16,3 @@ optns.pol_type  = 'T';
 
 [K_mtrx, X] = solvePRDE(A,B,Q,R,tt,optns);
 
-%save('mat_files/K_mtrx1.mat','K_mtrx')

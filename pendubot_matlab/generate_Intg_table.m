@@ -1,6 +1,7 @@
 %%
 clc; clear all;  close all;
 
+% First table generation 
 n_dscrt = 1000;
 
 phi0 = -pi/2; 
@@ -21,8 +22,11 @@ for i = 1:length(s_list)
    end
 end
 
+path = pwd;
 save('mat_files/Integ1.mat','I_table')
-%%
+save([path(1:end-15),'pndbt/src/mat_files/Integ1.mat','I_table')
+
+% Second table generation 
 clc; clear all;  close all;
 
 n_dscrt = 1000;
@@ -45,7 +49,9 @@ for i = 1:length(s_list)
    end
 end
 
+path = pwd;
 save('mat_files/Integ2.mat','I_table')
+save([path(1:end-15),'pndbt/src/mat_files/Integ2.mat','I_table')
 
 %%
 clc; clear;

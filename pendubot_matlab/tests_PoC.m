@@ -4,7 +4,11 @@
 % Phi = f(s)   postion of the first link 
 % Theta = s   position of the second link 
 
-% clc; clear all;  close all;
+clc; clear all;  close all;
+
+% define trajectory number
+num = 5;
+
 run('nominal_trajectory.m');
 
 redesign_controller = 1;
@@ -53,8 +57,13 @@ Phi_str = wrapToPi2(Phi_str);
 q_str = [ Phi_str s_str Phi_d_str s_d_str];
 
 % Saving mat files 
-save('mat_files/q_str2.mat','q_str')
-save('mat_files/K_mtrx2.mat','K_mtrx')
+path = pwd;
+save(['mat_files/q_str',num2str(num),'.mat'],'q_str')
+save(['mat_files/K_mtrx',num2str(num),'.mat'],'K_mtrx')
+
+save([path(1:end-15),'pndbt/src/mat_files/q_str',num2str(num),'.mat'],'q_str')
+save([path(1:end-15),'pndbt/src/mat_files/K_mtrx',num2str(num),'.mat'],'K_mtrx')
+
 
 % COMPUTE NOMINAL TORQUES FROM U_ff
 s = x(:,1);
@@ -72,7 +81,7 @@ else
     return
 end
 
-return 
+
 %% INITIAL CONDITION AND PARAMETERS OF SIMULATION
 clc; close all;
 optns_id = odeset('RelTol',1e-12,'AbsTol',1e-12,'NormControl','on');
