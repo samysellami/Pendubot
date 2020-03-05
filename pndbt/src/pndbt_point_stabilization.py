@@ -15,6 +15,7 @@ from pndbt_integral.srv import *
 import control
 from control.matlab import *
 from scipy.linalg import*
+import matplotlib.pyplot as plt 
 
 
 def torque_limit(torque, max_value):
@@ -29,17 +30,18 @@ def load_mat(mat_name, K):
     mat_fname = pjoin(data_dir, 'mat_files/'+str(mat_name))
     mat = scipy.io.loadmat(mat_fname)
     
-    if K:
+    if K ==1:
       mat = mat['K_mtrx']
-    else:
+    elif K==0:
       mat = mat['q_str']
+    else:
+      mat = mat['I_table']
     return mat
 
 class pndbt():
     """docstring for ClassName"""
-    def __init__(self, Q, R, k, phi0, thta0,  K_mtrces, q_strs):
+    def __init__(self, Q, R, k, phi0, thta0,  K_mtrces, q_strs, I_tables):
 
-      rospy.loginfo("Initialization !!!")
       params = {'m1': 1.085, 'm2': 0.26, 'l1': 0.25, 'l2': 0.25, 'I1': 0.008, 'I2': 0.002, 'l_com1': 0.043, 'l_com2': 0.095} 
       self.p1 = params['m1'] * (params['l_com1'])**2 +  params['m2'] * (params['l1'])**2 +  params['I1']
       self.p2 = params['m2'] * (params['l_com2']**2) +  params['I2']
@@ -48,8 +50,8 @@ class pndbt():
       self.p5 = params['m2'] * params['l_com2']
       self.g = 9.81
       self.thresh = 0.01
-      self.thresh_d_inf = 5
-      self.thresh_d_sup = 7
+      self.thresh_d_inf = 6.5
+      self.thresh_d_sup = 6.5
       self.traj = 0
 
       # K, S, E = control.lqr(self.A_lin(), self.B_lin(), Q, R)
@@ -63,6 +65,8 @@ class pndbt():
       
       self.K_mtrces = K_mtrces
       self.q_strs = q_strs
+      self.I_tables = I_tables
+      self.I_table = self.I_tables[0] 
 
       self.K_mtrx = K_mtrces[0]
       self.s_str =  q_strs[0][:,1]
@@ -72,8 +76,10 @@ class pndbt():
       self.joint_states_sub = rospy.Subscriber('/pndbt/joint_states', JointState, self.callback)
       self.joint_states = 0
        
-      self.q = np.array([ -math.pi/2, 1.2])
-      self.q_d = np.array([ 0.0, 0.0])
+      self.q = np.array([ -math.pi/2, math.pi])
+      self.q_d = np.array([ 0.0, 10.0])
+      self.x_trsv_ = np.zeros(3)
+
       rospy.loginfo("Initialization completed !!!")
 
     def A_lin(self):
@@ -156,6 +162,15 @@ class pndbt():
         self.torque_pub.publish(u_in)
         print("the control input is equal to " +str(u_in))
 
+    def plot_trans_coord(self, axs, idx):
+      axs[idx].plot(self.x_trsv_[1:,0], label = "I")
+      axs[idx].plot(self.x_trsv_[1:,1], label = "y")
+      axs[idx].plot(self.x_trsv_[1:,2], label = "y_d")
+      axs[idx].legend()
+      
+      self.x_trsv_ = np.zeros(3)
+
+
     def orbital_stabilization(self, switch):
 
       start = timeit.default_timer()
@@ -165,23 +180,39 @@ class pndbt():
       phi = self.q[0]
       phi_d = self.q_d[0]
 
-      
-      if abs(theta- 0.0) < self.thresh and  self.thresh_d_inf < theta_d < self.thresh_d_sup and self.traj !=1 and switch:
+      theta_list = np.arange(-math.pi, math.pi, 0.0126)
+      theta_d_list = np.arange(-30, 30, 0.12)
+
+      if abs(theta- 0.0) < self.thresh and abs(phi + math.pi/2) < self.thresh and theta_d > self.thresh_d_inf \
+        and self.traj !=1 and switch:
+
         print('swiching to the 2rd trajectory !!!')
+        print('theta velocity is equal to', theta_d)
         self.K_mtrx = self.K_mtrces[1]
         self.s_str =  self.q_strs[1][:,1]
         self.s_d_str =  self.q_strs[1][:,3]
+        self.I_table = self.I_tables[1] 
         self.traj = 1
         self.k = 0
 
       y = self.y_trnsv(phi, theta)
       y_d = self.y_d_trnsv(phi_d, theta_d)
      
+      ### Integral computation using Ros service     
       rospy.wait_for_service('Intg')
       Integral = rospy.ServiceProxy('Intg', Intg)
       intg = Integral(theta, theta_d, self.s_str[0], self.s_d_str[0], self.k, self.phi0, self.thta0)
       I = intg.I
+    
+      ### Integral computation using look-up table
+      # dlta_s  = abs( np.subtract( theta_list , theta ) )
+      # idx_s = np.argmin(dlta_s)
+      # dlta_sd  = abs( np.subtract( theta_d_list , theta_d ) )
+      # idx_sd = np.argmin(dlta_sd)
+      # I = self.I_table[idx_s, idx_sd]    
+
       x_trsv = np.array([I, y , y_d])
+      self.x_trsv_ = np.vstack((self.x_trsv_,x_trsv))
 
       delta  = np.subtract( np.array([theta, theta_d]).reshape(2,1) , np.array([self.s_str, self.s_d_str]))
       delta_norm = LA.norm(delta, axis = 0)  
@@ -190,15 +221,15 @@ class pndbt():
       u_fbck = (self.K_mtrx[:,:,idx][0]).dot(x_trsv) 
       u_in = self.U_full(theta, theta_d, y, y_d, u_fbck)
       self.torque_pub.publish(u_in)
-      stop = timeit.default_timer()
       
+      stop = timeit.default_timer()
       #print("the control input is equal to " +str(u_in))
-      #print('Time: ', stop - start)  
+      #print('Computation time: ', stop - start)  
 
-def control():
+def control(): 
 
     rospy.init_node('python_command', anonymous=True)
-    rate = rospy.Rate(100) # 50hz
+    rate = rospy.Rate(500) # 50hz
 
     Q = np.zeros((4, 4))
     Q[0,0] = 1  
@@ -207,7 +238,6 @@ def control():
     k = 0.5
     phi0 = -math.pi/2
     thta0 = 0
-    switch_time = 10
 
     K_mtrx1 = load_mat('K_mtrx1.mat', 1)
     q_str1 = load_mat('q_str1.mat', 0)
@@ -218,28 +248,40 @@ def control():
     K_mtrces = [K_mtrx1, K_mtrx2]
     q_strs = [q_str1, q_str2]
 
-    pendubot  = pndbt(Q, R, k, phi0, thta0, K_mtrces, q_strs)
+    I_table1 = load_mat('Integ1.mat', 2)
+    I_table2 = load_mat('Integ2.mat', 2)
+
+    I_tables = [I_table1, I_table2]
+    
+    pendubot  = pndbt(Q, R, k, phi0, thta0, K_mtrces, q_strs, I_tables) 
+
     switch = 0
     start = rospy.get_rostime()
+    
+    fig, axs = plt.subplots(2)
+    fig.suptitle('Transverse coordinates')    
     
     while not rospy.is_shutdown():
 
     #if (abs(pendubot.q[1]-math.pi) < math.pi/20) and (abs(pendubot.q[0] + math.pi/2) < math.pi/20): 
-        #print("linear stabilization!!!")
-        #pendubot.linear_stabilization()  
+        #pendubot.linear_s  tabilization()  
     #else:  
 
-        #print("orbital stabilization!!!!")
         stop = rospy.get_rostime()
-          
-        if (stop - start) > rospy.Duration.from_sec(switch_time):
+        print('Simulation time: ', (stop - start).to_sec())
+  
+        if (stop - start) > rospy.Duration.from_sec(5) and not(switch):
           switch = 1
-        else:
-          print('Time: ', (stop - start).to_sec())
+          pendubot.plot_trans_coord(axs, 0)
+  
+        elif (stop - start) > rospy.Duration.from_sec(8):
+          pendubot.plot_trans_coord(axs, 1)
+          break
 
         pendubot.orbital_stabilization(switch)
         rate.sleep()
-        #rospy.spin()
+
+    plt.show()
 
 if __name__ == '__main__':
     try:

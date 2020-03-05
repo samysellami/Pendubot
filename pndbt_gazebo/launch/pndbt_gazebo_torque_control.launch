@@ -2,8 +2,9 @@
 <launch>
 
 <!-- start gazebo server with empty world -->
-	<include file="$(find gazebo_ros)/launch/empty_world.launch">
-	<arg name="paused" value="true"/>
+	<include file="$(find pndbt_gazebo)/launch/empty_world.launch">
+	   <arg name="paused" value="true"/>
+     <arg name="world_name" value="$(find pndbt_gazebo)/worlds/pendubot.world"/>
 	</include>
 
 <!-- load robot urdf as parameter -->

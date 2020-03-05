@@ -1,14 +1,14 @@
-clc; clear all;  close all;
+% clc; clear all;  close all;
 
 % parameters of alpha beta gamma equation
 
 
 % second trajectory with initial conditions thta0 = 0 thta_d0 = 7.16 
-phi0 = -pi/2; 
-thta0 = 0.0;
-k  = 0.0;
-theta =  0;
-theta_d = 15;
+% phi0 = -pi/2; 
+% thta0 = 0.0;
+% k  = 0.0;
+% theta =  0;
+% theta_d = 15;
 
 % first trajectory with initial conditions thta0 =1.2 thta_d0= 0
 % phi0 = -pi/2; 
@@ -26,7 +26,7 @@ dxdt = @(t,x)[x(2); (-gama_fcn(x(1)) - ...
 
 % SOLVING  ABG FOR s
 
-tspan= 0:1e-2:15;
+tspan= 0:2e-3:15;
 optns = odeset('RelTol',1e-9,'AbsTol',1e-9,'NormControl','on');
 x0 = [theta; theta_d];
 

@@ -4,7 +4,7 @@
 % Phi = f(s)   postion of the first link 
 % Theta = s   position of the second link 
 
-clc; clear all;  close all;
+% clc; clear all;  close all;
 run('nominal_trajectory.m');
 
 redesign_controller = 1;
@@ -52,6 +52,7 @@ Phi_str = wrapToPi2(Phi_str);
 
 q_str = [ Phi_str s_str Phi_d_str s_d_str];
 
+% Saving mat files 
 save('mat_files/q_str2.mat','q_str')
 save('mat_files/K_mtrx2.mat','K_mtrx')
 
@@ -71,7 +72,7 @@ else
     return
 end
 
-
+return 
 %% INITIAL CONDITION AND PARAMETERS OF SIMULATION
 clc; close all;
 optns_id = odeset('RelTol',1e-12,'AbsTol',1e-12,'NormControl','on');
@@ -102,7 +103,7 @@ x0 = [Phi_fcn(x(locs(1),1)) , x(locs(1),1) ,...
 %     Phi_prm_fcn(x(1,1)) * x(1,2), x(1,2)]';
 
 x0_dstbd = x0 + dlta_x0;
-x0_dstbd = [-pi/2 1.2 0.0 0.0];  
+x0_dstbd = [-pi/2 0 3.6 7.2];  
 
 %{
 %% CONTROLLING LINEARIZED SYSTEM
@@ -161,6 +162,7 @@ uff = zeros(n_iter,1);
 % Set initial condition
 x_inv_dnmcs_dstbd(1,:) = x0_dstbd;
 
+    
 for i = 1:n_iter
     t_span = [t(i), t(i+1)];
     
