@@ -268,6 +268,8 @@ def control():
     fig, axs = plt.subplots(2)
     fig.suptitle('Transverse coordinates')    
     
+    x = raw_input('Start the orbital orbital stabilization:')
+    
     while not rospy.is_shutdown():
         # if (abs(pendubot.q[1]-math.pi) < math.pi/20) and (abs(pendubot.q[0] + math.pi/2) < math.pi/20): 
         #     pendubot.linear_s  tabilization()  
