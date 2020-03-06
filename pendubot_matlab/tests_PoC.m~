@@ -8,9 +8,9 @@
 clc; clear all;  close all;
 
 % define trajectory number
-traj = 2;
+num = 4;
 % define frequency
-freq = 100;
+freq = 50;
 
 run('nominal_trajectory.m');
 
@@ -61,11 +61,11 @@ q_str = [ Phi_str s_str Phi_d_str s_d_str];
 
 % Saving mat files 
 path = pwd;
-save(['mat_files/q_str',num2str(traj),'_',num2str(freq),'Hz','.mat'],'q_str')
-save(['mat_files/K_mtrx',num2str(traj),'_',num2str(freq),'Hz','.mat'],'K_mtrx')
+save(['mat_files/q_str',num2str(num),'_',num2str(freq),'Hz','.mat'],'q_str')
+save(['mat_files/K_mtrx',num2str(num),'.mat'],'K_mtrx')
 
-save([path(1:end-15),'pndbt/src/mat_files/q_str',num2str(traj),'_',num2str(freq),'Hz','.mat'],'q_str')
-save([path(1:end-15),'pndbt/src/mat_files/K_mtrx',num2str(traj),'_',num2str(freq),'Hz','.mat'],'K_mtrx')
+save([path(1:end-15),'pndbt/src/mat_files/q_str',num2str(num),'.mat'],'q_str')
+save([path(1:end-15),'pndbt/src/mat_files/K_mtrx',num2str(num),'.mat'],'K_mtrx')
 
 
 % COMPUTE NOMINAL TORQUES FROM U_ff

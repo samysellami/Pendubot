@@ -49,7 +49,7 @@ class pndbt():
       self.p4 = params['m1'] * params['l_com1'] +  params['m2'] * params['l1']
       self.p5 = params['m2'] * params['l_com2']
       self.g = 9.81
-      self.thresh = 0.01
+      self.thresh = 0.02
       self.thresh_d_inf = 6.5
       self.traj = 0
 
@@ -84,7 +84,7 @@ class pndbt():
 
       rospy.loginfo("Initialization completed !!!")
 
- 
+
     def A_lin(self):
       A = np.zeros((4,4)) 
       A[0,2] = 1
@@ -165,12 +165,11 @@ class pndbt():
         self.torque_pub.publish(u_in)
         print("the control input is equal to " +str(u_in))
 
-    def plot_trans_coord(self, axs, idx):
-      axs[idx].plot(self.x_trsv_[1:,0], label = "I")
-      axs[idx].plot(self.x_trsv_[1:,1], label = "y")
-      axs[idx].plot(self.x_trsv_[1:,2], label = "y_d")
+    def plot_trans_coord(self, axs, idx, t_sim):
+      axs[idx].plot(t_sim, self.x_trsv_[1:,0], label = "I")
+      axs[idx].plot(t_sim, self.x_trsv_[1:,1], label = "y")
+      axs[idx].plot(t_sim, self.x_trsv_[1:,2], label = "y_d")
       axs[idx].legend()
-      
       self.x_trsv_ = np.zeros(3)
 
 
@@ -198,8 +197,7 @@ class pndbt():
       y = self.y_trnsv(phi, theta)
       y_d = self.y_d_trnsv(phi_d, theta_d)
      
-      ### Integral computation using Ros service     
-      rospy.wait_for_service('Intg')
+      ### Integral computation using rospys service     
       Integral = rospy.ServiceProxy('Intg', Intg)
       intg = Integral(theta, theta_d, self.s_str[0], self.s_d_str[0], self.k, self.phi0, self.thta0)
       I = intg.I
@@ -223,13 +221,16 @@ class pndbt():
       self.torque_pub.publish(u_in)
       
       stop = timeit.default_timer()
-      #print("the control input is equal to " +str(u_in))
-      #print('Computation time: ', stop - start)  
+      # print('Computation time: ', stop - start)  
+      # print("the control input is equal to " +str(u_in))
 
 def control(): 
 
     rospy.init_node('python_command', anonymous=True)
-    rate = rospy.Rate(100) # 50hz
+    freq = 100
+    rospy.loginfo("Initialization !!!")
+    rate = rospy.Rate(freq) # 50hz
+    rospy.wait_for_service('Intg')
 
     Q = np.zeros((4, 4))
     Q[0,0] = 1  
@@ -239,11 +240,11 @@ def control():
     phi0 = -math.pi/2
     thta0 = 0
 
-    K_mtrx1 = load_mat('K_mtrx1.mat', 1)
-    q_str1 = load_mat('q_str1.mat', 0)
+    K_mtrx1 = load_mat('K_mtrx1_'+str(freq)+'Hz.mat', 1)
+    q_str1 = load_mat('q_str1_'+str(freq)+'Hz.mat', 0)
 
-    K_mtrx2 = load_mat('K_mtrx2.mat', 1)
-    q_str2 = load_mat('q_str2.mat', 0)
+    K_mtrx2 = load_mat('K_mtrx2_'+str(freq)+'Hz.mat', 1)
+    q_str2 = load_mat('q_str2_'+str(freq)+'Hz.mat', 0)
 
     K_mtrces = [K_mtrx1, K_mtrx2]
     q_strs = [q_str1, q_str2]
@@ -255,28 +256,35 @@ def control():
     pendubot  = pndbt(Q, R, k, phi0, thta0, K_mtrces, q_strs, I_tables) 
 
     switch = 0
+    t_sim = []
     start = rospy.get_rostime()
     
     fig, axs = plt.subplots(2)
     fig.suptitle('Transverse coordinates')    
     
     while not rospy.is_shutdown():
+        # if (abs(pendubot.q[1]-math.pi) < math.pi/20) and (abs(pendubot.q[0] + math.pi/2) < math.pi/20): 
+        #     pendubot.linear_s  tabilization()  
+        # else:  
 
-    #if (abs(pendubot.q[1]-math.pi) < math.pi/20) and (abs(pendubot.q[0] + math.pi/2) < math.pi/20): 
-        #pendubot.linear_s  tabilization()  
-    #else:  
         stop = rospy.get_rostime()
         print('Simulation time: ', (stop - start).to_sec())
   
         if (stop - start) > rospy.Duration.from_sec(5) and not(switch):
           switch = 1  
-          pendubot.plot_trans_coord(axs, 0) 
+          pendubot.plot_trans_coord(axs, 0, t_sim) 
+          t_sim = []
         elif (stop - start) > rospy.Duration.from_sec(12):
-          pendubot.plot_trans_coord(axs, 1)
+          pendubot.plot_trans_coord(axs, 1, t_sim)
           break
+
         pendubot.orbital_stabilization(switch)
+        t_sim.append((stop - start).to_sec())
+
         rate.sleep()
-        
+
+    for ax in axs.flat:
+      ax.set(xlabel='time (s)', ylabel='I, y, y_d')
     plt.show()
 
 if __name__ == '__main__':
