@@ -182,10 +182,12 @@ class pndbt():
       phi = self.q[0]
       phi_d = self.q_d[0]
 
-      if (self.q[0] > self.limit_1) or (self.q[0] < self.limit_2):
-        self.torque_pub.publish(0)
-        rospy.sleep(0.1)
-        rospy.signal_shutdown('Limits exceeded!')
+      # if (self.q[0] > self.limit_1) or (self.q[0] < self.limit_2):
+      #   rospy.loginfo("limits exceeded !!!")
+      #   print(self.q[0])
+      #   self.torque_pub.publish(0)
+      #   rospy.sleep(0.1)
+      #   rospy.signal_shutdown('Limits exceeded!')
 
       if abs(theta- 0.0) < self.thresh and abs(phi + math.pi/2) < self.thresh and theta_d > self.thresh_d_inf \
         and self.traj !=1 and switch:
@@ -202,7 +204,8 @@ class pndbt():
       y = self.y_trnsv(phi, theta)
       y_d = self.y_d_trnsv(phi_d, theta_d)
      
-      ### Integral computation using rospys service     
+      ### Integral computation using rospys service
+      rospy.wait_for_service('Intg')
       Integral = rospy.ServiceProxy('Intg', Intg)
       intg = Integral(theta, theta_d, self.s_str[0], self.s_d_str[0], self.k, self.phi0, self.thta0)
       I = intg.I
@@ -236,7 +239,6 @@ def control():
     freq = 100
     rospy.loginfo("Initialization !!!")
     rate = rospy.Rate(freq) # 50hz
-    rospy.wait_for_service('Intg')
 
     Q = np.zeros((4, 4))
     Q[0,0] = 1  
@@ -263,13 +265,13 @@ def control():
 
     switch = 0
     t_sim = []
-    start = rospy.get_rostime()
     
     fig, axs = plt.subplots(2)
     fig.suptitle('Transverse coordinates')    
     
     x = raw_input('Start the orbital orbital stabilization:')
-    
+    start = rospy.get_rostime()
+
     while not rospy.is_shutdown():
         # if (abs(pendubot.q[1]-math.pi) < math.pi/20) and (abs(pendubot.q[0] + math.pi/2) < math.pi/20): 
         #     pendubot.linear_s  tabilization()  
@@ -278,11 +280,11 @@ def control():
         stop = rospy.get_rostime()
         print('Simulation time: ', (stop - start).to_sec())
   
-        if (stop - start) > rospy.Duration.from_sec(5) and not(switch):
+        if (stop - start) > rospy.Duration.from_sec(50) and not(switch):
           # switch = 1  
           pendubot.plot_trans_coord(axs, 0, t_sim) 
           t_sim = []
-        elif (stop - start) > rospy.Duration.from_sec(12):
+        elif (stop - start) > rospy.Duration.from_sec(20):
           pendubot.plot_trans_coord(axs, 1, t_sim)
           break
 
