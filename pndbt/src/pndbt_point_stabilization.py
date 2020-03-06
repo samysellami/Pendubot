@@ -82,6 +82,9 @@ class pndbt():
       self.q_d = np.array([ 0.0, 0.0])
       self.x_trsv_ = np.zeros(3)
 
+      self.limit_1 = 0
+      self.limit_2 = -math.pi
+
       rospy.loginfo("Initialization completed !!!")
 
 
@@ -149,10 +152,7 @@ class pndbt():
   
     def linear_stabilization(self):
 
-      limit_1 = 0
-      limit_2 = -math.pi
-
-      if (self.q[0] > limit_1) or (self.q[0] < limit_2):
+      if (self.q[0] > self.limit_1) or (self.q[0] < self.limit_2):
         self.torque_pub.publish(0)
         rospy.sleep(0.5)
         rospy.signal_shutdown('Limits exceeded!')
@@ -181,6 +181,11 @@ class pndbt():
       theta_d = self.q_d[1]
       phi = self.q[0]
       phi_d = self.q_d[0]
+
+      if (self.q[0] > self.limit_1) or (self.q[0] < self.limit_2):
+        self.torque_pub.publish(0)
+        rospy.sleep(0.1)
+        rospy.signal_shutdown('Limits exceeded!')
 
       if abs(theta- 0.0) < self.thresh and abs(phi + math.pi/2) < self.thresh and theta_d > self.thresh_d_inf \
         and self.traj !=1 and switch:
@@ -218,6 +223,7 @@ class pndbt():
 
       u_fbck = (self.K_mtrx[:,:,idx][0]).dot(x_trsv) 
       u_in = self.U_full(theta, theta_d, y, y_d, u_fbck)
+      u_in = torque_limit(u_in,8*0.123)
       self.torque_pub.publish(u_in)
       
       stop = timeit.default_timer()
@@ -271,7 +277,7 @@ def control():
         print('Simulation time: ', (stop - start).to_sec())
   
         if (stop - start) > rospy.Duration.from_sec(5) and not(switch):
-          switch = 1  
+          # switch = 1  
           pendubot.plot_trans_coord(axs, 0, t_sim) 
           t_sim = []
         elif (stop - start) > rospy.Duration.from_sec(12):
