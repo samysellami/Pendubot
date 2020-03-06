@@ -12,7 +12,7 @@ elseif traj ==1
     phi0 = -pi/2; 
     thta0 = 0.0;
     k  = 0.5;
-    theta =  1.5;
+    theta =  0.5;
     theta_d = 0;
 end
 
