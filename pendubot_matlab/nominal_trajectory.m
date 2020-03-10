@@ -1,4 +1,6 @@
-% clc; clear all;  close all;
+clc; clear all;  close all;
+traj = 2;
+freq = 100;
 
 if traj ==2
     % second trajectory with initial conditions thta0 = 0 thta_d0 = 7.16 
@@ -12,7 +14,7 @@ elseif traj ==1
     phi0 = -pi/2; 
     thta0 = 0.0;
     k  = 0.5;
-    theta =  0.5;
+    theta =  1.5;
     theta_d = 0;
 end
 
@@ -22,16 +24,15 @@ run('pndbt_dnmcs.m')
 dxdt = @(t,x)[x(2); (-gama_fcn(x(1)) - ...
     beta_fcn(x(1))*x(2)^2 )/alpha_fcn(x(1))];
 
-% SOLVING  ABG FOR s
 
+% SOLVING  ABG FOR s
 % tspan= 0:2e-2:15;
 tspan= 0:(1/freq):15;
 optns = odeset('RelTol',1e-9,'AbsTol',1e-9,'NormControl','on');
 x0 = [theta; theta_d];
 
 [t,x] = ode45( @(t,x)dxdt(t,x),tspan,x0,optns);
-x(:, 1) = wrapToPi2(x(:, 1));
-
+% x(:, 1) = wrapToPi2(x(:, 1));
 
 x_2d = zeros(length(x(:,1)),1);
 
@@ -47,7 +48,7 @@ plot(x(:,1),x(:,2))
 xlabel('$\theta$','Interpreter', 'latex')
 ylabel('$\dot{\theta}$','Interpreter', 'latex')
 grid on
-
+hold on
 
 fig = figure;
 fig.GraphicsSmoothing = 'on';
@@ -75,3 +76,37 @@ q_tot(1,:) = phi0 + k*(x(:,1) - thta0);
 
 % visualise the pendubot trajectory
 % pendubot_visualize(q_tot(1:2,1:10:end),plnr)
+
+
+return
+
+%% ploting the phase portrait space
+clc; close all; 
+i = 1;
+for theta = -50:2:50
+    for theta_d = -30:2:30
+        % tspan= 0:2e-2:15;
+        tspan= 0:(1/freq):15;
+        optns = odeset('RelTol',1e-9,'AbsTol',1e-9,'NormControl','on');
+        x0 = [theta; theta_d];
+
+        [t,x] = ode45( @(t,x)dxdt(t,x),tspan,x0,optns);
+        x_(:,:,i) = x;
+        i = i+1;    
+    end
+end
+    
+figure
+for i = 1:size(x_, 3)  
+    if max(x_(:,1,i))< 50 & min(x_(:,1,i))> -50 ... 
+            & max(x_(:,2,i)) < 30 & min(x_(:,2,i)) > -30
+        y = x_(:,1,i);
+        plot(x_(:,1,i),x_(:,2,i))
+        xlabel('$\theta$','Interpreter', 'latex')
+        ylabel('$\dot{\theta}$','Interpreter', 'latex')
+        xlim([0  6.2])
+        ylim([-18 18])
+        grid on
+        hold on
+    end
+end

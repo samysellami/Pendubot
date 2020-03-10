@@ -196,8 +196,7 @@ syms y_2d real
 % (Partial feedback linearization) feedback variable
 syms v real
 syms s s_d s_2d     real
-
-% syms phi0 thta0 k   real
+syms phi0 thta0 k   real
 % phi0 = -pi/2; 
 % thta0 = 0;
 % k  = 0.5;
@@ -221,12 +220,12 @@ alfa = B_anh * M_phi * Phi_prm;
 bta = B_anh * ( M_phi * Phi_2prm + diff(C_phi,s_d) * Phi_prm );
 gma = B_anh * G_phi;
 
-matlabFunction(alfa,'File','autogen/alpha_fcn','Vars',{s});
-matlabFunction(bta,'File','autogen/beta_fcn','Vars',{s});
-matlabFunction(gma,'File','autogen/gama_fcn','Vars',{s});
-
-matlabFunction(Phi(1),'File','autogen/Phi_fcn','Vars',{s});
-matlabFunction(Phi_prm(1),'File','autogen/Phi_prm_fcn','Vars',{s});
+% matlabFunction(alfa,'File','autogen/alpha_fcn','Vars',{s});
+% matlabFunction(bta,'File','autogen/beta_fcn','Vars',{s});
+% matlabFunction(gma,'File','autogen/gama_fcn','Vars',{s});
+% 
+% matlabFunction(Phi(1),'File','autogen/Phi_fcn','Vars',{s});
+% matlabFunction(Phi_prm(1),'File','autogen/Phi_prm_fcn','Vars',{s});
 
 % Change of coordinates to transverse
 h = 0;
@@ -251,7 +250,7 @@ u = pinv(B)*(M_sy*(P+Lb*[s_2d;y_2d])+C_sy*Lb*[s_d;y_d]+G_sy);
 %U = pinv(B)*(M_sy*(P+Lb*[simplify((-bta*s_d^2 -gma)/alfa),0]')+C_sy*Lb*[s_d;y_d]+G_sy);
 U = -inv(N) * R;
 U_f = inv(N)*(v-R);
-
+%%
 matlabFunction(N,'File','autogen/N_fcn','Vars',{s,s_d});
 matlabFunction(U','File','autogen/U_ff','Vars',{s,s_d,y,y_d});
 matlabFunction(U_f','File','autogen/U_full','Vars',{s,s_d,y,y_d,v});

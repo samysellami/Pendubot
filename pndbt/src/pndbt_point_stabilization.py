@@ -12,11 +12,12 @@ from os.path import dirname, join as pjoin
 from numpy import linalg as LA
 import timeit
 from pndbt_integral.srv import *
-import control
-from control.matlab import *
+# import control
+from control import *
+# from control.matlab import *
 from scipy.linalg import*
 import matplotlib.pyplot as plt 
-
+import slycot
 
 def torque_limit(torque, max_value):
     if torque > max_value:
@@ -38,6 +39,7 @@ def load_mat(mat_name, K):
       mat = mat['I_table']
     return mat
 
+
 class pndbt():
     """docstring for ClassName"""
     def __init__(self, Q, R, k, phi0, thta0,  K_mtrces, q_strs, I_tables):
@@ -53,10 +55,10 @@ class pndbt():
       self.thresh_d_inf = 6.5
       self.traj = 0
 
-      # K, S, E = control.lqr(self.A_lin(), self.B_lin(), Q, R)
+      K, S, E = lqr(self.A_lin(), self.B_lin(), Q, R)
       # S =np.matrix(solve_continuous_are(self.A_lin(), self.B_lin(), Q, R))
       # K = np.matrix((self.B_lin().T*S)/R)
-      # self.K = K
+      self.K = K
 
       self.k = k
       self.phi0 = phi0
@@ -81,12 +83,14 @@ class pndbt():
       self.q = np.array([ -math.pi/2, 1.2])
       self.q_d = np.array([ 0.0, 0.0])
       self.x_trsv_ = np.zeros(3)
+      self.q_stable = np.zeros(2)
 
       self.limit_1 = 0
       self.limit_2 = -math.pi
+      self.switch = 0
+      self.stabilize = 0
 
       rospy.loginfo("Initialization completed !!!")
-
 
     def A_lin(self):
       A = np.zeros((4,4)) 
@@ -149,31 +153,40 @@ class pndbt():
     def callback(self,joint_states):
       self.q = np.array(joint_states.position)
       self.q_d = np.array(joint_states.velocity)
-  
+
+    def plot_trans_coord(self, axs, idx, t_sim):
+      if idx  == 2:
+        axs.plot(t_sim, self.q_stable[1:,0], label = "phi")
+        axs.plot(t_sim, self.q_stable[1:,1], label = "theta")
+        axs.plot(t_sim, -math.pi/2 * np.ones(len(t_sim)),'r--',label = "-pi/2")
+        axs.plot(t_sim, math.pi * np.ones(len(t_sim)),'b--',label = "pi")
+        axs.legend()
+        self.q_stable = np.zeros(3)
+      else:
+        axs[idx].plot(t_sim, self.x_trsv_[1:,0], label = "I")
+        axs[idx].plot(t_sim, self.x_trsv_[1:,1], label = "y")
+        axs[idx].plot(t_sim, self.x_trsv_[1:,2], label = "y_d")
+        axs[idx].legend()
+        self.x_trsv_ = np.zeros(3)
+
+
     def linear_stabilization(self):
 
       if (self.q[0] > self.limit_1) or (self.q[0] < self.limit_2):
         self.torque_pub.publish(0)
         rospy.sleep(0.5)
         rospy.signal_shutdown('Limits exceeded!')
-            
       else: 
+        q = np.array([self.q[0], self.q[1] % (2 * np.pi)])
         qf = np.array([-math.pi/2, math.pi])        
-        x  = np.hstack(((self.q-qf,self.q_d)))
+        x  = np.hstack(((q-qf,self.q_d)))
         u = np.dot(-self.K, x.transpose())
-        u_in = torque_limit(u[0,0],8*0.123)
+        u_in = u[0,0]
+        # u_in = torque_limit(u[0,0],8*0.123)
         self.torque_pub.publish(u_in)
-        print("the control input is equal to " +str(u_in))
+        # print("the control input is equal to " +str(u_in))
 
-    def plot_trans_coord(self, axs, idx, t_sim):
-      axs[idx].plot(t_sim, self.x_trsv_[1:,0], label = "I")
-      axs[idx].plot(t_sim, self.x_trsv_[1:,1], label = "y")
-      axs[idx].plot(t_sim, self.x_trsv_[1:,2], label = "y_d")
-      axs[idx].legend()
-      self.x_trsv_ = np.zeros(3)
-
-
-    def orbital_stabilization(self, switch):
+    def orbital_stabilization(self):
 
       start = timeit.default_timer()
             
@@ -182,18 +195,18 @@ class pndbt():
       phi = self.q[0]
       phi_d = self.q_d[0]
 
-      # if (self.q[0] > self.limit_1) or (self.q[0] < self.limit_2):
-      #   rospy.loginfo("limits exceeded !!!")
-      #   print(self.q[0])
-      #   self.torque_pub.publish(0)
-      #   rospy.sleep(0.1)
-      #   rospy.signal_shutdown('Limits exceeded!')
+      if (self.q[0] > self.limit_1) or (self.q[0] < self.limit_2):
+        rospy.loginfo("limits exceeded !!!")
+        print(self.q[0])
+        self.torque_pub.publish(0)
+        rospy.sleep(0.1)
+        rospy.signal_shutdown('Limits exceeded!')
 
       if abs(theta- 0.0) < self.thresh and abs(phi + math.pi/2) < self.thresh and theta_d > self.thresh_d_inf \
-        and self.traj !=1 and switch:
+        and self.traj !=1 and self.switch:
 
         rospy.loginfo("swiching to the 2rd trajectory !!!")
-        print('theta velocity is equal to', theta_d)
+        self.switch =2
         self.I_table = self.I_tables[1] 
         self.K_mtrx = self.K_mtrces[1]
         self.s_str =  self.q_strs[1][:,1]
@@ -209,7 +222,7 @@ class pndbt():
       Integral = rospy.ServiceProxy('Intg', Intg)
       intg = Integral(theta, theta_d, self.s_str[0], self.s_d_str[0], self.k, self.phi0, self.thta0)
       I = intg.I
-    
+
       ### Integral computation using look-up table
       # dlta_s  = abs( np.subtract( self.theta_list , theta ) )
       # idx_s = np.argmin(dlta_s)
@@ -226,7 +239,7 @@ class pndbt():
 
       u_fbck = (self.K_mtrx[:,:,idx][0]).dot(x_trsv) 
       u_in = self.U_full(theta, theta_d, y, y_d, u_fbck)
-      u_in = torque_limit(u_in,8*0.123)
+      # u_in = torque_limit(u_in,8*0.123)
       self.torque_pub.publish(u_in)
       
       stop = timeit.default_timer()
@@ -241,8 +254,8 @@ def control():
     rate = rospy.Rate(freq) # 50hz
 
     Q = np.zeros((4, 4))
-    Q[0,0] = 1  
-    Q[1,1] = 1
+    Q[0,0] = 10  
+    Q[1,1] = 10
     R = 1
     k = 0.5
     phi0 = -math.pi/2
@@ -263,38 +276,54 @@ def control():
     
     pendubot  = pndbt(Q, R, k, phi0, thta0, K_mtrces, q_strs, I_tables) 
 
-    switch = 0
     t_sim = []
-    
     fig, axs = plt.subplots(2)
     fig.suptitle('Transverse coordinates')    
-    
+    fig1, ax = plt.subplots()
+
+
     x = raw_input('Start the orbital orbital stabilization:')
     start = rospy.get_rostime()
 
     while not rospy.is_shutdown():
-        # if (abs(pendubot.q[1]-math.pi) < math.pi/20) and (abs(pendubot.q[0] + math.pi/2) < math.pi/20): 
-        #     pendubot.linear_s  tabilization()  
-        # else:  
 
         stop = rospy.get_rostime()
-        print('Simulation time: ', (stop - start).to_sec())
-  
-        if (stop - start) > rospy.Duration.from_sec(50) and not(switch):
-          # switch = 1  
-          pendubot.plot_trans_coord(axs, 0, t_sim) 
-          t_sim = []
-        elif (stop - start) > rospy.Duration.from_sec(20):
-          pendubot.plot_trans_coord(axs, 1, t_sim)
-          break
-
-        pendubot.orbital_stabilization(switch)
         t_sim.append((stop - start).to_sec())
+        print('Simulation time: ', (stop - start).to_sec())
+        
+        if pendubot.stabilize:
+            q = np.array([pendubot.q[0], pendubot.q[1] % (2 * np.pi)])
+            pendubot.q_stable = np.vstack((pendubot.q_stable,q))
+
+        if (abs((pendubot.q[1]) % (2 * np.pi) - math.pi) < 0.1) and pendubot.stabilize:
+            if pendubot.stabilize ==1:
+                rospy.loginfo("stabilization!!!")
+                pendubot.stabilize = 2             
+            pendubot.linear_stabilization()  
+        else:
+            pendubot.orbital_stabilization()
+
+        if (stop - start) > rospy.Duration.from_sec(4) and not(pendubot.switch):
+            rospy.loginfo("Switching enabled !!!")
+            pendubot.switch = 1  
+            pendubot.plot_trans_coord(axs, 0, t_sim) 
+            t_sim = []
+
+        elif (stop - start) > rospy.Duration.from_sec(7.5) and pendubot.switch==2 and not(pendubot.stabilize):
+            rospy.loginfo("stabilization enabled !!!")
+            pendubot.stabilize = 1
+            pendubot.plot_trans_coord(axs, 1, t_sim)
+            t_sim = []
+
+        elif (stop - start) > rospy.Duration.from_sec(10) and pendubot.switch==2 and pendubot.stabilize==2:
+            pendubot.plot_trans_coord(ax, 2, t_sim) 
+            break
 
         rate.sleep()
-
+    # 3   3.5   5    
+    ax.set(xlabel='time (s)', ylabel='phi(rad),   theta(rad)')
     for ax in axs.flat:
-      ax.set(xlabel='time (s)', ylabel='I, y, y_d')
+        ax.set(xlabel='time (s)', ylabel='I, y, y_d')
     plt.show()
 
 if __name__ == '__main__':
