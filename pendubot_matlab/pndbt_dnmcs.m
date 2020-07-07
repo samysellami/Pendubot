@@ -1,9 +1,5 @@
 % clc; clear all; close all;
 
-% Path to the urdf file 
-% addpath(genpath('/home/sami/Documents/MasterThesis/Bot pendulum//BotPendulum_Energy based control/pdbt_files/utils'))
-% addpath(genpath('/home/sami/Documents/MasterThesis/Bot pendulum//BotPendulum_Energy based control/pdbt_files/planar2DOF'))
-
 %-------------------------------------------------------------------------
 % Loading file from urdf
 % ------------------------------------------------------------------------
@@ -33,7 +29,7 @@ for i = 1:2
    plnr.m(i) = sym(link_mass);
    plnr.k(:,i) = sym(axis_of_rot);
    plnr.r_com(:,i) = sym(com_pos);
-   plnr.I(:,:,i) = sym(link_inertia);
+   plnr.I(:,:,i) = sym(link_inertia);   
 end
 
 %{
@@ -133,7 +129,8 @@ for i = 1:2
         K = K + sym(0.5)*qd_sym'*(plnr.m(i)*(Jv_0k(:,:,i)'*Jv_0k(:,:,i)) + ...
                 Jw_0k(:,:,i)'*T_0k(1:3,1:3,i+1)*plnr.I(:,:,i)*...
                 T_0k(1:3,1:3,i+1)'*Jw_0k(:,:,i))*qd_sym;
-        P = P + plnr.m(i)*sym([0;0;9.81])'*r_0k(:,i);
+%         P = P + plnr.m(i)*sym([0.8541; 0;9.7627])'*r_0k(:,i);
+        P = P + plnr.m(i)*sym([0;0;9.8])'*r_0k(:,i);
 end
 
 Lagr = K - P;
@@ -145,8 +142,13 @@ dnmcs = t1 - dLagr_dq;
 M_sym = jacobian(dnmcs,q2d_sym);
 n_sym = simplify(dnmcs - M_sym*q2d_sym);
 
+G_sym = simplify(jacobian(P,q_sym)');
+C_sym = simplify(jacobian(n_sym - G_sym, qd_sym));   
+
 % matlabFunction(M_sym,'File','autogen/M_mtrx_fcn','Vars',{q_sym});
 % matlabFunction(n_sym,'File','autogen/n_vctr_fcn','Vars',{q_sym,qd_sym});
+% matlabFunction(C_sym,'File','autogen/C_mtrx_fcn','Vars',{q_sym,qd_sym});
+% matlabFunction(G_sym,'File','autogen/g_vctr_fcn','Vars',{q_sym});
 
 %-------------------------------------------------------------------------
 % linearization of the system about the top position
@@ -178,8 +180,9 @@ matlabFunction(n_thta,'File','autogen/n_vctr_fcn','Vars',{q_sym,qd_sym});
 matlabFunction(C_thta,'File','autogen/C_mtrx_fcn','Vars',{q_sym,qd_sym});
 matlabFunction(g_thta,'File','autogen/g_vctr_fcn','Vars',{q_sym});
 
-matlabFunction(A,'File','autogen/A_mtrx_fcn','Vars',{q_sym,qd_sym, u});
+matlabFunction(A,'File','autogen/A_mtrx_fcn','Vars',{q_sym,qd_sym,u});
 matlabFunction(B,'File','autogen/B_vctr_fcn','Vars',{q_sym,qd_sym});
+matlabFunction(f,'File','autogen/f_fcn','Vars',{q_sym,qd_sym,u});
 matlabFunction(Jv_0k(:,:,2),'File','autogen/Jacob_fcn','Vars',{q_sym});
 
 

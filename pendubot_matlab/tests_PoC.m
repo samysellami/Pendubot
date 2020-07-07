@@ -8,7 +8,7 @@
 clc; clear all;  close all;
 
 % define trajectory number
-traj = 2;
+traj = 3;
 % define frequency
 freq = 100;
 
@@ -16,15 +16,11 @@ run('nominal_trajectory.m');
 
 redesign_controller = 1;
 if redesign_controller
-    
     run('generate_AB_mtrcs.m');
     run('design_controller_PoC.m');
-
-else
-        
-    load('mat_files/K_mtrx.mat');
+else    
+    load(['mat_files/K_mtrx',num2str(traj),'_',num2str(freq),'Hz','.mat']);
     K_gusev = K_mtrx;
-
 end
 
 % COMPUTE u FROM FORWARD DYNAMICS
@@ -55,18 +51,19 @@ s_2d_str = x_2d(locs(1):locs(2));
 
 Phi_str = phi0 + k * (s_str - thta0);
 Phi_d_str = k * (s_d_str);
-Phi_str = wrapToPi2(Phi_str);
+% Phi_str = wrapToPi2(Phi_str);
 
 q_str = [ Phi_str s_str Phi_d_str s_d_str];
 
 % Saving mat files 
 path = pwd;
-save(['mat_files/q_str',num2str(traj),'_',num2str(freq),'Hz','.mat'],'q_str')
-save(['mat_files/K_mtrx',num2str(traj),'_',num2str(freq),'Hz','.mat'],'K_mtrx')
+if redesign_controller
+    save(['mat_files/q_str',num2str(traj),'_',num2str(freq),'Hz','.mat'],'q_str')
+    save(['mat_files/K_mtrx',num2str(traj),'_',num2str(freq),'Hz','.mat'],'K_mtrx')
 
-save([path(1:end-15),'pndbt/src/mat_files/q_str',num2str(traj),'_',num2str(freq),'Hz','.mat'],'q_str')
-save([path(1:end-15),'pndbt/src/mat_files/K_mtrx',num2str(traj),'_',num2str(freq),'Hz','.mat'],'K_mtrx')
-
+    save([path(1:end-15),'pndbt/src/mat_files/q_str',num2str(traj),'_',num2str(freq),'Hz','.mat'],'q_str')
+    save([path(1:end-15),'pndbt/src/mat_files/K_mtrx',num2str(traj),'_',num2str(freq),'Hz','.mat'],'K_mtrx')
+end
 
 % COMPUTE NOMINAL TORQUES FROM U_ff
 s = x(:,1);
@@ -105,8 +102,8 @@ end
 thta_0 = 0.1;
 thta_d_0 = 0.0;
 
-x0 = [Phi_fcn(thta_0) , thta_0 ,...
-        Phi_prm_fcn(thta_0) * thta_d_0, thta_d_0]';
+% x0 = [Phi_fcn(thta_0) , thta_0 ,...
+%         Phi_prm_fcn(thta_0) * thta_d_0, thta_d_0]';
 
 x0 = [Phi_fcn(x(locs(1),1)) , x(locs(1),1) ,...
         Phi_prm_fcn(x(locs(1),1)) * x(locs(1),2), x(locs(1),2)]';
@@ -115,7 +112,8 @@ x0 = [Phi_fcn(x(locs(1),1)) , x(locs(1),1) ,...
 %     Phi_prm_fcn(x(1,1)) * x(1,2), x(1,2)]';
 
 x0_dstbd = x0 + dlta_x0;
-x0_dstbd = [-pi/2 0 3.6 7.2];  
+x0_dstbd = [-1.48357   3.05437  0.0 0.0];  
+x0_dstbd = [-pi/2  pi 0 0];  
 
 %{
 %% CONTROLLING LINEARIZED SYSTEM
@@ -178,7 +176,7 @@ x_inv_dnmcs_dstbd(1,:) = x0_dstbd;
 for i = 1:n_iter
     t_span = [t(i), t(i+1)];
     
-    % Generator of motion and its deriative
+    % Generator of motion and its derivative
     s_cur = x_inv_dnmcs_dstbd(i,2);
     s_d_cur = x_inv_dnmcs_dstbd(i,4);
     
@@ -211,18 +209,18 @@ for i = 1:n_iter
     ufb(i) = u_cur - u_ffrd;
     uff(i) = u_ffrd;
     
-    
+%     u_cur=0;
     % Integration of dynamics from t_{i} to t_{i+1} with u = u_{i}
     [~,x_cur] = ode45( @(t,x) pndbt_dnmcs(t,x,u_cur),...
                         t_span,x_inv_dnmcs_dstbd(i,:)',optns_id);
-    x_cur(:, 1) = wrapToPi2(x_cur(:, 1));
-    x_cur(:, 2) = wrapToPi2(x_cur(:, 2));
+%     x_cur(:, 1) = wrapToPi2(x_cur(:, 1));
+%     x_cur(:, 2) = wrapToPi2(x_cur(:, 2));
                     
    
     x_inv_dnmcs_dstbd(i+1,:) = x_cur(end,:);
 end
 
-
+%{
 figure
 subplot(3,1,1)
     plot(t(1:n_iter),I(1:n_iter))
@@ -264,7 +262,7 @@ plot(t(1:n_iter),uff)
 legend('U','Ufb','Uff')
 %}
 
-% pendubot_visualize(x_inv_dnmcs_dstbd(1:10:end,1:2)',plnr)
+pendubot_visualize(x_inv_dnmcs_dstbd(1:10:end,1:2)',plnr)
 
 
 %% FUNCTIONS

@@ -137,28 +137,28 @@
 	 	<link name="link1">
 	   		<visual>
 	    			<geometry>
-	        			<box size ="${link1_height} ${link1_width} ${link1_length}"/>
+	        			<box size ="${link1_length} ${link1_width} ${link1_height}"/>
 	    			</geometry>
-	    			<origin rpy="0 0 0" xyz ="0 0 -${link1_length/2}"/>   
+	    			<origin rpy="0 0 0" xyz ="${link1_length/2} 0 0"/>   
 	    			<material name="blue">
         				<color rgba="0 0 0.8 1"/>
      	    			</material>
 	   		</visual>
 			<inertial>
-				<origin rpy="0 0 0" xyz ="0 0 -0.043"/>   
+				<origin rpy="0 0 0" xyz ="0.043 0 0"/>   
 				<mass value="1.085"/>
 				<inertia
-				      ixx="0.008" ixy="0.0" ixz="0.0"
+				      ixx="1.0" ixy="0.0" ixz="0.0"
 				      iyy="1.0" iyz="0.0"
-				      izz="1.0"/>
+				      izz="0.008"/>
 			</inertial>
 	 	</link>
 	 
 	 	<joint name="j1_shoulder" type="continuous">
 		 	<parent link="rotor"/>
 		 	<child link="link1"/>
-		 	<axis xyz="1 0 0"/>
-			<origin rpy="1.5707 0 0" xyz="${rotor_length/2+link1_height/2} 0 0"/>
+		 	<axis xyz="0 0 1"/>
+			<origin rpy="1.570796 0 1.570796" xyz="${rotor_length/2+link1_height/2} 0 0"/>
 			<!--<limit effort="1000.0" lower="-3.1416" upper="3.1416" velocity="0.5"/>!-->
 			<dynamics damping="0.000"/>
 	 	</joint>
@@ -166,29 +166,31 @@
 	 	<link name="link2">
 	   		<visual>
 	    			<geometry>
-	        			<box size ="${link2_height} ${link2_width} ${link2_length}"/>
+	        			<box size ="${link2_length} ${link2_width} ${link2_height}"/>
 	    			</geometry>
-	    			<origin xyz ="0 0 -${link2_length/2}"/>   
+	    			<origin xyz ="${link2_length/2} 0 0"/>   
 	    			<material name="blue">
         				<color rgba="0 0 0.8 1"/>
      	    			</material>
 	   		</visual>
 			<inertial>
-				<origin rpy="0 0 0" xyz ="0 0 -0.095"/>   
-				<mass value="0.26"/>
+				<!-- <origin rpy="0 0 0" xyz ="0 0 -0.095"/> -->
+				<origin rpy="0 0 0" xyz ="0.112 0 0"/>   <!-- with imu -->  
+				<!-- <mass value="0.26"/> -->
+				<mass value="0.3"/> <!-- with imu -->
 				<inertia
-				      ixx="0.002" ixy="0.0" ixz="0.0"
-				      iyy="1" iyz="0.0"
-				      izz="1"/>
-				</inertial>
+				      ixx="1.0" ixy="0.0" ixz="0.0"
+				      iyy="1.0" iyz="0.0"
+				      izz="0.0026"/>
+			</inertial>
 	 	</link>
 	 
 	 	<joint name="j2_elbow" type="continuous">
-			<axis xyz="1 0 0"/>
+			<axis xyz="0 0 1"/>
 			<!--<limit effort="1000.0" lower="-3.1416" upper="3.1416" velocity="0.5"/>!-->
 		 	<parent link="link1"/>
 		 	<child link="link2"/>
-			<origin xyz="${links_offset} 0 -${link1_length}"/>
+			<origin xyz="${link1_length} 0 ${links_offset}"/>
 			<dynamics damping="0.000"/>
 	 	</joint>
 	

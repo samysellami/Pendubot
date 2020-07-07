@@ -170,38 +170,66 @@ legend
 clear; clc;
 run('pndbt_dnmcs.m')
 
+% cd /home/sami/SOCP/cvx
+addpath('/home/sami/SOCP/cvx')  
+cvx_setup
+
 % ------------------------------------------------------------------------
 % System Initialization
 % ------------------------------------------------------------------------
-n = 50000; % number of iterations 
+n = 5000; % number of iterations 
 T = 5; % Final time of the simulation
 delta_t = T/n; % iterations step
 g = 9.81; % gravity
-q = [-pi/2; pi]; % intial positions 
-q_d = [0; 0]; % initial velocities
 q_s = [-pi/2; pi];  % stabilization point
 up = 0;
 ode_optns_up = odeset('RelTol',1e-10,'AbsTol',1e-10, 'Event', @(t,x)div_event_up(t,x));
 ode_optns_down = odeset('RelTol',1e-10,'AbsTol',1e-10, 'Event', @(t,x)div_event_down(t,x));
-theta_tot = []; 
+q_tot = []; 
 
 % Weight matrices for states and inputs
+% upper position 
 % Q = [50,0,0,0;...
 %      0,50,0,0;...
 %      0,0,0.01,0;...
 %      0,0,0,01];
 % R = 0.01;
+% down position
 Q = [1,0,0,0;...
      0,1,0,0;...
      0,0,0,0;...
      0,0,0,0];
 R = 0.1;
 
+
 % Linearized system matrices 
 A = A_mtrx_fcn(q, q_d,0);
 B = B_vctr_fcn(q, q_d);
 
-% Determining the coefficients of the LQR
+%{
+Q_lyap = [3,1,1,1;...
+          1,1,1,1;...
+          1,1,1,1;...
+          1,1,1,1];
+
+% Solving the lyapunov equation 
+% P = lyap(A,Q_lyap); 
+
+C = 0.001 * diag([1 1 1 1]);
+
+cvx_begin
+    variable P(4,4)
+    variable Q_lp(4,4)
+%     minimize( norm(Q) + norm(P) )
+    subject to
+%         norm(P)> 0.1;    
+        P > C;
+        Q_lp > C;
+        A * P + P * A' + Q_lp == 0;
+cvx_end
+%}
+
+% Determining the coefficients of the LQR regulator
 [K,S,P] = lqr(A,B,Q,R)    
 
 % ------------------------------------------------------------------------
@@ -227,14 +255,14 @@ for i= 1:n
     if isempty(te)
         q = x(end,1:2)';
         q_d = x(end,3:4)';
-        theta_tot = [theta_tot q];
+        q_tot = [q_tot q];
     else
         disp('system diverging !!!')
         break
     end    
 end
 if isempty(te)
-    pendubot_visualize(theta_tot(1:2,1:1000:end),plnr)
+    pendubot_visualize(q_tot(1:2,1:1000:end),plnr)
 end
 
 

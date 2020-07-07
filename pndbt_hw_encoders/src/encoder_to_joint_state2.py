@@ -90,7 +90,7 @@ def listener():
     rospy.Subscriber("raw_encoders_data2", EncRawData2, callback)
     pub = rospy.Publisher('/pndbt/joint_states', JointState, queue_size=10)
     
-    rate = rospy.Rate(100) # 10hz
+    rate = rospy.Rate(200) # 10hz
 
     msg = initMsgJointState()
 

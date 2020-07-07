@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>	
 	<robot name="pndbt" xmlns:xacro="http://ros.org/wiki/xacro">
 	<xacro:include filename="$(find pndbt_description)/urdf/pndbt.urdf.xacro"/>
-
+    <!-- <xacro:include filename="$(find pndbt_description)/urdf/pndbt.urdf_ident.xacro"/> -->
         <transmission name="shoulder_transmission">
             <type>transmission_interface/SimpleTransmission</type>
             <joint name="j1_shoulder">

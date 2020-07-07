@@ -34,10 +34,13 @@
 
     <link name = "link 2">
 		<inertial>
-			<origin xyz = "0.095 0 0" 
+			<!-- <origin xyz = "0.095 0 0"  -->
+			<origin xyz = "0.112 0 0"
                     rpy = "0 0 0"/>
-			<mass value = "0.260" />
-			<inertia ixx = "0.0" iyy = "0.0" izz = "0.002" 
+			<!-- <mass value = "0.260" /> -->
+			<mass value = "0.30" />
+			<!-- <inertia ixx = "0.0" iyy = "0.0" izz = "0.002"  -->
+			<inertia ixx = "0.0" iyy = "0.0" izz = "0.0026"
                      ixy = "0.0" ixz = "0.0" iyz = "0.0" />
 		</inertial>
 		<visual>

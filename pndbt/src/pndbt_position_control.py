@@ -16,7 +16,10 @@ def callback_command(msg):
 
 def listener():
     my_drive.axis0.requested_state = AXIS_STATE_CLOSED_LOOP_CONTROL
-    my_drive.axis0.controller.config.pos_gain = 20.0 
+    my_drive.axis0.controller.config.pos_gain = 50.0 
+    my_drive.axis0.controller.config.vel_gain = 5.0 / 10000.0 
+    my_drive.axis0.controller.config.vel_integrator_gain = 16.25 / 10000.0 
+
     start_time  = int(round(time.time() * 1000))
 
     rate = rospy.Rate(500) #  500hz
@@ -39,7 +42,7 @@ if __name__ == '__main__':
     pub_current = rospy.Publisher('current', Float64, queue_size=1)
     pub_position = rospy.Publisher('position', Float64, queue_size=1)
     pub_velocity = rospy.Publisher('velocity', Float64, queue_size=1)
-    rospy.Subscriber("command", Float64, callback_command)
+    rospy.Subscriber("/pndbt/shoulder_position_controller/command", Float64, callback_command)
 
     my_drive = odrive.find_any()
     print("ODrive found.")

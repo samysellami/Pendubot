@@ -1,7 +1,7 @@
 <launch>
-    <group ns="bldc">
+    <group ns="pndbt">
         <node pkg="netft_utils" type="netft_node" name="netft_node" args="192.168.1.1" />
-        <include file="$(find pndbt_hw_encoders)/launch/encoders.launch"/>
+        <include file="$(find pndbt_hw_encoders)/launch/encoders2.launch"/>
         <node name="bldc_control" pkg="pndbt" type="pndbt_position_control.py" output="screen" clear_params="true"/>
     </group>
 </launch>
